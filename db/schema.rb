@@ -18,8 +18,8 @@ ActiveRecord::Schema.define(version: 20150910125639) do
 
   create_table "ghg_emissions", force: :cascade do |t|
     t.integer "zone_id"
-    t.string  "sector_id"
-    t.string  "fuel_type_id"
+    t.integer "sector_id"
+    t.integer "fuel_type_id"
     t.integer "scope"
     t.integer "scenario_id"
     t.integer "year"
