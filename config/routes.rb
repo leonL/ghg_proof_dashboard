@@ -53,4 +53,6 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  get 'ghg_emission_totals(/:factor)' => 'ghg_emission_totals#by_scenario_year_'
 end
