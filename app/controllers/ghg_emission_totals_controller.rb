@@ -1,8 +1,10 @@
 class GhgEmissionTotalsController < ApplicationController
 
-  def by_scenario_year_
-    totals = GhgEmission.totals_by_scenario_year_(params[:factor])
-    render json: totals
+  def index
+  end
+
+  def data
+    render json: GhgEmission.for_json_totals_by_scenario_year_(params[:factor])
   end
 
 end
