@@ -4,7 +4,7 @@ class GhgEmissionTotalsController < ApplicationController
   end
 
   def data
-    render json: GhgEmission.for_json_totals_by_scenario_year_(params[:factor])
+    render json: GhgEmission.totals_for_year_for_scenario
   end
 
 end
