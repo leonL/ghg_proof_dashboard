@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'ghg_emission_totals#index'
+
   resources :ghg_emission_totals, only: :index do
     collection do
       get 'data', defaults: { format: 'json' }
