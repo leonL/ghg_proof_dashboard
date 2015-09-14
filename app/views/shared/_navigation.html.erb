@@ -1,8 +1,8 @@
 <ul id="nav" class='list-unstyled'>
 <li><a href="#"><h4>Emissions</h4></a>
   <ul>
-    <li><a href="#">Total</a></li>
-    <li><a href="#">By Sector</a>
+    <li><%= link_to 'Total', ghg_emission_totals_path %></li>
+    <li><%= link_to 'By Sector', sector_ghg_emission_totals_path %></a>
     <li><a href="#">By Fuel Type</a></li>
   </ul>
 </li>
