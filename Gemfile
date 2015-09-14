@@ -7,8 +7,9 @@ gem 'rails', '4.2.4'
 gem 'rails_12factor'
 # Use postgres as the database for Active Record
 gem 'pg'
-# Use SCSS for stylesheets
+# Use SCSS for stylesheets and make the bootstrap library available
 gem 'sass-rails', '~> 5.0'
+gem 'bootstrap-sass', '~> 3.2.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
