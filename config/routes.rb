@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :ghg_emission_totals, only: :index do
     collection do
       get 'data', defaults: { format: 'json' }
+      get 'sector'
     end
   end
 

@@ -2,13 +2,29 @@
 <html>
 <head>
   <title>GhgProofDashboard</title>
+  <!-- D3.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <!-- Plotly.js -->
+  <script src="https://d14fo0winaifog.cloudfront.net/plotly-basic.js"></script>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<%= yield %>
-
+  <div id="sidebar" class="col-xs-3">
+    <!-- sidebar content -->
+    <% image_tag "http://www.ssg.coop/wp-content/uploads/2015/01/ssg_logo.png" %>
+    <%= render 'shared/navigation' %>
+  </div>
+  <div id="main-container" class="container-fluid">
+    <div class="row">
+      <div id="content" class="col-xs-6">
+        <!--  main content -->
+        <%= yield %>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
