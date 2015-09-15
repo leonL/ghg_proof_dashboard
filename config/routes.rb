@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     collection do
       get 'data', defaults: { format: 'json' }
       get 'sector'
+      get 'sector_bar'
     end
   end
 
