@@ -25,9 +25,9 @@ def copy_emissions_csv(scenario_id)
   puts "Errors: #{errors}" unless errors.blank?
 end
 
-def seed_from_shapefile(shp_file_path, factory, &block)
+def seed_from_shapefile(shp_file_path, &block)
   puts "Seeding shapefile at #{shp_file_path}"
-  RGeo::Shapefile::Reader.open(shp_file_path, factory: factory) do |file|
+  RGeo::Shapefile::Reader.open(shp_file_path) do |file|
     puts "Shape file contains #{file.num_records} records."
     file.each do |record|
       block.call record
@@ -36,15 +36,11 @@ def seed_from_shapefile(shp_file_path, factory, &block)
 end
 
 # seed census tract geometries
-srs_database = RGeo::CoordSys::SRSDatabase::ActiveRecordTable.new
-factory_92958 = RGeo::Geos.factory(srs_database: srs_database, srid: 92958)
-factory_4326 = RGeo::Geos.factory(srs_database: srs_database, srid: 4326)
-seed_from_shapefile("#{Rails.root}/db/shpfiles/census_tracts/toronto_ct1.shp", factory_92958) do |record|
-  recast_geometry = RGeo::Feature.cast(record.geometry, factory: factory_4326, project: true)
+seed_from_shapefile("#{Rails.root}/db/shpfiles/census_tracts/toronto_ct.shp") do |record|
   CensusTract.create(
     zone_id: record.attributes['ZONEID'],
     area: record.attributes['AREA'],
-    geom: recast_geometry.to_s
+    geom: record.geometry.as_text
   )
 end
 
