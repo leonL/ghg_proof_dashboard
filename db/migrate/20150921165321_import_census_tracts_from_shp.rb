@@ -1,6 +1,6 @@
 class ImportCensusTractsFromShp < ActiveRecord::Migration
   def up
-    from_shp_sql = `shp2pgsql -c -g geom -W LATIN1 -s 92958:4326 #{Rails.root.join('db', 'shpfiles', 'census_tracts', 'toronto_ct1.shp')} census_tracts_ref`
+    from_shp_sql = `shp2pgsql -c -g geom -W LATIN1 -s 92958:4326 #{Rails.root}/db/shpfiles/census_tracts/toronto_ct1.shp census_tracts_ref`
 
     CensusTract.transaction do
       execute <<-SQL
