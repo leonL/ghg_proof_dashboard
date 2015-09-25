@@ -9,6 +9,7 @@ gem 'rails_12factor'
 gem 'pg'
 gem 'activerecord-postgis-adapter'
 gem 'rgeo-geojson'
+gem 'rgeo-shapefile'
 # Use SCSS for stylesheets and make the bootstrap library available
 gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass', '~> 3.2.0'
