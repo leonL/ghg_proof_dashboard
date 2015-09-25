@@ -10,7 +10,7 @@ class GhgEmissionTotalsController < ApplicationController
   end
 
   def data
-    render json: GhgEmission.totals_for_year_for_scenario
+    render json: GhgEmission.grouped_totals(:year, :scenario_id)
   end
 
 end
