@@ -8,6 +8,7 @@ class CreateGhgEmissionsTable < ActiveRecord::Migration
       t.integer :scenario_id
       t.integer :year
       t.decimal :total_emissions
+      t.timestamps
     end
   end
 end

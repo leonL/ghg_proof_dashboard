@@ -11,19 +11,32 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150910125639) do
+ActiveRecord::Schema.define(version: 20150921165321) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "postgis"
+
+  create_table "census_tracts", force: :cascade do |t|
+    t.integer  "zone_id"
+    t.decimal  "area"
+    t.geometry "geom",       limit: {:srid=>4326, :type=>"multi_polygon"}
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "census_tracts", ["geom"], name: "index_census_tracts_on_geom", using: :gist
 
   create_table "ghg_emissions", force: :cascade do |t|
-    t.integer "zone_id"
-    t.integer "sector_id"
-    t.integer "fuel_type_id"
-    t.integer "scope"
-    t.integer "scenario_id"
-    t.integer "year"
-    t.decimal "total_emissions"
+    t.integer  "zone_id"
+    t.integer  "sector_id"
+    t.integer  "fuel_type_id"
+    t.integer  "scope"
+    t.integer  "scenario_id"
+    t.integer  "year"
+    t.decimal  "total_emissions"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
