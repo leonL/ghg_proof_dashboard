@@ -1,15 +1,23 @@
 Rails.application.routes.draw do
-  root 'ghg_emission_totals#index'
+  root 'emissions/charts#total'
 
-  resources :ghg_emission_totals, only: :index do
-    collection do
-      get 'data', defaults: { format: 'json' }
-      get 'sector'
-      get 'sector_bar'
+  namespace :emissions do
+    resources :charts, only: [] do
+      collection do
+        get 'total'
+        get 'by_sector'
+        get 'by_sector_bar'
+        get 'by_fuel'
+      end
+    end
+    resources :maps, defaults: { format: :json }, only: [] do
+      collection do
+        get 'total'
+        get 'by_sector'
+        get 'by_fuel'
+      end
     end
   end
-
-  resources :census_tracts
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

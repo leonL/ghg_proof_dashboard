@@ -39,7 +39,7 @@ $(function() {
   $.ajax({
      type: "GET",
      contentType: "application/json; charset=utf-8",
-     url: 'census_tracts',
+     url: 'total',
      dataType: 'json',
      success: polygons,
      error: function (result) {

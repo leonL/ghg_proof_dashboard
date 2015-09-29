@@ -1,6 +1,7 @@
-class CensusTractsController < ApplicationController
+class Emissions::MapsController < ApplicationController
 
-  def index
+  def total
+
     @tracts = CensusTract.with_total_emissions_for_year_for_scenario(2015, 0)
 
     respond_to do |format|
@@ -16,4 +17,17 @@ class CensusTractsController < ApplicationController
       end
     end
   end
+
+  def by_sector
+
+  end
+
+  def by_fuel
+
+  end
+
+  def data
+    render json: GhgEmission.grouped_totals(:year, :scenario_id)
+  end
+
 end
