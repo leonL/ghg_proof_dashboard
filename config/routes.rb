@@ -10,7 +10,7 @@ Rails.application.routes.draw do
         get 'by_fuel'
       end
     end
-    resources :maps, defaults: { format: :json }, only: [] do
+    resources :maps, only: [] do
       collection do
         get 'total'
         get 'by_sector'

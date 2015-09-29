@@ -11,9 +11,6 @@ class Emissions::MapsController < ApplicationController
       end
 
       format.html do
-        feature_collection = CensusTract.to_feature_collection @tracts
-        @json = RGeo::GeoJSON.encode(feature_collection).to_json
-        render
       end
     end
   end
