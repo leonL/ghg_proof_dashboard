@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+gem 'classy_enum', '~> 4.0.0'
+
 gem 'd3-rails', '~> 3.5.6'
 
 gem 'plotly'

@@ -13,6 +13,13 @@ class GhgEmission < ActiveRecord::Base
     formatted_totals.sort_by{ |hsh| hsh[factors.first]}
   end
 
+  def self.total_emissions_grouped_by_scenario_for_year
+    q = t.project(t[:scenario_id], t[:year], t[:total_emissions].sum.as('total')).
+      group(t[:scenario_id], t[:year]).
+      order(t[:scenario_id], t[:year])
+    find_by_sql(q)
+  end
+
   def self.total_emissions_by_zone_for_year_for_scenario_query(year, scenario_id)
     t.project(t[:zone_id], t[:total_emissions].sum.as('total')).
       where(t[:year].eq(year)).

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150921163339) do
+ActiveRecord::Schema.define(version: 20151001125231) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(version: 20150921163339) do
     t.decimal  "total_emissions"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "plotly_charts", force: :cascade do |t|
+    t.string  "plotly_user"
+    t.integer "plotly_id"
+    t.string  "chart_type"
+    t.string  "chart_name"
   end
 
 end
