@@ -35,17 +35,25 @@ def seed_from_shapefile(shp_file_path, &block)
   end
 end
 
-# seed census tract geometries
-seed_from_shapefile("#{Rails.root}/db/shpfiles/census_tracts/toronto_ct.shp") do |record|
-  CensusTract.create(
-    zone_id: record.attributes['ZONEID'],
-    area: record.attributes['AREA'],
-    geom: record.geometry.as_text
-  )
+def plotly_chart_names
+  ['total_emissions']
 end
 
-# import ghg_emissions csvs
-(0..2).each do |n|
-  puts "Seeding ghg_emissions for scenario #{n}..."
-  copy_emissions_csv(n)
+plotly_chart_names.each do |cn|
+  PlotlyChart.find_or_create_by(chart_name: cn)
 end
+
+# # seed census tract geometries
+# seed_from_shapefile("#{Rails.root}/db/shpfiles/census_tracts/toronto_ct.shp") do |record|
+#   CensusTract.create(
+#     zone_id: record.attributes['ZONEID'],
+#     area: record.attributes['AREA'],
+#     geom: record.geometry.as_text
+#   )
+# end
+
+# # import ghg_emissions csvs
+# (0..2).each do |n|
+#   puts "Seeding ghg_emissions for scenario #{n}..."
+#   copy_emissions_csv(n)
+# end
