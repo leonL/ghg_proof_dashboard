@@ -6,7 +6,7 @@ class PlotlyChartBuilder < ClassyEnum::Base
 
   def kwargs
     {
-      filename: 'A Chart Looking for a Name',
+      filename: filename,
       fileopt: 'new'
     }
   end
@@ -25,6 +25,10 @@ class PlotlyChartBuilder < ClassyEnum::Base
 
   def plotly_api_key
     '0f25z3g85v'
+  end
+
+  def filename
+    'A Chart Looking for a Name'
   end
 
 end

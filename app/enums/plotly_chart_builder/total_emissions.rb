@@ -19,17 +19,22 @@ class PlotlyChartBuilder::TotalEmissions < PlotlyChartBuilder
   end
 
   def kwargs
-    {
-      filename: 'ghgproof_dashboard_line_chart',
-      fileopt: 'overwrite',
-      style: { type: 'scatter' },
-      layout: {
-        yaxis: {
-          range: [0, 90]
-        },
-        title: 'Line Chart'
+    super.merge(
+      {
+        fileopt: 'overwrite',
+        style: { type: 'scatter' },
+        layout: {
+          yaxis: {
+            range: [0, 90]
+          },
+          title: 'Line Chart'
+        }
       }
-    }
+    )
+  end
+
+  def filename
+    'ghgproof_dashboard_line_chart'
   end
 
   # def self.build(show_scenarios = [])
