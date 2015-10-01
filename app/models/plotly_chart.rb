@@ -3,5 +3,7 @@ class PlotlyChart < ActiveRecord::Base
 
   classy_enum_attr :chart_name, class_name: 'PlotlyChartBuilder'
 
-  delegate :create_chart, to: :chart_name
+  def create_chart
+    self.attributes = chart_name.create_chart
+  end
 end

@@ -1,5 +1,18 @@
 class PlotlyChartBuilder < ClassyEnum::Base
 
+  def create_chart
+    response = plotly_client.create_plot(args, kwargs)
+    {
+      plotly_user: plotly_username,
+      plotly_id: parse_chart_id_from_plotly_url(response['url']),
+      chart_type: chart_type
+    }
+  end
+
+  def chart_type
+    :line
+  end
+
   def args
     {x: [], y: []}
   end
@@ -9,10 +22,6 @@ class PlotlyChartBuilder < ClassyEnum::Base
       filename: filename,
       fileopt: 'new'
     }
-  end
-
-  def create_chart
-    plotly_client.create_plot(args, kwargs)
   end
 
   def plotly_client
@@ -29,6 +38,10 @@ class PlotlyChartBuilder < ClassyEnum::Base
 
   def filename
     'A Chart Looking for a Name'
+  end
+
+  def parse_chart_id_from_plotly_url(url)
+    URI(url).path.split('/').last
   end
 
 end
