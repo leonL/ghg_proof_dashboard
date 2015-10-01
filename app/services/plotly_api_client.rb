@@ -7,10 +7,7 @@ class PlotlyApiClient
   end
 
   def create_plot(data, args)
-    @client.plot(data, args) do |response|
-      @chart_url = response['url']
-    end
-    @chart_url
+    @client.plot(data, args) {|response| response }
   end
 
   def update_plot_layout
