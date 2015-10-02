@@ -1,5 +1,13 @@
 class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
 
+  def chart_type
+    :line
+  end
+
+  def scenario_specific
+    FALSE
+  end
+
   def args
     scenarios = []
     GhgEmission.total_emissions_grouped_by_scenario_for_year.in_groups(3) do |group|
@@ -31,10 +39,6 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
         }
       }
     )
-  end
-
-  def filename
-    'ghgproof_dashboard_line_chart'
   end
 
   # def self.build(show_scenarios = [])

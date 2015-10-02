@@ -1,17 +1,6 @@
 class PlotlyChartBuilder < ClassyEnum::Base
 
-  def create_chart
-    response = plotly_client.create_plot(args, kwargs)
-    {
-      plotly_user: plotly_username,
-      plotly_id: parse_chart_id_from_plotly_url(response['url']),
-      chart_type: chart_type
-    }
-  end
-
-  def chart_type
-    :line
-  end
+# Plotly API arguments
 
   def args
     {x: [], y: []}
@@ -23,6 +12,18 @@ class PlotlyChartBuilder < ClassyEnum::Base
       fileopt: 'new'
     }
   end
+
+# PlotlyChart model definitions
+
+  def chart_type
+    nil
+  end
+
+  def scenario_specific
+    TRUE
+  end
+
+# Plotly client interface
 
   def plotly_client
     @client ||= PlotlyApiClient.new(plotly_username, plotly_api_key)
@@ -36,12 +37,39 @@ class PlotlyChartBuilder < ClassyEnum::Base
     '0f25z3g85v'
   end
 
-  def filename
-    'A Chart Looking for a Name'
+  def create_chart
+    response = plotly_client.create_plot(args, kwargs)
+    {
+      plotly_user: plotly_username,
+      plotly_id: parse_chart_id_from_plotly_url(response['url']),
+      chart_type: chart_type
+    }
   end
+
+  def filename
+    "GHGProof #{organization_name} #{klass_name} #{scenario_name}"
+  end
+
+  def organization_name
+    'demo_org'
+  end
+
+# Utility methods
 
   def parse_chart_id_from_plotly_url(url)
     URI(url).path.split('/').last
+  end
+
+  def klass_name
+    self.class.name.split('::').last.underscore
+  end
+
+  def scenario_id
+    owner.scenario_id
+  end
+
+  def scenario_name
+    scenario_id ? "S#{scenario_id}" : ""
   end
 
 end
