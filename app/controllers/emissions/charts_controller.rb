@@ -20,8 +20,4 @@ class Emissions::ChartsController < ApplicationController
 
   end
 
-  def data
-    render json: GhgEmission.grouped_totals(:year, :scenario_id)
-  end
-
 end

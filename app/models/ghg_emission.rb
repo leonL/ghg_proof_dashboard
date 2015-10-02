@@ -1,18 +1,5 @@
 class GhgEmission < ActiveRecord::Base
 
-  def self.grouped_totals(*factors)
-    totals = group(factors).sum(:total_emissions)
-    formatted_totals = totals.map do |t|
-      h = {ghg_emissions: t.last}
-      groups = Array(t.first)
-      groups.each_with_index do |g, i|
-        h[factors[i]] = g
-      end
-      h
-    end
-    formatted_totals.sort_by{ |hsh| hsh[factors.first]}
-  end
-
   def self.total_emissions_grouped_by_scenario_for_year
     q = t.project(t[:scenario_id], t[:year], t[:total_emissions].sum.as('total')).
       group(t[:scenario_id], t[:year]).
