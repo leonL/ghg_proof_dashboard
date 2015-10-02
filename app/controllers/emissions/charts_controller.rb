@@ -6,7 +6,7 @@ class Emissions::ChartsController < ApplicationController
       end
 
       format.html do
-        @plotly_chart = PlotlyChart.named('total_emissions')
+        @plotly_chart = PlotlyChart.named('emissions_total')
         render
       end
     end

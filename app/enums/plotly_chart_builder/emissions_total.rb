@@ -1,4 +1,4 @@
-class PlotlyChartBuilder::TotalEmissions < PlotlyChartBuilder
+class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
 
   def args
     scenarios = []

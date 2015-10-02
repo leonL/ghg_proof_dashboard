@@ -36,7 +36,7 @@ def seed_from_shapefile(shp_file_path, &block)
 end
 
 def plotly_chart_names
-  ['total_emissions']
+  ['emissions_total']
 end
 
 plotly_chart_names.each do |cn|
