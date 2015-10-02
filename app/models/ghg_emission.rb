@@ -1,9 +1,10 @@
 class GhgEmission < ActiveRecord::Base
 
-  def self.total_emissions_grouped_by_scenario_for_year
-    q = t.project(t[:scenario_id], t[:year], t[:total_emissions].sum.as('total')).
-      group(t[:scenario_id], t[:year]).
-      order(t[:scenario_id], t[:year])
+  def self.total_emissions_grouped_by(*factors)
+    factor_cols = factors.map{|col_name| cl(col_name)}
+    q = t.project(factor_cols, t[:total_emissions].sum.as('total')).
+      group(factor_cols).
+      order(factor_cols)
     find_by_sql(q)
   end
 
@@ -27,5 +28,9 @@ private
 
   def self.t
     arel_table
+  end
+
+  def self.cl(column_name)
+    t[column_name]
   end
 end

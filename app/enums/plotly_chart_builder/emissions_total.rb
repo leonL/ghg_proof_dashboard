@@ -10,7 +10,7 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
 
   def args
     scenarios = []
-    GhgEmission.total_emissions_grouped_by_scenario_for_year.in_groups(3) do |group|
+    GhgEmission.total_emissions_grouped_by(:scenario_id, :year).in_groups(3) do |group|
       scenarios << group
     end
 
