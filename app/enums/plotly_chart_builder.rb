@@ -47,7 +47,7 @@ class PlotlyChartBuilder < ClassyEnum::Base
   end
 
   def filename
-    "GHGProof #{organization_name} #{klass_name} #{scenario_name}"
+    "GHGProof #{organization_name} #{klass_name} #{chart_type.to_s}_chart #{scenario_name}"
   end
 
   def organization_name

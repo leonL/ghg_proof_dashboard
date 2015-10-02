@@ -8,6 +8,15 @@ class GhgEmission < ActiveRecord::Base
     find_by_sql(q)
   end
 
+  def self.total_emissions_grouped_by_where(*factors, s_id)
+    factor_cols = factors.map{|col_name| cl(col_name)}
+    q = t.project(factor_cols, t[:total_emissions].sum.as('total')).
+      where(cl(:scenario_id).eq(s_id)).
+      group(factor_cols).
+      order(factor_cols)
+    find_by_sql(q)
+  end
+
   def self.total_emissions_by_zone_for_year_for_scenario_query(year, scenario_id)
     t.project(t[:zone_id], t[:total_emissions].sum.as('total')).
       where(t[:year].eq(year)).
