@@ -6,7 +6,6 @@ Rails.application.routes.draw do
       collection do
         get 'total'
         get 'by_sector'
-        get 'by_sector_bar'
         get 'by_fuel'
       end
     end

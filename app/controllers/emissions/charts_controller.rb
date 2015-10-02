@@ -16,10 +16,6 @@ class Emissions::ChartsController < ApplicationController
 
   end
 
-  def by_sector_bar
-
-  end
-
   def by_fuel
 
   end
