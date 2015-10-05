@@ -35,14 +35,6 @@ def seed_from_shapefile(shp_file_path, &block)
   end
 end
 
-def plotly_chart_names
-  ['emissions_total']
-end
-
-plotly_chart_names.each do |cn|
-  PlotlyChart.find_or_create_by(chart_name: cn)
-end
-
 # seed census tract geometries
 seed_from_shapefile("#{Rails.root}/db/shpfiles/census_tracts/toronto_ct.shp") do |record|
   CensusTract.create(
@@ -56,4 +48,12 @@ end
 (0..2).each do |n|
   puts "Seeding ghg_emissions for scenario #{n}..."
   copy_emissions_csv(n)
+end
+
+def plotly_chart_names
+  ['emissions_total']
+end
+
+plotly_chart_names.each do |cn|
+  PlotlyChart.find_or_create_by(chart_name: cn)
 end
