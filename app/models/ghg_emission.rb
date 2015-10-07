@@ -1,5 +1,7 @@
 class GhgEmission < ActiveRecord::Base
 
+  belongs_to :sector
+
   def self.total_emissions_grouped_by(*factors)
     factor_cols = factors.map{|col_name| cl(col_name)}
     q = t.project(factor_cols, t[:total_emissions].sum.as('total')).
@@ -14,7 +16,7 @@ class GhgEmission < ActiveRecord::Base
       where(cl(:scenario_id).eq(s_id)).
       group(factor_cols).
       order(factor_cols)
-    find_by_sql(q)
+    preloader.preload(find_by_sql(q), [:sector])
   end
 
   def self.total_emissions_by_zone_for_year_for_scenario_query(year, scenario_id)
@@ -41,5 +43,9 @@ private
 
   def self.cl(column_name)
     t[column_name]
+  end
+
+  def self.preloader
+    ActiveRecord::Associations::Preloader.new
   end
 end
