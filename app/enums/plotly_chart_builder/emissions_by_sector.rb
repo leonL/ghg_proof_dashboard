@@ -4,8 +4,8 @@ class PlotlyChartBuilder::EmissionsBySector < PlotlyChartBuilder
     plot_coordinates = []
     all_factor_values.each do |factor|
       plot_coordinates << {
-        x: all_x_values_by_factor[factor]
-        y: all_y_values
+        x: all_x_values_by_factor[factor],
+        y: all_y_values,
         fill: 'tonexty'
       }
     end
@@ -27,7 +27,7 @@ class PlotlyChartBuilder::EmissionsBySector < PlotlyChartBuilder
 # plot coordinate mapping logic
 
   def all_x_values_by_factor
-    @vals ||= begin do
+    @vals ||= begin
       x_vals = hash_of_arrays
 
       all_y_values.each do |y_val|
