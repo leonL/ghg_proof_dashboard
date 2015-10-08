@@ -23,7 +23,7 @@ class PlotlyChartBuilder < ClassyEnum::Base
     TRUE
   end
 
-# Plotly client interface
+# Plotly client interface (this should all be moved out of this class - into a module perhaps)
 
   def plotly_client
     @client ||= PlotlyApiClient.new(plotly_username, plotly_api_key)
@@ -47,7 +47,7 @@ class PlotlyChartBuilder < ClassyEnum::Base
   end
 
   def filename
-    "GHGProof #{organization_name} #{klass_name} #{chart_type.to_s}_chart #{scenario_name}"
+    "GHGProof #{organization_name} #{klass_name_snake_case} #{chart_type.to_s}_chart #{scenario_name}"
   end
 
   def organization_name
@@ -60,7 +60,7 @@ class PlotlyChartBuilder < ClassyEnum::Base
     URI(url).path.split('/').last
   end
 
-  def klass_name
+  def klass_name_snake_case
     self.class.name.split('::').last.underscore
   end
 
