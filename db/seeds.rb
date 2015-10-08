@@ -45,7 +45,7 @@ seed_from_shapefile("#{Rails.root}/db/shpfiles/census_tracts/toronto_ct.shp") do
 end
 
 # import ghg_emissions csvs
-(0..2).each do |n|
+(1..3).each do |n|
   puts "Seeding ghg_emissions for scenario #{n}..."
   copy_emissions_csv(n)
 end
