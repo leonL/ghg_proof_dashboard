@@ -1,6 +1,7 @@
 class GhgEmission < ActiveRecord::Base
 
   belongs_to :sector
+  belongs_to :scenario
 
   def self.total_emissions_grouped_by(*factors)
     factor_cols = factors.map{|col_name| cl(col_name)}
