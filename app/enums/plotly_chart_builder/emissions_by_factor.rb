@@ -35,20 +35,20 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
   end
 
   def sequenced_y_values_grouped_by_factor_id
-    @vals ||= begin
-      x_vals = Hash.new{|h,k| h[k] = [] }
+    @y_vals ||= begin
+      vals = Hash.new{|h,k| h[k] = [] }
 
       all_years.each do |year|
         totals_by_factor = totals_grouped_by_factor_id_for_year(year)
-        running_y_total = 0
+        running_x_total = 0
 
         all_factor_records.each do |factor|
           factor_hash = totals_by_factor[factor.id].first
           total = (factor_hash ? factor_hash.total : 0)
-          x_vals[factor.id] << (running_y_total += total)
+          vals[factor.id] << (running_x_total += total)
         end
       end
-      x_vals
+      vals
     end
   end
 
@@ -71,7 +71,7 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
       {
         fileopt: 'overwrite',
         layout: {
-          title: "Emissions By #{factor_symbol.to_s.titleize} (#{scenario.name})"
+          title: "Projected GHG Emissions By #{factor_symbol.to_s.titleize} (#{scenario.name})"
         }
       }
     )

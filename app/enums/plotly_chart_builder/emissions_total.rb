@@ -1,30 +1,44 @@
 class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
 
-  def chart_type
-    :line
+# value querying logic
+
+  def totals
+    @totals ||= GhgEmission.yearly_emissions_grouped_by(:scenario)
   end
 
-  def scenario_specific
-    FALSE
-  end
+# args hash and related logic
 
   def args
-    scenarios = []
-    GhgEmission.total_emissions_grouped_by(:scenario_id, :year).in_groups(3) do |group|
-      scenarios << group
+    plot_coordinates = []
+    all_scenarios.each do |scenario|
+      line = {
+        x: all_years_sequenced,
+        y: y_values_grouped_by_secnario_id_sequenced[scenario.id],
+        name: scenario.name
+      }
+      plot_coordinates << line
     end
-
-    data = []
-    scenarios.each do |scenario|
-      line = {x: [], y: []}
-      scenario.map do |totals|
-        line[:x] << totals.year
-        line[:y] << totals.total
-      end
-      data << line
-    end
-    data
+    plot_coordinates
   end
+
+  def y_values_grouped_by_secnario_id_sequenced
+    @y_vals ||= begin
+      totals_array = totals.group_by(&:scenario_id).map do |s_id, totals|
+        [s_id, totals.map(&:total)]
+      end
+      totals_array.to_h
+    end
+  end
+
+  def all_years_sequenced
+    @years ||= totals.uniq(&:year).map(&:year)
+  end
+
+  def all_scenarios
+    @scenario_ids = totals.uniq(&:scenario_id).map(&:scenario)
+  end
+
+# kwargs hash and related logic
 
   def kwargs
     super.merge(
@@ -35,19 +49,10 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
           yaxis: {
             range: [0, 90]
           },
-          title: 'Line Chart'
+          title: 'Projected Total GHG Emissions'
         }
       }
     )
   end
-
-  # def self.build(show_scenarios = [])
-  #   d = data
-  #   d.each_with_index do |datum, i|
-  #     d[i] = d[i].merge({visible: 'legendonly'}) unless show_scenarios.include? i
-  #   end
-  #   puts d
-  #   Plotly::ChartCreator.create(d, args)
-  # end
 
 end
