@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151008154215) do
+ActiveRecord::Schema.define(version: 20151009002635) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,10 @@ ActiveRecord::Schema.define(version: 20151008154215) do
   end
 
   add_index "census_tracts", ["geom"], name: "index_census_tracts_on_geom", using: :gist
+
+  create_table "fuel_types", force: :cascade do |t|
+    t.string "name"
+  end
 
   create_table "ghg_emissions", force: :cascade do |t|
     t.integer  "zone_id"

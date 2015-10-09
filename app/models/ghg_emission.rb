@@ -1,7 +1,8 @@
 class GhgEmission < ActiveRecord::Base
 
-  belongs_to :sector
   belongs_to :scenario
+  belongs_to :fuel_type
+  belongs_to :sector
 
   def self.yearly_emissions_grouped_by(*factors)
     factor_cols = factors.map{|col_name| t["#{col_name}_id"]}
