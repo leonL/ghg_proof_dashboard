@@ -4,32 +4,17 @@ class PlotlyChartBuilder < ClassyEnum::Base
     response = plotly_client.create_plot(args, kwargs)
     {
       plotly_user: plotly_username,
-      plotly_id: parse_chart_id_from_plotly_url(response['url']),
-      chart_type: chart_type
+      plotly_id: parse_chart_id_from_plotly_url(response['url'])
     }
   end
 
-# Plotly API arguments
-
-  def args
-    {x: [], y: []}
-  end
+# default arguments
 
   def kwargs
     {
       filename: filename,
-      fileopt: 'new'
+      fileopt: 'new' # this is probably handled by the gem, dependent on what method is called, no?
     }
-  end
-
-# PlotlyChart model definitions
-
-  def chart_type
-    nil
-  end
-
-  def scenario_specific
-    TRUE
   end
 
 # Plotly client interface (this should all be moved out of this class - into a module perhaps)
@@ -47,13 +32,14 @@ class PlotlyChartBuilder < ClassyEnum::Base
   end
 
   def filename
-    name = "GHGProof #{organization_name} #{self.class.name_snake_case} #{chart_type.to_s}_chart"
-    name += " #{scenario}" unless scenario.blank?
+    name = "GHGProof #{self.class.name_snake_case.titleize} Chart;"
+    name += "Scenario: #{scenario.name};" unless scenario.blank?
+    name += "#{organization_name}" unless scenario.blank?
     name
   end
 
   def organization_name
-    'demo_org'
+    'Municipality X'
   end
 
 # Utility methods

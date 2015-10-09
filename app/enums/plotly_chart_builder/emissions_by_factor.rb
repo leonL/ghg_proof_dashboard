@@ -1,5 +1,7 @@
 class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
 
+# value querying logic
+
   def self.yearly_emissions_grouped_by_scenario
     @totals_by_scenario ||= begin
       GhgEmission.yearly_emissions_grouped_by(factor_symbol, :scenario).
@@ -11,25 +13,28 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
     self.class.yearly_emissions_grouped_by_scenario[scenario_id]
   end
 
+# args hash and related logic
+
   def args
     plot_coordinates = []
     all_factor_records.each do |factor|
       plot_coordinates << {
-        x: all_x_values_grouped_by_factor[factor],
-        y: all_years,
-        fill: 'tonexty'
+        x: all_years,
+        y: sequenced_y_values_grouped_by_factor_id[factor.id],
+        mode: 'lines',
+        type: 'scatter',
+        fill: 'tonexty',
+        name: factor.name
       }
     end
     plot_coordinates
   end
 
-# plot coordinate mapping logic
-
   def all_years
     @all_years = totals_grouped_by_year.keys.sort
   end
 
-  def all_x_values_grouped_by_factor
+  def sequenced_y_values_grouped_by_factor_id
     @vals ||= begin
       x_vals = Hash.new{|h,k| h[k] = [] }
 
@@ -59,10 +64,23 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
     totals_grouped_by_year[year].group_by(&factor_symbol_id)
   end
 
+# kwargs and related logic
+
+  def kwargs
+    super.merge(
+      {
+        fileopt: 'overwrite',
+        layout: {
+          title: "Emissions By #{factor_symbol.to_s.titleize} (#{scenario.name})"
+        }
+      }
+    )
+  end
+
 # util
 
   def self.factor_symbol
-    name_snake_case.split('_').last.to_sym
+    name_snake_case.split('by_').last.to_sym
   end
 
   delegate :factor_symbol, to: :class

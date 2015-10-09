@@ -1,0 +1,2 @@
+class PlotlyChartBuilder::EmissionsByFuelType < PlotlyChartBuilder::EmissionsByFactor
+end
