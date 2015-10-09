@@ -1,5 +1,14 @@
 class PlotlyChartBuilder < ClassyEnum::Base
 
+  def create_chart
+    response = plotly_client.create_plot(args, kwargs)
+    {
+      plotly_user: plotly_username,
+      plotly_id: parse_chart_id_from_plotly_url(response['url']),
+      chart_type: chart_type
+    }
+  end
+
 # Plotly API arguments
 
   def args
@@ -37,17 +46,10 @@ class PlotlyChartBuilder < ClassyEnum::Base
     '0f25z3g85v'
   end
 
-  def create_chart
-    response = plotly_client.create_plot(args, kwargs)
-    {
-      plotly_user: plotly_username,
-      plotly_id: parse_chart_id_from_plotly_url(response['url']),
-      chart_type: chart_type
-    }
-  end
-
   def filename
-    "GHGProof #{organization_name} #{klass_name_snake_case} #{chart_type.to_s}_chart #{scenario_name}"
+    name = "GHGProof #{organization_name} #{self.class.name_snake_case} #{chart_type.to_s}_chart"
+    name += " #{scenario}" unless scenario.blank?
+    name
   end
 
   def organization_name
@@ -60,18 +62,11 @@ class PlotlyChartBuilder < ClassyEnum::Base
     URI(url).path.split('/').last
   end
 
-  def klass_name_snake_case
-    self.class.name.split('::').last.underscore
+  def self.name_snake_case
+    name.split('::').last.underscore
   end
 
-  def scenario_id
-    owner.scenario_id
-  end
-
-  def scenario_name
-    scenario_id ? "S#{scenario_id}" : ""
-  end
-
+  delegate :scenario_id, :scenario, to: :owner
 end
 
 Dir[File.join(Rails.root, 'app', 'enums', 'plotly_chart_builder', '*.rb')].each{ |file| require_dependency file }

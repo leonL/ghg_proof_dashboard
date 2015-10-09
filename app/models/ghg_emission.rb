@@ -3,21 +3,18 @@ class GhgEmission < ActiveRecord::Base
   belongs_to :sector
   belongs_to :scenario
 
-  def self.total_emissions_grouped_by(*factors)
-    factor_cols = factors.map{|col_name| cl(col_name)}
-    q = t.project(factor_cols, t[:total_emissions].sum.as('total')).
-      group(factor_cols).
-      order(factor_cols)
-    find_by_sql(q)
-  end
+  def self.yearly_emissions_grouped_by(*factors)
+    factor_cols = factors.map{|col_name| t["#{col_name}_id"]}
+    factor_cols.unshift t[:year]
 
-  def self.total_emissions_grouped_by_where(*factors, s_id)
-    factor_cols = factors.map{|col_name| cl(col_name)}
-    q = t.project(factor_cols, t[:total_emissions].sum.as('total')).
-      where(cl(:scenario_id).eq(s_id)).
+    query = t.project(factor_cols, t[:total_emissions].sum.as('total')).
       group(factor_cols).
       order(factor_cols)
-    preloader.preload(find_by_sql(q), [:sector])
+
+    records = find_by_sql(query)
+
+    preloader.preload(records, factors)
+    records
   end
 
   def self.total_emissions_by_zone_for_year_for_scenario_query(year, scenario_id)
@@ -28,22 +25,10 @@ class GhgEmission < ActiveRecord::Base
       as('ghg_totals')
   end
 
-  def self.for_year(year)
-    where(year: year)
-  end
-
-  def self.for_scenario(id)
-    where(scenario_id: id)
-  end
-
 private
 
   def self.t
     arel_table
-  end
-
-  def self.cl(column_name)
-    t[column_name]
   end
 
   def self.preloader

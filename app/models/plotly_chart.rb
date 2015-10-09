@@ -1,6 +1,8 @@
 class PlotlyChart < ActiveRecord::Base
   include ClassyEnum::ActiveRecord
 
+  belongs_to :scenario
+
   before_create :create_chart
 
   classy_enum_attr :chart_name, class_name: 'PlotlyChartBuilder'
