@@ -35,6 +35,31 @@ def seed_from_shapefile(shp_file_path, &block)
   end
 end
 
+def plotly_chart_names
+  {
+    scenario_specific: ['emissions_by_sector', 'emissions_by_fuel_type'],
+    scenario_independent: ['emissions_total']
+  }
+end
+
+# seed all scenarios
+puts "Seeding scenarios..."
+CSV.foreach("#{Rails.root}/db/seed_csvs/scenarios.csv", headers:true) do |row|
+  Scenario.create(id: row['id'], name: row['name'], description: row['description'])
+end
+
+# seed all fuel types
+puts "Seeding fuel types..."
+CSV.foreach("#{Rails.root}/db/seed_csvs/fuel_types.csv", headers:true) do |row|
+  FuelType.create(id: row['id'], name: row['name'])
+end
+
+# seed all sectors
+puts "Seeding sectors..."
+CSV.foreach("#{Rails.root}/db/seed_csvs/sectors.csv", headers:true) do |row|
+  Sector.create(id: row['id'], name: row['name'])
+end
+
 # seed census tract geometries
 seed_from_shapefile("#{Rails.root}/db/shpfiles/census_tracts/toronto_ct.shp") do |record|
   CensusTract.create(
@@ -50,10 +75,16 @@ end
   copy_emissions_csv(n)
 end
 
-def plotly_chart_names
-  ['emissions_total']
+# Create Plotly Charts
+puts "Creating Plotly Charts..."
+plotly_chart_names[:scenario_independent].each do |cn|
+  pc = PlotlyChart.find_or_create_by(chart_name: cn)
+  puts pc.chart_name
 end
 
-plotly_chart_names.each do |cn|
-  PlotlyChart.find_or_create_by(chart_name: cn)
+plotly_chart_names[:scenario_specific].each do |cn|
+  Scenario.all.each do |scenario|
+    pc = PlotlyChart.find_or_create_by(chart_name: cn, scenario_id: scenario.id)
+    puts "#{pc.chart_name} for #{scenario.name}"
+  end
 end
