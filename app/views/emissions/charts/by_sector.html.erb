@@ -1,14 +1,9 @@
 <ul class="nav nav-tabs" role="tablist">
   <li class="active"><%= link_to 'Area Charts', by_sector_emissions_charts_path %></li>
-  <li><%= link_to 'Bar Charts', by_sector_bar_emissions_charts_path %></li>
 </ul>
 
-<div id="bau" class="col-xs-5">
-    <a href="https://plot.ly/~le0nL/47/" target="_blank" title="Greenhouse Gas Emissions By Sector : BAU" style="display: block; text-align: center;"><img src="https://plot.ly/~le0nL/47.png" alt="Greenhouse Gas Emissions By Sector : BAU" style="max-width: 100%;width: 1014px; display: none"  width="1014" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-    <script data-plotly="le0nL:47"  src="https://plot.ly/embed.js" async></script>
-</div>
-
-<div id="sc1" class="col-xs-5">
-    <a href="https://plot.ly/~le0nL/71/" target="_blank" title="Scenario 1" style="display: block; text-align: center;"><img src="https://plot.ly/~le0nL/71.png" alt="Scenario 1" style="max-width: 100%;width: 1014px; display: none"  width="1014" onerror="this.onerror=null;this.src='https://plot.ly/404.png';" /></a>
-    <script data-plotly="le0nL:71"  src="https://plot.ly/embed.js" async></script>
-</div>
+<% @plotly_charts.each do |chart| %>
+  <div class="col-xs-9">
+    <%= render partial: 'shared/plotly_chart_embed', locals: { o: chart } %>
+  </div>
+<% end %>

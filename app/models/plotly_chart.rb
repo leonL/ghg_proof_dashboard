@@ -8,7 +8,7 @@ class PlotlyChart < ActiveRecord::Base
   classy_enum_attr :chart_name, class_name: 'PlotlyChartBuilder'
 
   def self.named(name)
-    where(chart_name: name).first
+    where(chart_name: name)
   end
 
   def create_chart
