@@ -33,8 +33,9 @@ class PlotlyChartBuilder < ClassyEnum::Base
 
   def filename
     name = "GHGProof #{self.class.name_snake_case.titleize} Chart;"
-    name += "Scenario: #{scenario.name};" unless scenario.blank?
-    name += "#{organization_name}" unless scenario.blank?
+    name += " Scenario – #{scenario.name};" unless scenario.blank?
+    name += " Org – #{organization_name};" unless scenario.blank?
+    name += " Rails Env – #{RAILS_ENV}"
     name
   end
 
