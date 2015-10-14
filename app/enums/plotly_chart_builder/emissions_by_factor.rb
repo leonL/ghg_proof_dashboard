@@ -4,7 +4,7 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
 
   def self.yearly_emissions_grouped_by_scenario
     @totals_by_scenario ||= begin
-      GhgEmission.yearly_emissions_grouped_by(factor_symbol, :scenario).
+      GhgEmission.yearly_emissions_by_factors([factor_symbol, :scenario]).
         group_by(&:scenario_id)
     end
   end

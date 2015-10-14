@@ -2,12 +2,10 @@ class Emissions::MapsController < ApplicationController
 
   def total
 
-    @tracts = CensusTract.with_total_emissions_for_year_for_scenario(2015, 0)
-
     respond_to do |format|
       format.json do
-        feature_collection = CensusTract.to_feature_collection @tracts
-        render json: RGeo::GeoJSON.encode(feature_collection)
+        @totals = GhgEmission.yearly_emissions_by_factors_as_geo_features(2030, 1)
+        render json: RGeo::GeoJSON.encode(@totals)
       end
 
       format.html do
