@@ -13,14 +13,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div id="sidebar" class="col-xs-2">
-    <!-- sidebar content -->
-    <% image_tag "http://www.ssg.coop/wp-content/uploads/2015/01/ssg_logo.png" %>
-    <%= render 'shared/navigation' %>
-  </div>
+
   <div id="main-container" class="container-fluid">
     <div class="row">
-      <div id="content" class="col-xs-10">
+      <div id="content" class="col-xs-12">
         <!--  main content -->
         <%= yield %>
       </div>

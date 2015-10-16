@@ -1,9 +1,5 @@
-<ul class="nav nav-tabs" role="tablist">
-  <li class="active"><%= link_to 'Area Charts', by_sector_emissions_charts_path %></li>
-</ul>
-
 <% @plotly_charts.each do |chart| %>
-  <div class="col-xs-9">
+  <div class="col-xs-4">
     <%= render partial: 'shared/plotly_chart_embed', locals: { o: chart } %>
   </div>
 <% end %>
