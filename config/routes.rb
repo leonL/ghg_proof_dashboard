@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   root 'emissions/charts#total'
 
+  resources :emissions
+
   namespace :emissions do
     resources :charts, only: [] do
       collection do
