@@ -1,10 +1,17 @@
-<div class='row'>
+<div class='row chart-widget sumarry'>
   <div class="col-xs-6 total-emissions">
     <%= render partial: 'shared/plotly_chart_embed', locals: { o: @total_chart } %>
   </div>
   <div class="col-xs-6 summary-statistics">
   </div>
 </div>
-<div class='row'>
+<div class='row chart-widget by-sector area-charts'>
+  <% @by_sector_charts.each do |chart| %>
+    <div class="col-xs-4">
+      <% render partial: 'shared/plotly_chart_embed', locals: { o: chart } %>
+    </div>
+  <% end %>
+</div>
+<div class='row chart-widget by-fuel area-charts'>
 
 </div>

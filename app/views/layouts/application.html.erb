@@ -13,7 +13,30 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="branding" href="#">
+          <%= image_tag "ssg_logo", class: 'logo' %>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="#">Emissions</a></li>
+              <li><a href="#">Urban Form</a></li>
+              <li><a href="#">Demographics</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Scenarios</a></li>
+            </ul>
+          </li>
+        </ul>
+        <h4 class="navbar-text navbar-center">Emissions</h3>
+      </div>
+    </div>
+  </nav>
   <div id="main-container" class="container-fluid">
     <div class="row">
       <div id="content" class="col-xs-12">
