@@ -64,15 +64,13 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
     totals_grouped_by_year[year].group_by(&factor_symbol_id)
   end
 
-# kwargs and related logic
+# kwargs related logic
 
-  def kwargs
+  def layout
     super.merge(
       {
-        fileopt: 'overwrite',
-        layout: {
-          title: "Projected GHG Emissions By #{factor_symbol.to_s.titleize} (#{scenario.name})"
-        }
+        showlegend: false,
+        margin: {t: 10, r: 0, l: 25, b: 20}
       }
     )
   end

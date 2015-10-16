@@ -43,14 +43,35 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
   def kwargs
     super.merge(
       {
-        fileopt: 'overwrite',
-        style: { type: 'scatter' },
-        layout: {
-          yaxis: {
-            range: [0, 90]
-          },
-          title: 'Projected Total GHG Emissions'
-        }
+        style: { type: 'scatter' }
+      }
+    )
+  end
+
+  def layout
+    super.merge(
+      {
+        margin: {t: 10, r: 0, l: 35, b: 20},
+        legend: {x: 1.02, y: 0.81},
+        xaxis: {
+          range: [2011, 2050],
+          tick0: 10,
+          dtick: 10,
+          showline: false,
+          showgrid: true,
+          zeroline: false
+        },
+        yaxis: {
+          range: [0, 90],
+          tick0: 0,
+          dtick: 20,
+          ticks: 'outside',
+          ticklen: 20,
+          tickcolor: "rgb(255, 255, 255)",
+          showline: false,
+          showgrid: true,
+          zeroline: false
+        },
       }
     )
   end

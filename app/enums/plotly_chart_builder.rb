@@ -10,11 +10,20 @@ class PlotlyChartBuilder < ClassyEnum::Base
 
 # default arguments
 
+  def args
+    raise 'no chart coordinates defined'
+  end
+
   def kwargs
     {
       filename: filename,
-      fileopt: 'new' # this is probably handled by the gem, dependent on what method is called, no?
+      fileopt: 'overwrite',
+      layout: layout
     }
+  end
+
+  def layout
+    { title: '' }
   end
 
 # Plotly client interface (this should all be moved out of this class - into a module perhaps)
