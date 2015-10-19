@@ -23,7 +23,10 @@ class PlotlyChartBuilder < ClassyEnum::Base
   end
 
   def layout
-    { title: '' }
+    {
+      title: '',
+      showlegend: false
+    }
   end
 
 # Plotly client interface (this should all be moved out of this class - into a module perhaps)

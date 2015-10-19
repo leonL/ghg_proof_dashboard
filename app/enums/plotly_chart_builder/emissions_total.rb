@@ -30,6 +30,16 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
     end
   end
 
+  def max_y_value
+    @max_y_value ||= begin
+      scenario_maximums = []
+      y_values_grouped_by_secnario_id_sequenced.each do |y_vals|
+        scenario_maximums << y_vals.last.max
+      end
+      scenario_maximums.max
+    end
+  end
+
   def all_years_sequenced
     @years ||= totals.uniq(&:year).map(&:year)
   end
@@ -51,19 +61,16 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
   def layout
     super.merge(
       {
-        margin: {t: 10, r: 0, l: 35, b: 20},
-        legend: {x: 1.02, y: 0.81},
+        margin: {t: 37, r: 20, l: 35, b: 52},
         xaxis: {
-          range: [2011, 2050],
-          tick0: 10,
+          range: [all_years_sequenced.first, all_years_sequenced.last],
           dtick: 10,
           showline: false,
           showgrid: true,
           zeroline: false
         },
         yaxis: {
-          range: [0, 90],
-          tick0: 0,
+          range: [0, max_y_value.to_i.round(-1)],
           dtick: 20,
           ticks: 'outside',
           ticklen: 20,
