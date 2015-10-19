@@ -61,21 +61,35 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
   def layout
     super.merge(
       {
-        margin: {t: 37, r: 20, l: 35, b: 52},
+        margin: {t: 37, r: 20, l: 50, b: 52},
         xaxis: {
+          title: 'Year',
+          titlefont: {
+            family: "Arial, sans-serif",
+            size: 12,
+            color: "black"
+          },
           range: [all_years_sequenced.first, all_years_sequenced.last],
+          ticks: 'outside',
+          tick0: 0,
           dtick: 10,
-          showline: false,
+          showline: true,
           showgrid: true,
           zeroline: false
         },
         yaxis: {
+          title: 'Mt',
+          titlefont: {
+            family: "Arial, sans-serif",
+            size: 12,
+            color: "black"
+          },
           range: [0, max_y_value.to_i.round(-1)],
+          ticks: '',
           dtick: 20,
-          ticks: 'outside',
           ticklen: 20,
           tickcolor: "rgb(255, 255, 255)",
-          showline: false,
+          showline: true,
           showgrid: true,
           zeroline: false
         },
