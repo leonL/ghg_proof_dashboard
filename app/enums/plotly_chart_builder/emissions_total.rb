@@ -14,7 +14,8 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
       line = {
         x: all_years_sequenced,
         y: y_values_grouped_by_secnario_id_sequenced[scenario.id],
-        name: scenario.name
+        name: scenario.name,
+        hoverinfo: 'none'
       }
       plot_coordinates << line
     end
@@ -62,6 +63,12 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
     super.merge(
       {
         margin: {t: 37, r: 20, l: 50, b: 52},
+        title: 'Projected Yearly GHG Emissions',
+        titlefont: {
+          family: "Arial, sans-serif",
+          size: 16,
+          color: "black"
+        },
         xaxis: {
           title: 'Year',
           titlefont: {
