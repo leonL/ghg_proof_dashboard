@@ -4,8 +4,9 @@ class Emissions::MapsController < ApplicationController
 
     respond_to do |format|
       format.json do
-        @totals = GhgEmission.yearly_emissions_by_factors_as_geo_features(2030, 1)
-        render json: RGeo::GeoJSON.encode(@totals)
+        @totals = CensusTract.with_emissions_totals_where_year_scenario_geo_json(
+                                  2030, 2, {sector_id: 2, fuel_type_id: 1})
+        render json: @totals
       end
 
       format.html do
