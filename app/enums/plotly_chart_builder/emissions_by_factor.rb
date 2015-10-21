@@ -20,11 +20,13 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
     all_factor_records.each do |factor|
       plot_coordinates << {
         x: all_years,
-        y: sequenced_y_values_grouped_by_factor_id[factor.id],
+        y: y_vals_grouped_by_factor_id_sequenced[:cumulative_values][factor.id],
+        text: y_vals_grouped_by_factor_id_sequenced[:formatted_values][factor.id],
         mode: 'lines',
         type: 'scatter',
         fill: 'tonexty',
-        name: factor.name
+        name: factor.name,
+        hoverinfo: 'x+text'
       }
     end
     plot_coordinates
@@ -34,21 +36,26 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
     @all_years = totals_grouped_by_year.keys.sort
   end
 
-  def sequenced_y_values_grouped_by_factor_id
+  def y_vals_grouped_by_factor_id_sequenced
     @y_vals ||= begin
+      cumulative_vals = Hash.new{|h,k| h[k] = [] }
       vals = Hash.new{|h,k| h[k] = [] }
 
       all_years.each do |year|
         totals_by_factor = totals_grouped_by_factor_id_for_year(year)
-        running_x_total = 0
+        running_total = 0
 
         all_factor_records.each do |factor|
           factor_hash = totals_by_factor[factor.id].first
           total = (factor_hash ? factor_hash.total : 0)
-          vals[factor.id] << (running_x_total += total)
+          cumulative_vals[factor.id] << (running_total += total)
+          vals[factor.id] << total.round(2)
         end
       end
-      vals
+      {
+        formatted_values: vals,
+        cumulative_values: cumulative_vals
+      }
     end
   end
 
@@ -69,10 +76,49 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
   def layout
     super.merge(
       {
-        showlegend: false,
-        margin: {t: 10, r: 0, l: 25, b: 20}
+        margin: {t: 37, r: 20, l: 50, b: 52},
+        title: chart_title,
+        titlefont: {
+          family: "Arial, sans-serif",
+          size: 16,
+          color: "black"
+        },
+        xaxis: {
+          title: 'Year',
+          titlefont: {
+            family: "Arial, sans-serif",
+            size: 12,
+            color: "black"
+          },
+          range: [all_years.first, all_years.last],
+          ticks: 'outside',
+          tick0: 0,
+          dtick: 10,
+          showline: true,
+          showgrid: true,
+          zeroline: false
+        },
+        yaxis: {
+          title: 'Mt',
+          titlefont: {
+            family: "Arial, sans-serif",
+            size: 12,
+            color: "black"
+          },
+          ticks: '',
+          dtick: 20,
+          ticklen: 20,
+          tickcolor: "rgb(255, 255, 255)",
+          showline: true,
+          showgrid: true,
+          zeroline: false
+        }
       }
     )
+  end
+
+  def chart_title
+    "Scenario: #{scenario.name}"
   end
 
 # util

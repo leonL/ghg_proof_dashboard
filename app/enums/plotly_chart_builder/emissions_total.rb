@@ -99,7 +99,7 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
           showline: true,
           showgrid: true,
           zeroline: false
-        },
+        }
       }
     )
   end
