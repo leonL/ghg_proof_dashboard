@@ -3,7 +3,7 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
 # value querying logic
 
   def totals
-    @totals ||= GhgEmission.yearly_emissions_by_factors([:scenario])
+    @totals ||= GhgEmission.yearly_totals_by_factors([:scenario])
   end
 
 # args hash and related logic

@@ -5,15 +5,17 @@ class GhgEmission < ActiveRecord::Base
   belongs_to :sector
   belongs_to :zone, class_name: 'CensusTract', foreign_key: :zone_id, inverse_of: :ghg_emissions
 
-  def self.yearly_emissions_by_factors(factors, year=nil, scenario_id=nil)
+  def self.yearly_totals_by_factors(factors, where_vals)
     factor_cols = factors.map{|col_name| t["#{col_name}_id"]}
     factor_cols.unshift t[:year]
 
     query = t.project(factor_cols, t[:total_emissions].sum.as('total')).
       group(factor_cols).
       order(factor_cols)
-    query = query.where(t[:year].eq(year)) if year
-    query = query.where(t[:scenario_id].eq(scenario_id)) if scenario_id
+
+    where_vals.each do |col_name, val|
+      query = query.where(t[col_name].eq(val))
+    end
 
     records = find_by_sql(query)
 
@@ -21,9 +23,8 @@ class GhgEmission < ActiveRecord::Base
     records
   end
 
-  def self.yearly_emissions_by_factors_as_geo_features(year, scenario_id, factors = [:scenario])
-    all_factors = factors << :zone
-    records = yearly_emissions_by_factors(all_factors, year, scenario_id)
+  def self.totals_by_factors_for_year_scenario(year, scenario_id, factors = [:scenario])
+    records = yearly_totals_by_factors(all_factors, {year: year, scenario_id: scenario_id})
     geo_features = records.map do |record|
       properties = factors.inject({}) do |hash, factor|
         hash["#{factor}_id".to_sym] = record.read_attribute("#{factor}_id")
