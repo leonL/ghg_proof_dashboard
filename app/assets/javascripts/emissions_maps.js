@@ -1,11 +1,11 @@
 $(function() {
-  // var map = L.map('map').setView([43.706226, -79.343184], 11);
+  var map = L.map('map').setView([43.706226, -79.343184], 10);
 
-  // L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token={accessToken}', {
-  //     attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-  //     maxZoom: 18,
-  //     accessToken: 'pk.eyJ1IjoibGUwbmwiLCJhIjoiY2lld3dqZXF3MDhmMXNrbWFvM3A0c3plNiJ9.Gx3v7hkmHzmq3HE6vuIS1w'
-  // }).addTo(map);
+  L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      maxZoom: 18,
+      accessToken: 'pk.eyJ1IjoibGUwbmwiLCJhIjoiY2lld3dqZXF3MDhmMXNrbWFvM3A0c3plNiJ9.Gx3v7hkmHzmq3HE6vuIS1w'
+  }).addTo(map);
 
   function getColor(d) {
       return d > 1 ? '#800026' :
@@ -36,14 +36,14 @@ $(function() {
     L.geoJson(geos, {style: style}).addTo(map);
   }
 
-  // $.ajax({
-  //    type: "GET",
-  //    contentType: "application/json; charset=utf-8",
-  //    url: 'total',
-  //    dataType: 'json',
-  //    success: polygons,
-  //    error: function (result) {
-  //        error();
-  //    }
-  // });
+  $.ajax({
+     type: "GET",
+     contentType: "application/json; charset=utf-8",
+     url: '/emissions/maps/total',
+     dataType: 'json',
+     success: polygons,
+     error: function (result) {
+         error();
+     }
+  });
 });

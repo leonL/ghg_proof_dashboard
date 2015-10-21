@@ -12,13 +12,4 @@ class Emissions::MapsController < ApplicationController
       end
     end
   end
-
-  def by_sector
-
-  end
-
-  def by_fuel
-
-  end
-
 end

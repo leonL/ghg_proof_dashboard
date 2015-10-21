@@ -19,5 +19,4 @@ class Emissions::ChartsController < ApplicationController
   def by_fuel
     @plotly_charts = PlotlyChart.named('emissions_by_fuel_type')
   end
-
 end
