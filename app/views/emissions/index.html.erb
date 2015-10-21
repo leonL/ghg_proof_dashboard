@@ -10,13 +10,30 @@
     <p class="navbar-text">Projected emissions broken down by</p>
     <div class="col-xs-2 factor-select">
       <%= select_tag :factor,
-        options_for_select([['Sector', 1], ['Fuel Type', 2]], 1),
-        class: "form-control input-sm fedora" %>
+        options_for_select([['Sector', 'by-sector'], ['Fuel Type', 'by-fuel-type']], 'by-sector'),
+        class: "form-control input-sm fedora panes" %>
     </div>
   </nav>
-  <div class="col-xs-6">
-    <%= render partial: 'shared/plotly_chart_embed', locals: { o: @by_sector_charts.first } %>
+  <div class="pane active" id='by-sector'>
+    <% @by_sector_charts.each do |chart| %>
+      <div class="col-xs-4">
+        <%= render partial: 'shared/plotly_chart_embed', locals: { o: chart } %>
+      </div>
+    <% end %>
+  </div>
+  <div class="pane" id='by-fuel-type'>
+    <% @by_fuel_type_charts.each do |chart| %>
+      <div class="col-xs-4">
+        <%= render partial: 'shared/plotly_chart_embed', locals: { o: chart } %>
+      </div>
+    <% end %>
   </div>
 </div>
 <div class='row chart-widget by-fuel area-charts'>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    togglePanes($('.by-factor-area-charts'))
+  });
+</script>
