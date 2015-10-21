@@ -5,13 +5,18 @@
   <div class="col-xs-6 summary-statistics">
   </div>
 </div>
-<div class='row chart-widget by-sector area-charts'>
-  <% @by_sector_charts.each do |chart| %>
-    <div class="col-xs-4">
-      <% render partial: 'shared/plotly_chart_embed', locals: { o: chart } %>
+<div class='row chart-widget by-factor-area-charts'>
+  <nav class="navbar navbar-default">
+    <p class="navbar-text">Projected emissions broken down by</p>
+    <div class="col-xs-2 factor-select">
+      <%= select_tag :factor,
+        options_for_select([['Sector', 1], ['Fuel Type', 2]], 1),
+        class: "form-control input-sm fedora" %>
     </div>
-  <% end %>
+  </nav>
+  <div class="col-xs-6">
+    <%= render partial: 'shared/plotly_chart_embed', locals: { o: @by_sector_charts.first } %>
+  </div>
 </div>
 <div class='row chart-widget by-fuel area-charts'>
-
 </div>
