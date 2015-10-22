@@ -8,5 +8,9 @@ class GeoJSON::Base
     rgeo::EntityFactory.instance
   end
 
+  def self.year_range
+    [GhgEmission.minimum(:year), GhgEmission.maximum(:year)]
+  end
+
 
 end
