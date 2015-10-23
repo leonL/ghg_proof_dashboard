@@ -14,7 +14,8 @@ function choropleth($context) {
   var
   $map = $context.find('.choropleth-map'),
   $form =$context.find('form#choropleth-controls'),
-  map = L.map($map.get(0)).setView([43.706226, -79.343184], 10);
+  map = L.map($map.get(0)).setView([43.706226, -79.343184], 10),
+  visibleLayer = null;
 
   L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
@@ -44,7 +45,12 @@ function choropleth($context) {
     });
 
     $form.on('ajax:success', function(e, data, status, xhr) {
-      L.geoJson(data.features, {style: style}).addTo(map);
+      var geoJSONLayer = L.geoJson(data.features, {style: style});
+      if (visibleLayer) {
+        map.removeLayer(visibleLayer);
+      }
+      map.addLayer(geoJSONLayer);
+      visibleLayer = geoJSONLayer;
     });
 
     // $getDataButton.click();

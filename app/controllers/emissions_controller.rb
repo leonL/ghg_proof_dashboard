@@ -12,7 +12,7 @@ class EmissionsController < ApplicationController
       format.json do
         totals = ::GeoJSON::CensusTract.
           with_emissions_totals_where_year_scenario(
-            year_param, 2, {sector_id: 2, fuel_type_id: 1}
+            year_param, 2
           )
         render json: totals
       end
@@ -24,3 +24,5 @@ class EmissionsController < ApplicationController
   end
 
 end
+
+# {sector_id: 2, fuel_type_id: 1}
