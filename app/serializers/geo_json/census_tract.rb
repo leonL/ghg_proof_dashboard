@@ -11,7 +11,6 @@ class GeoJSON::CensusTract < GeoJSON::Base
 
     vars = {
       year: year,
-      year_range: year_range,
       scenario_id: scenario_id
     }
 
