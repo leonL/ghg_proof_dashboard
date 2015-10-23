@@ -15,6 +15,7 @@ function choropleth($context) {
   $map = $context.find('.choropleth-map'),
   $form =$context.find('form#choropleth-controls'),
   map = L.map($map.get(0)).setView([43.706226, -79.343184], 10),
+  colorScale = d3.scale.quantize().domain([0, 4]).range(colorbrewer.YlOrRd[9]),
   visibleLayer = null;
 
   L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -56,20 +57,9 @@ function choropleth($context) {
     // $getDataButton.click();
   }
 
-  function getColor(d) {
-      return d > 1 ? '#800026' :
-             d > 0.8  ? '#BD0026' :
-             d > 0.6  ? '#E31A1C' :
-             d > 0.4  ? '#FC4E2A' :
-             d > 0.3   ? '#FD8D3C' :
-             d > 0.2  ? '#FEB24C' :
-             d > 0.1   ? '#FED976' :
-                        '#FFEDA0';
-  }
-
   function style(feature) {
       return {
-          fillColor: getColor(feature.properties.total),
+          fillColor: colorScale(feature.properties.total),
           weight: 2,
           opacity: 1,
           color: 'white',
