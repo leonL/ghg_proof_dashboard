@@ -10,12 +10,4 @@ class PlotlyApiClient
     @client.plot(data, args) {|response| response }
   end
 
-  def update_plot_layout
-
-  end
-
-  def update_plot_style
-
-  end
-
 end
