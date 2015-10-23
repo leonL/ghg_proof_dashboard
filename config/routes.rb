@@ -1,22 +1,9 @@
 Rails.application.routes.draw do
   root 'emissions/charts#total'
 
-  resources :emissions
-
-  namespace :emissions do
-    resources :charts, only: [] do
-      collection do
-        get 'total'
-        get 'by_sector'
-        get 'by_fuel'
-      end
-    end
-    resources :maps, only: [] do
-      collection do
-        get 'total'
-        get 'by_sector'
-        get 'by_fuel'
-      end
+  resources :emissions do
+    collection do
+      get 'choropleth_data'
     end
   end
 
