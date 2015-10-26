@@ -12,13 +12,20 @@ class GhgEmission < ActiveRecord::Base
     records
   end
 
-  def self.yearly_totals_by_factors_query(factors=[], where_vals={})
+  def self.descending_yearly_totals_by_zone_scenario_year
+    query = yearly_totals_by_factors_query([:zone, :scenario], {}, true)
+    find_by_sql(query)
+  end
+
+  def self.yearly_totals_by_factors_query(factors=[], where_vals={}, order_by_total=false)
     factor_cols = factors.map{|col_name| t["#{col_name}_id"]}
     factor_cols.unshift t[:year]
 
+    order_cols = order_by_total ? 'total' : factor_cols
+
     query = t.project(factor_cols, t[:total_emissions].sum.as('total')).
       group(factor_cols).
-      order(factor_cols)
+      order(order_cols)
 
     where_vals.each do |col_name, val|
       query = query.where(t[col_name].eq(val))

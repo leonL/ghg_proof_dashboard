@@ -51,7 +51,7 @@
 
     var
     $mapsContext = $('.chart-widget.maps'),
-    map = choropleth($mapsContext);
+    map = choropleth($mapsContext, <%= all_zone_totals_90_percentile_bounds %>);
 
     map.initControls(<%= year_range %>);
 

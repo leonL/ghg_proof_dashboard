@@ -9,13 +9,13 @@ function togglePanes($context) {
   });
 }
 
-function choropleth($context) {
+function choropleth($context, totals_range) {
 
   var
   $map = $context.find('.choropleth-map'),
   $form =$context.find('form#choropleth-controls'),
   map = L.map($map.get(0)).setView([43.706226, -79.343184], 10),
-  colorScale = d3.scale.quantize().domain([0, 4]).range(colorbrewer.YlOrRd[9]),
+  colorScale = d3.scale.quantize().domain(totals_range).range(colorbrewer.Reds[9]),
   visibleLayer = null;
 
   L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token={accessToken}', {
@@ -28,7 +28,7 @@ function choropleth($context) {
     var
     $yearSlider = $form.find(".year-slider"),
     $yearInput = $("input#year"),
-    $getDataButton = $form.find('button.submit')
+    $getDataButton = $form.find('button.submit'),
     minYear = yearRange[0],
     maxYear = yearRange[1],
     initialYear = minYear + Math.round((maxYear - minYear) / 2);
