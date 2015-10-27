@@ -13,7 +13,7 @@ function choropleth($context, totals_range) {
 
   var
   $map = $context.find('.choropleth-map'),
-  $form =$context.find('form#choropleth-controls'),
+  $form = $context.find('form#choropleth-controls'),
   map = L.map($map.get(0)).setView([43.706226, -79.343184], 10),
   colorScale = d3.scale.quantize().domain(totals_range).range(colorbrewer.Reds[9]),
   visibleLayer = null;
@@ -27,7 +27,7 @@ function choropleth($context, totals_range) {
   function initControls(yearExtent) {
     var
     $yearSlider = $form.find(".year-slider"),
-    $yearInput = $("input#year"),
+    $yearInput = $("input#choropleth_params_year"),
     $getDataButton = $form.find('button.submit'),
     yearRange = yearInputRange(yearExtent);
 

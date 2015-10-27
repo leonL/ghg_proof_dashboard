@@ -31,15 +31,17 @@
 </div>
 <div class='row chart-widget maps'>
   <nav class="navbar navbar-default">
-    <%= form_tag choropleth_data_emissions_path, remote: true, method: 'get',
-          data: {type: :json}, class: "navbar-form navbar-left",
-          id: 'choropleth-controls' do |form| %>
+    <%= form_for :choropleth_params, url: choropleth_data_emissions_path, remote: true, method: 'get',
+          data: {type: :json}, html: {class: "navbar-form navbar-left", id: 'choropleth-controls'} do |f| %>
       <div class="form-group">
         <div class="year-slider ankle-boots"></div>
-        <%= label_tag :year, 'Year:' %>
-        <%= text_field_tag :year, nil, class: 'transparent', readonly: true %>
+        <%= f.label :year, 'Year:' %>
+        <%= f.text_field :year, class: 'transparent', readonly: true %>
       </div>
-      <%= button_tag 'Map!', class: "btn btn-danger submit" %>
+      <div class="form-group">
+        <%= f.select :scenario_id, scenario_select_options %>
+      </div>
+      <%= f.submit 'Map!', class: "btn btn-danger" %>
     <% end %>
   </nav>
   <div class='col-xs-6 choropleth-map'></div>
