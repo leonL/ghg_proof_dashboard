@@ -9,13 +9,13 @@ function togglePanes($context) {
   });
 }
 
-function choropleth($context, totals_range) {
+function choropleth($context, totals_max) {
 
   var
   $map = $context.find('.choropleth-map'),
   $form = $context.find('form#choropleth-controls'),
   map = L.map($map.get(0)).setView([43.706226, -79.343184], 10),
-  colorScale = d3.scale.quantize().domain(totals_range).range(colorbrewer.Reds[9]),
+  colorScale = d3.scale.quantize().domain([0, totals_max]).range(colorbrewer.Reds[9]),
   visibleLayer = null;
 
   L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token={accessToken}', {

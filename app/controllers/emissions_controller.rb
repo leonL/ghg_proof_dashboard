@@ -6,7 +6,7 @@ class EmissionsController < ApplicationController
     @by_fuel_type_charts = PlotlyChart.named('emissions_by_fuel_type')
     @scenarios = Scenario.all
     @fuel_types = FuelType.all
-    @sectors = Sector.all
+    @sectors = Sector.where("name != 'Transportation'")
     render
   end
 
@@ -25,10 +25,10 @@ class EmissionsController < ApplicationController
 
   def choropleth_query_where_clause
     clause = {}
-    unless choropleth_params[:sector_ids].include? 0
+    unless choropleth_params[:sector_ids].include? "0"
       clause[:sector_id] = choropleth_params[:sector_ids].reject(&:blank?).map(&:to_i)
     end
-    unless choropleth_params[:fuel_type_ids].include? 0
+    unless choropleth_params[:fuel_type_ids].include? "0"
       clause[:fuel_type_id] = choropleth_params[:fuel_type_ids].reject(&:blank?).map(&:to_i)
     end
     clause
