@@ -24,24 +24,22 @@ function choropleth($context, totals_range) {
       accessToken: 'pk.eyJ1IjoibGUwbmwiLCJhIjoiY2lld3dqZXF3MDhmMXNrbWFvM3A0c3plNiJ9.Gx3v7hkmHzmq3HE6vuIS1w'
   }).addTo(map);
 
-  function initControls(yearRange) {
+  function initControls(yearExtent) {
     var
     $yearSlider = $form.find(".year-slider"),
     $yearInput = $("input#year"),
     $getDataButton = $form.find('button.submit'),
-    minYear = yearRange[0],
-    maxYear = yearRange[1],
-    initialYear = minYear + Math.round((maxYear - minYear) / 2);
+    yearRange = yearInputRange(yearExtent);
 
-    $yearInput.val(initialYear);
+    $yearInput.val(yearRange[0]);
 
     $yearSlider.slider({
-      value: initialYear,
-      min: minYear,
-      max: maxYear,
+      value: 0,
+      min: 0,
+      max: yearRange.length - 1,
       step: 1,
       slide: function(event, ui) {
-        $yearInput.val(ui.value);
+        $yearInput.val(yearRange[ui.value]);
       }
     });
 
@@ -55,6 +53,30 @@ function choropleth($context, totals_range) {
     });
 
     // $getDataButton.click();
+  }
+
+  function yearInputRange(yearExtent) {
+    var
+    inclusionThreshold = 3,
+    minYear = yearExtent[0],
+    firstDecade = Util.nextTens(minYear),
+    maxYear = yearExtent[1],
+    lastDecade = Util.previousTens(maxYear),
+    decadeStep = 10;
+
+    if (firstDecade - minYear <= inclusionThreshold) {
+      firstDecade += 10;
+    }
+
+    if (maxYear - lastDecade <= inclusionThreshold) {
+      lastDecade -= 10;
+    }
+
+    var inputRange = _.range(firstDecade, lastDecade + 10, 10);
+
+    inputRange.unshift(minYear);
+    inputRange.push(maxYear);
+    return(inputRange);
   }
 
   function style(feature) {
