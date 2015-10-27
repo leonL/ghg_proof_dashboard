@@ -39,7 +39,7 @@
         <%= f.text_field :year, class: 'transparent', readonly: true %>
       </div>
       <div class="form-group">
-        <%= f.select :scenario_id, scenario_select_options %>
+        <%= f.select :scenario_id, scenario_select_options, {}, {class: 'form-control'} %>
       </div>
       <%= f.submit 'Map!', class: "btn btn-danger" %>
     <% end %>
