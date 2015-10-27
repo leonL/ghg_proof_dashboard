@@ -39,7 +39,14 @@
         <%= f.text_field :year, class: 'transparent', readonly: true %>
       </div>
       <div class="form-group">
-        <%= f.select :scenario_id, scenario_select_options, {}, {class: 'form-control'} %>
+        <%= f.select :scenario_id, select_options_for_factor(@scenarios, false), {}, {class: 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <%= f.select :fuel_type_ids, select_options_for_factor(@fuel_types), {}, {class: 'form-control', multiple: true} %>
+      </div>
+      <div class="form-group">
+        <%= f.select :sector_ids, select_options_for_factor(@sectors), {}, {class: 'form-control',
+          multiple: true} %>
       </div>
       <%= f.submit 'Map!', class: "btn btn-danger" %>
     <% end %>

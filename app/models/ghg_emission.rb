@@ -28,7 +28,7 @@ class GhgEmission < ActiveRecord::Base
       order(order_cols)
 
     where_vals.each do |col_name, val|
-      query = query.where(t[col_name].eq(val))
+      query = val.is_a?(Array) ? query.where(t[col_name].in(val)) : query.where(t[col_name].eq(val))
     end
     query
   end

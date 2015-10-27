@@ -7,10 +7,11 @@ module EmissionsHelper
     bounds.map!{|record| record.total.to_f}
   end
 
-  def scenario_select_options
-    scenario_names_and_ids = @scenarios.map do |scenario|
+  def select_options_for_factor(factor, all_option=true)
+    scenario_names_and_ids = factor.map do |scenario|
       [scenario.name, scenario.id]
     end
+    scenario_names_and_ids.unshift ['All', 0] if all_option
     options_for_select(scenario_names_and_ids)
   end
 
