@@ -49,6 +49,8 @@ function choropleth($context, totalAt90thPercentile) {
     return div;
   };
 
+  legend.addTo(map);
+
   function initControls(yearExtent) {
     var
     $yearSlider = $form.find(".year-slider"),
@@ -74,7 +76,6 @@ function choropleth($context, totalAt90thPercentile) {
         map.removeLayer(visibleLayer);
       }
       map.addLayer(geoJSONLayer);
-      legend.addTo(map);
       visibleLayer = geoJSONLayer;
     });
 
