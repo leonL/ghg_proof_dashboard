@@ -9,20 +9,45 @@ function togglePanes($context) {
   });
 }
 
-function choropleth($context, totals_max) {
-
+function choropleth($context, totalAt90thPercentile) {
   var
   $map = $context.find('.choropleth-map'),
   $form = $context.find('form#choropleth-controls'),
   map = L.map($map.get(0)).setView([43.706226, -79.343184], 10),
-  colorScale = d3.scale.quantize().domain([0, totals_max]).range(colorbrewer.Reds[9]),
+  legend = L.control({position: 'bottomright'}),
+  colourRamp = colorbrewer.Reds[9],
   visibleLayer = null;
+
+  var
+  emissionTotalUpperBound = function() {
+    var
+    upperBound = Math.round(totalAt90thPercentile * 1000); // megatonnes to kilotonnes
+    return(upperBound - (upperBound % colourRamp.length)); // make totals evenly divisible by # of colour ramp steps
+  }(),
+  colorScale = d3.scale.quantize().domain([0, emissionTotalUpperBound]).range(colourRamp);
 
   L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
       accessToken: 'pk.eyJ1IjoibGUwbmwiLCJhIjoiY2lld3dqZXF3MDhmMXNrbWFvM3A0c3plNiJ9.Gx3v7hkmHzmq3HE6vuIS1w'
   }).addTo(map);
+
+  legend.onAdd = function(map) {
+    var
+    div = L.DomUtil.create('div', 'info legend'),
+    stepSize = emissionTotalUpperBound / colourRamp.length,
+    grades = _.range(0 , emissionTotalUpperBound, stepSize),
+    labels = [];
+
+    // loop through our density intervals and generate a label with a colored square for each interval
+    for (var i = 0; i < grades.length; i++) {
+        div.innerHTML +=
+            '<i style="background:' + colorScale(grades[i] + 1) + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+    }
+
+    return div;
+  };
 
   function initControls(yearExtent) {
     var
@@ -49,6 +74,7 @@ function choropleth($context, totals_max) {
         map.removeLayer(visibleLayer);
       }
       map.addLayer(geoJSONLayer);
+      legend.addTo(map);
       visibleLayer = geoJSONLayer;
     });
 

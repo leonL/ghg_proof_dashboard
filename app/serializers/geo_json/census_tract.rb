@@ -4,7 +4,7 @@ class GeoJSON::CensusTract < GeoJSON::Base
     records = model.with_emissions_totals_where_year_scenario(year, scenario_id, other)
 
     geo_features = records.map do |record|
-      properties = {total: record.total}
+      properties = {total: record.total_kt}
       factory.feature(record.geom, record.id, properties)
     end
     features = factory.feature_collection geo_features
