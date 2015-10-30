@@ -31,27 +31,19 @@
 </div>
 <div class='row chart-widget maps'>
   <nav class="navbar navbar-default">
-    <%= form_for :choropleth_params, url: choropleth_data_emissions_path, remote: true, method: 'get',
-          data: {type: :json}, html: {class: "navbar-form navbar-left", id: 'choropleth-controls'} do |f| %>
-      <div class="form-group">
-        <div class="year-slider ankle-boots"></div>
-        <%= f.label :year, 'Year:' %>
-        <%= f.text_field :year, class: 'transparent', readonly: true %>
-      </div>
-      <div class="form-group">
-        <%= f.select :scenario_id, select_options_for_factor(@scenarios, false), {}, {class: 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <%= f.select :fuel_type_ids, select_options_for_factor(@fuel_types, 0), {}, {class: 'form-control', multiple: true} %>
-      </div>
-      <div class="form-group">
-        <%= f.select :sector_ids, select_options_for_factor(@sectors, 0), {}, {class: 'form-control',
-          multiple: true} %>
-      </div>
-      <%= f.submit 'Map!', class: "btn btn-danger" %>
-    <% end %>
+    <div id='cc1' class='col-xs-6 choropleth-controls'>
+      <%= render partial: 'choropleth_controls' %>
+    </div>
+    <div id='cc2' class='col-xs-6 choropleth-controls'>
+      <%= render partial: 'choropleth_controls' %>
+    </div>
   </nav>
-  <div class='col-xs-6 choropleth-map'></div>
+  <div class='col-xs-6'>
+    <div id='cm1' class='choropleth-map'></div>
+  </div>
+  <div class='col-xs-6'>
+    <div id='cm2' class='choropleth-map'></div>
+  </div>
 </div>
 
 <script type="text/javascript">
@@ -60,7 +52,7 @@
 
     var
     $mapsContext = $('.chart-widget.maps'),
-    map = choropleth($mapsContext, <%= all_zone_totals_90th_percentile %>);
+    map = twinChoropleths($mapsContext, <%= all_zone_totals_90th_percentile %>);
 
     map.initControls(<%= year_range %>);
 
