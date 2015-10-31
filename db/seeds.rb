@@ -51,9 +51,16 @@ colour_palettes.each do |palette, colours|
 end
 
 # seed all scenarios
+scenario_colour_ids_cycle = Colour.for_palette('scenario').pluck(:id).cycle
+
 puts "Seeding scenarios..."
 CSV.foreach("#{Rails.root}/db/seed_csvs/scenarios.csv", headers:true) do |row|
-  Scenario.create(id: row['id'], name: row['name'], description: row['description'])
+  Scenario.create(
+    id: row['id'],
+    name: row['name'],
+    description: row['description'],
+    colour_id: scenario_colour_ids_cycle.next
+  )
 end
 
 # seed all fuel types
