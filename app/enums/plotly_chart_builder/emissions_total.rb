@@ -15,7 +15,8 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
         x: all_years_sequenced,
         y: y_values_grouped_by_secnario_id_sequenced[scenario.id],
         name: scenario.name,
-        hoverinfo: 'none'
+        hoverinfo: 'none',
+        line: {color: scenario.colour.hex}
       }
       plot_coordinates << line
     end
@@ -46,7 +47,11 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
   end
 
   def all_scenarios
-    @scenario_ids = totals.uniq(&:scenario_id).map(&:scenario)
+    @scenarios ||= begin
+      scenarios = totals.uniq(&:scenario_id).map(&:scenario)
+      Scenario.preload_colours(scenarios)
+      scenarios
+    end
   end
 
 # kwargs hash and related logic
