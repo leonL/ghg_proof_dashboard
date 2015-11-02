@@ -1,9 +1,9 @@
 function togglePanes($context) {
-  var $paneSelector = $context.find('select.panes'),
+  var $paneSelectorRadios = $context.find('.toggle input'),
       $allPanes = $context.find('.pane');
 
-  $paneSelector.on('change', function() {
-    var selectedPaneId = $(this).val();
+  $paneSelectorRadios.on('change', function() {
+    var selectedPaneId = $(this).attr('id');
     $allPanes.removeClass('active');
     $allPanes.filter("#" + selectedPaneId).addClass('active');
   });

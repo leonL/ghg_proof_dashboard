@@ -1,10 +1,10 @@
 <div class='row chart-widget summary'>
   <div class="col-xs-6 total-emissions">
-    <h4 class='text-center'>Projected Yearly Emissions</h4>
+    <h5 class='text-center'>Projected Yearly Emissions</h5>
     <%= render partial: 'shared/plotly_chart_embed', locals: { o: @total_chart } %>
   </div>
   <div class="col-xs-6 summary-statistics">
-    <h4>Projected Reductions</h4>
+    <h5>Projected Reductions</h5>
     <div class='reductions-benchmarks'>
       <div class="radio sandals">
         <label>
@@ -34,12 +34,15 @@
   </div>
 </div>
 <div class='row chart-widget by-factor-area-charts'>
-  <nav class="navbar navbar-default">
-    <p class="navbar-text">Projected emissions broken down by</p>
-    <div class="col-xs-2 factor-select">
-      <%= select_tag :factor,
-        options_for_select([['Sector', 'by-sector'], ['Fuel Type', 'by-fuel-type']], 'by-sector'),
-        class: "form-control input-sm fedora panes" %>
+  <nav class="navbar navbar-default subnav">
+    <h4 class="navbar-text">Emissions by</h4>
+    <div class="btn-group toggle" data-toggle="buttons">
+      <label class="btn btn-primary active">
+        <input type="radio" name="toggle-factor" id="by-sector" autocomplete="off" checked> Sector
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="toggle-factor" id="by-fuel-type" autocomplete="off"> Fuel Type
+      </label>
     </div>
   </nav>
   <div class="pane active" id='by-sector'>
@@ -58,18 +61,19 @@
   </div>
 </div>
 <div class='row chart-widget maps'>
-  <nav class="navbar navbar-default">
+  <nav class="navbar navbar-default subnav">
+    <h4 class="navbar-text">Emissions by Census Tract</h4>
+  </nav>
+  <div class='col-xs-6'>
     <div id='cc1' class='col-xs-6 choropleth-controls'>
       <%= render partial: 'choropleth_controls' %>
     </div>
-    <div id='cc2' class='col-xs-6 choropleth-controls'>
-      <%= render partial: 'choropleth_controls' %>
-    </div>
-  </nav>
-  <div class='col-xs-6'>
     <div id='cm1' class='choropleth-map'></div>
   </div>
   <div class='col-xs-6'>
+    <div id='cc2' class='col-xs-6 choropleth-controls'>
+      <%= render partial: 'choropleth_controls' %>
+    </div>
     <div id='cm2' class='choropleth-map'></div>
   </div>
 </div>
