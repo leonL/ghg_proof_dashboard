@@ -1,9 +1,26 @@
 <div class='row chart-widget summary'>
   <div class="col-xs-6 total-emissions">
+    <h4 class='text-center'>Projected Yearly Emissions</h4>
     <%= render partial: 'shared/plotly_chart_embed', locals: { o: @total_chart } %>
   </div>
   <div class="col-xs-6 summary-statistics">
-    <h4>Total Reductions</h4>
+    <h4>Projected Reductions</h4>
+    <div class='reductions-benchmarks'>
+      <div class="radio sandals">
+        <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+          Over 2015 (Baseline Year)
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+          Over
+          <i class='scenario-colour-swatch' style='background-color: #1f77b4'></i>
+          Business As Usual (2050)
+        </label>
+      </div>
+    </div>
     <table class="table table-hover emissions-reductions">
       <thead>
         <td>Scenario</td>

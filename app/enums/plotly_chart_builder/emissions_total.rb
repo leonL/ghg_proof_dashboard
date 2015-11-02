@@ -67,8 +67,7 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
   def layout
     super.merge(
       {
-        margin: {t: 37, r: 20, l: 50, b: 52},
-        title: 'Projected Yearly GHG Emissions',
+        margin: {t: 10, r: 20, l: 50, b: 52},
         titlefont: {
           family: "Arial, sans-serif",
           size: 16,
