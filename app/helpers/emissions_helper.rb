@@ -14,4 +14,8 @@ module EmissionsHelper
     options_for_select(scenario_names_and_ids, scenario_names_and_ids.first.last)
   end
 
+  def all_sectors_but_transportation
+    @all_sectors_but_transportation ||= @sectors.reject{|s| s.name == 'Transportation'}
+  end
+
 end

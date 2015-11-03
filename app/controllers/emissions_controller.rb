@@ -6,7 +6,7 @@ class EmissionsController < ApplicationController
     @by_fuel_type_charts = PlotlyChart.named('emissions_by_fuel_type')
     @scenarios = Scenario.includes(:colour)
     @fuel_types = FuelType.all
-    @sectors = Sector.where("name != 'Transportation'")
+    @sectors = Sector.all
     render
   end
 

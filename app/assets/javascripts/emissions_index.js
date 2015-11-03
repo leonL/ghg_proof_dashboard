@@ -28,7 +28,7 @@ function twinChoropleths($context, totalAt90thPercentile) {
 
   legend.onAdd = function(map) {
     var
-    div = L.DomUtil.create('div', 'info legend'),
+    div = L.DomUtil.create('div', 'gradient legend'),
     stepSize = emissionTotalUpperBound / colourRamp.length,
     grades = _.range(0 , emissionTotalUpperBound, stepSize),
     labels = [];

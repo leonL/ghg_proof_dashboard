@@ -16,7 +16,7 @@
         <label>
           <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
           Over
-          <i class='scenario-colour-swatch' style='background-color: #1f77b4'></i>
+          <i class='colour-swatch scenario' style='background-color: #1f77b4'></i>
           Business As Usual (2050)
         </label>
       </div>
@@ -47,9 +47,15 @@
   </nav>
   <div class="pane active" id='by-sector'>
     <%= render partial: 'area_chart', collection: @by_sector_charts %>
+    <div class='legend'>
+      <%= render partial: 'factor_label', collection: @sectors %>
+    </div>
   </div>
   <div class="pane" id='by-fuel-type'>
     <%= render partial: 'area_chart', collection: @by_fuel_type_charts %>
+    <div class='legend'>
+      <%= render partial: 'factor_label', collection: @fuel_types %>
+    </div>
   </div>
 </div>
 <div class='row chart-widget maps'>
