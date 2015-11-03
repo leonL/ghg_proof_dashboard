@@ -26,7 +26,11 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
         type: 'scatter',
         fill: 'tonexty',
         name: factor.name,
-        hoverinfo: 'x+text'
+        hoverinfo: 'x+text',
+        fillcolor: factor.area_chart_fill_colour_hex,
+        line: {
+          color: factor.colour.hex
+        }
       }
     end
     plot_coordinates
@@ -60,7 +64,11 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
   end
 
   def all_factor_records
-    @all_factors ||= totals.uniq(&factor_symbol_id).map(&factor_symbol)
+    @all_factors ||= begin
+      factors = totals.uniq(&factor_symbol_id).map(&factor_symbol)
+      Colour.preload_for(factors)
+      factors
+    end
   end
 
   def totals_grouped_by_year

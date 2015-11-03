@@ -8,14 +8,4 @@ class Scenario < ActiveRecord::Base
     colour.hex
   end
 
-  def self.preload_colours(scenarios)
-    preloader.preload(scenarios, :colour)
-  end
-
-private
-
-  def self.preloader
-    ActiveRecord::Associations::Preloader.new
-  end
-
 end

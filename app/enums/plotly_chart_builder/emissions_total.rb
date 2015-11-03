@@ -49,7 +49,7 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
   def all_scenarios
     @scenarios ||= begin
       scenarios = totals.uniq(&:scenario_id).map(&:scenario)
-      Scenario.preload_colours(scenarios)
+      Colour.preload_for(scenarios)
       scenarios
     end
   end
