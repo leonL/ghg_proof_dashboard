@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151031171546) do
+ActiveRecord::Schema.define(version: 20151103141316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,8 @@ ActiveRecord::Schema.define(version: 20151031171546) do
   end
 
   create_table "fuel_types", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "colour_id"
   end
 
   create_table "ghg_emissions", force: :cascade do |t|
@@ -63,7 +64,8 @@ ActiveRecord::Schema.define(version: 20151031171546) do
   end
 
   create_table "sectors", force: :cascade do |t|
-    t.string "name"
+    t.string  "name"
+    t.integer "colour_id"
   end
 
 end

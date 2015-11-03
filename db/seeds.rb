@@ -65,6 +65,30 @@ def colour_palettes
       '#dbdb8d',
       '#17becf',
       '#9edae5'
+    ],
+    fuel_type: [
+      '#1f77b4',
+      '#ff7f0e',
+      '#2ca02c',
+      '#d62728',
+      '#9467bd',
+      '#8c564b',
+      '#e377c2',
+      '#7f7f7f',
+      '#bcbd22',
+      '#17becf'
+    ],
+    sector: [
+      '#8c564b',
+      '#e377c2',
+      '#7f7f7f',
+      '#bcbd22',
+      '#17becf',
+      '#1f77b4',
+      '#ff7f0e',
+      '#2ca02c',
+      '#d62728',
+      '#9467bd'
     ]
   }
 end
@@ -91,15 +115,27 @@ CSV.foreach("#{Rails.root}/db/seed_csvs/scenarios.csv", headers:true) do |row|
 end
 
 # seed all fuel types
+fuel_type_colour_ids_cycle = Colour.for_palette('fuel_type').pluck(:id).cycle
+
 puts "Seeding fuel types..."
 CSV.foreach("#{Rails.root}/db/seed_csvs/fuel_types.csv", headers:true) do |row|
-  FuelType.create(id: row['id'], name: row['name'])
+  FuelType.create(
+    id: row['id'],
+    name: row['name'],
+    colour_id: fuel_type_colour_ids_cycle.next
+  )
 end
 
 # seed all sectors
+sector_colour_ids_cycle = Colour.for_palette('sector').pluck(:id).cycle
+
 puts "Seeding sectors..."
 CSV.foreach("#{Rails.root}/db/seed_csvs/sectors.csv", headers:true) do |row|
-  Sector.create(id: row['id'], name: row['name'])
+  Sector.create(
+    id: row['id'],
+    name: row['name'],
+    colour_id: sector_colour_ids_cycle.next
+  )
 end
 
 # seed census tract geometries
