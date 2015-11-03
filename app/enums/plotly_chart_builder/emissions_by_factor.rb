@@ -76,8 +76,7 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
   def layout
     super.merge(
       {
-        margin: {t: 37, r: 20, l: 50, b: 52},
-        title: chart_title,
+        margin: {t: 10, r: 20, l: 50, b: 52},
         titlefont: {
           family: "Arial, sans-serif",
           size: 16,
@@ -115,10 +114,6 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
         }
       }
     )
-  end
-
-  def chart_title
-    "Scenario: #{scenario.name}"
   end
 
 # util
