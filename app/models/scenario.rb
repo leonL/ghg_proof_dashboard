@@ -4,6 +4,10 @@ class Scenario < ActiveRecord::Base
   has_many :plotly_charts
   belongs_to :colour
 
+  def colour_hex_code
+    colour.hex
+  end
+
   def self.preload_colours(scenarios)
     preloader.preload(scenarios, :colour)
   end

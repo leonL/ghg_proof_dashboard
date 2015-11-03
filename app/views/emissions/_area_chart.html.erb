@@ -1,0 +1,7 @@
+<div class="col-xs-4">
+  <h5 class='text-center'>
+    <i class='scenario-colour-swatch' style='background-color: <%= area_chart.scenario.colour_hex_code %>'></i>
+    <%= area_chart.scenario_name %>
+  </h5>
+  <%= render partial: 'shared/plotly_chart_embed', locals: { o: area_chart } %>
+</div>

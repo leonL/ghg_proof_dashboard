@@ -46,18 +46,10 @@
     </div>
   </nav>
   <div class="pane active" id='by-sector'>
-    <% @by_sector_charts.each do |chart| %>
-      <div class="col-xs-4">
-        <%= render partial: 'shared/plotly_chart_embed', locals: { o: chart } %>
-      </div>
-    <% end %>
+    <%= render partial: 'area_chart', collection: @by_sector_charts %>
   </div>
   <div class="pane" id='by-fuel-type'>
-    <% @by_fuel_type_charts.each do |chart| %>
-      <div class="col-xs-4">
-        <%= render partial: 'shared/plotly_chart_embed', locals: { o: chart } %>
-      </div>
-    <% end %>
+    <%= render partial: 'area_chart', collection: @by_fuel_type_charts %>
   </div>
 </div>
 <div class='row chart-widget maps'>

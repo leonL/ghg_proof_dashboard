@@ -14,4 +14,8 @@ class PlotlyChart < ActiveRecord::Base
   def create_chart
     self.attributes = chart_name.create_chart
   end
+
+  def scenario_name
+    scenario.name
+  end
 end
