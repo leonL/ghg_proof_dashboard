@@ -9,11 +9,20 @@ function togglePanes($context) {
   });
 }
 
+function toggleMapForms($context) {
+  $toggles = $context.find('.form-toggle');
+
+  $toggles.on('click', function() {
+    $form = $(this).siblings('form');
+    $form.slideToggle();
+  });
+}
+
 function twinChoropleths($context, totalAt90thPercentile) {
   var
   $map1 = $context.find('.choropleth-map#cm1'),
   $map2 = $context.find('.choropleth-map#cm2'),
-  $forms = $context.find('.choropleth-controls form'),
+  $forms = $context.find('form'),
   maps = [initiateMap($map1), initiateMap($map2)],
   legend = L.control({position: 'bottomright'}),
   colourRamp = colorbrewer.Reds[9];
@@ -45,29 +54,13 @@ function twinChoropleths($context, totalAt90thPercentile) {
 
   legend.addTo(maps[1]);
 
-  function initControls(yearExtent) {
-    var yearRange = yearInputRange(yearExtent);
-
+  function initForms() {
     $forms.each(function(i) {
       var
       map = maps[i],
       $form = $(this),
-      $yearSlider = $form.find(".year-slider"),
-      $yearInput = $form.find("input#choropleth_params_year"),
       $getDataButton = $form.find('button.submit'),
       visibleLayer = null;
-
-      $yearInput.val(yearRange[0]);
-
-      $yearSlider.slider({
-        value: 0,
-        min: 0,
-        max: yearRange.length - 1,
-        step: 1,
-        slide: function(event, ui) {
-          $yearInput.val(yearRange[ui.value]);
-        }
-      });
 
       $form.on('ajax:success', function(e, data, status, xhr) {
         var geoJSONLayer = L.geoJson(data.features, {style: style});
@@ -75,6 +68,7 @@ function twinChoropleths($context, totalAt90thPercentile) {
           map.removeLayer(visibleLayer);
         }
         map.addLayer(geoJSONLayer);
+        $(this).slideToggle();
         visibleLayer = geoJSONLayer;
       });
 
@@ -128,6 +122,6 @@ function twinChoropleths($context, totalAt90thPercentile) {
   }
 
   return {
-    initControls: initControls
+    initForms: initForms
   };
 }

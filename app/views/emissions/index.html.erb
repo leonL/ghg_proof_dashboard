@@ -62,16 +62,12 @@
   <nav class="navbar navbar-default subnav">
     <h4 class="navbar-text">Emissions by Census Tract</h4>
   </nav>
-  <div class='col-xs-6'>
-    <div id='cc1' class='col-xs-6 choropleth-controls'>
-      <%= render partial: 'choropleth_controls' %>
-    </div>
+  <div class='col-xs-5'>
+    <%= render partial: 'choropleth_controls' %>
     <div id='cm1' class='choropleth-map'></div>
   </div>
-  <div class='col-xs-6'>
-    <div id='cc2' class='col-xs-6 choropleth-controls'>
-      <%= render partial: 'choropleth_controls' %>
-    </div>
+  <div class='col-xs-5'>
+    <%= render partial: 'choropleth_controls' %>
     <div id='cm2' class='choropleth-map'></div>
   </div>
 </div>
@@ -83,8 +79,10 @@
     var
     $mapsContext = $('.chart-widget.maps'),
     map = twinChoropleths($mapsContext, <%= all_zone_totals_90th_percentile %>);
+    map.initForms();
 
-    map.initControls(<%= year_range %>);
+    toggleMapForms($('.maps'));
+
 
   });
 </script>
