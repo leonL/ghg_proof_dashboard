@@ -23,8 +23,8 @@ function twinChoropleths($context, totalAt90thPercentile) {
   $map1 = $context.find('.choropleth-map#cm1'),
   $map2 = $context.find('.choropleth-map#cm2'),
   $forms = $context.find('form'),
+  $legendWrapper = $context.find('.col-xs-2'),
   maps = [initiateMap($map1), initiateMap($map2)],
-  legend = L.control({position: 'bottomright'}),
   colourRamp = colorbrewer.Reds[9];
 
   var
@@ -35,7 +35,7 @@ function twinChoropleths($context, totalAt90thPercentile) {
   }(),
   colorScale = d3.scale.quantize().domain([0, emissionTotalUpperBound]).range(colourRamp);
 
-  legend.onAdd = function(map) {
+  legend = function(map) {
     var
     div = L.DomUtil.create('div', 'gradient legend'),
     stepSize = emissionTotalUpperBound / colourRamp.length,
@@ -52,7 +52,9 @@ function twinChoropleths($context, totalAt90thPercentile) {
     return div;
   };
 
-  legend.addTo(maps[1]);
+  var $legend = $(legend());
+  $legend.appendTo($legendWrapper);
+  $('<div class="units"><label>kilotonnes</label></div>').appendTo($legend);
 
   function initForms() {
     $forms.each(function(i) {
