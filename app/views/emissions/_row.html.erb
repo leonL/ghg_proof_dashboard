@@ -1,7 +1,10 @@
 <tr>
-  <td><i class='scenario colour-swatch' style='background-color: <%= row.colour.hex %>'></i><%= row.name %></td>
-  <td>302.01</td>
-  <td>1.23</td>
-  <td>87.1%</td>
-  <td>5.4%</td>
+  <td>
+    <i class='scenario colour-swatch' style='background-color: <%= row.scenario.colour.hex %>'></i>
+    <%= row.scenario.name %>
+  </td>
+  <td><%= row.total_Mt %></td>
+  <td><%= row.per_capita_t %></td>
+  <td><%= row.percent %></td>
+  <td><%= row.percent_per_capita %></td>
 </tr>

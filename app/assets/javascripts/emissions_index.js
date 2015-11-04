@@ -10,11 +10,25 @@ function togglePanes($context) {
 }
 
 function toggleMapForms($context) {
-  $toggles = $context.find('.form-toggle');
+  var $toggles = $context.find('.form-toggle');
 
   $toggles.on('click', function() {
-    $form = $(this).siblings('form');
+    var $form = $(this).siblings('form');
     $form.slideToggle();
+  });
+}
+
+function toggleReductionsTables($context) {
+  var
+  $toggle = $context.find('.reductions-benchmarks'),
+  $tables = $context.find('.table-wrapper'),
+  $checkedRadio = $toggle.find(':checked');
+
+  $tables.filter('.' + $checkedRadio.val()).show();
+
+  $toggle.on('change', function(e) {
+    $tables.hide();
+    $tables.filter('.' + e.target.value).show();
   });
 }
 

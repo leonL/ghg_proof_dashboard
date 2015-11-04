@@ -8,29 +8,20 @@
     <div class='reductions-benchmarks'>
       <div class="radio sandals">
         <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+          <input type="radio" name="benchmark-toggle" value="BaseYr" checked>
           Over 2015 (Baseline Year)
         </label>
       </div>
       <div class="radio">
         <label>
-          <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+          <input type="radio" name="benchmark-toggle" value="BAU">
           Over
           <i class='colour-swatch scenario' style='background-color: #1f77b4'></i>
           Business As Usual (2050)
         </label>
       </div>
     </div>
-    <table class="table table-hover emissions-reductions">
-      <thead>
-        <td>Scenario</td>
-        <td>tCO2e</td>
-        <td>tCO2e per capita</td>
-        <td>%</td>
-        <td>% per capita</td>
-      </thead>
-      <%= render partial: 'row', collection: @scenarios %>
-    </table>
+    <%= render partial: 'reductions_table', collection: reductions_grouped_by_benchmark_type.to_a %>
   </div>
 </div>
 <div class='row chart-widget by-factor-area-charts'>
@@ -77,6 +68,7 @@
 <script type="text/javascript">
   $(function() {
     togglePanes($('.by-factor-area-charts'));
+    toggleReductionsTables($('.summary-statistics'));
 
     var
     $mapsContext = $('.chart-widget.maps'),
@@ -84,7 +76,5 @@
     map.initForms();
 
     toggleMapForms($('.maps'));
-
-
   });
 </script>

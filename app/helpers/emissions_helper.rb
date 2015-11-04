@@ -1,5 +1,9 @@
 module EmissionsHelper
 
+  def reductions_grouped_by_benchmark_type
+    @reductions_grouped ||= @reduction_summaries.group_by(&:benchmark_type)
+  end
+
   def all_zone_totals_90th_percentile
     records = GhgEmission.descending_yearly_totals_by_zone_scenario_year
     decile_n = records.count / 10

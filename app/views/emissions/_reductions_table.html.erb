@@ -1,0 +1,12 @@
+<div class='table-wrapper <%= reductions_table.first %>'>
+  <table class="table table-hover emissions-reductions">
+    <thead>
+      <td>Scenario</td>
+      <td>total CO2eq (Mt)</td>
+      <td>total pc (t)</td>
+      <td>% CO2eq</td>
+      <td>% pc</td>
+    </thead>
+    <%= render partial: 'row', collection: reductions_table.last %>
+  </table>
+</div>

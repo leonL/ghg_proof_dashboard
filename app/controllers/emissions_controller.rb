@@ -7,6 +7,7 @@ class EmissionsController < ApplicationController
     @scenarios = Scenario.includes(:colour)
     @fuel_types = FuelType.all
     @sectors = Sector.all
+    @reduction_summaries = EmissionsReductionSummary.includes(:scenario)
     render
   end
 
@@ -22,6 +23,8 @@ class EmissionsController < ApplicationController
       end
     end
   end
+
+private
 
   def choropleth_query_where_clause
     clause = {}
