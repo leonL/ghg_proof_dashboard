@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151103141316) do
+ActiveRecord::Schema.define(version: 20151104161042) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 20151103141316) do
   create_table "colours", force: :cascade do |t|
     t.string "hex"
     t.string "palette"
+  end
+
+  create_table "emissions_reduction_summaries", force: :cascade do |t|
+    t.integer "benchmark_year"
+    t.string  "benchmark_type"
+    t.integer "scenario_id"
+    t.decimal "total_Mt"
+    t.decimal "percent"
+    t.decimal "per_capita_t"
+    t.decimal "percent_per_capita"
   end
 
   create_table "fuel_types", force: :cascade do |t|
