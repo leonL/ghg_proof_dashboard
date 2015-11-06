@@ -1,17 +1,10 @@
-!	stdin[ComparisonType,scenarioID,timeFilt,summaryTblFlds]: baseline_year_2011
+!	stdin[ComparisonType,scenarioID,time,summaryTblFlds]: baseline_year_2011
 
 
 
-ComparisonType,scenarioID,timeFilt,CO2eq_reduction_Mt,per_capita_reduction_tonnePerPerson,%_CO2eq_reduction,%_per_capita_reduction
-"BaseYr","3","2011",0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00
+ComparisonType,scenarioID,time,CO2eq_reduction_Mt,per_capita_reduction_tonnePerPerson,%_CO2eq_reduction,%_per_capita_reduction
 "BaseYr","3","2050",-2.061664e+01,5.186084e-02,-3.156613e+01,1.061400e+00
-"BaseYr","1","2011",0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00
 "BaseYr","1","2050",-1.211750e+01,4.903320e-01,-1.918115e+01,1.037499e+01
-"BaseYr","2","2011",0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00
 "BaseYr","2","2050",-1.434317e+01,4.311304e-01,-2.149368e+01,8.635951e+00
-"BAU","3","2011",0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00
-"BAU","3","2050",0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00
-"BAU","1","2011",2.138526e+00,1.599844e-01,3.274296e+00,3.274288e+00
 "BAU","1","2050",1.063766e+01,5.984555e-01,1.237957e+01,1.237957e+01
-"BAU","2","2011",-1.419497e+00,-1.061938e-01,-2.173392e+00,-2.173395e+00
 "BAU","2","2050",4.853973e+00,2.730757e-01,5.648807e+00,5.648806e+00

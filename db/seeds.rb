@@ -141,7 +141,7 @@ end
 puts "Seeding reductions summaries..."
 CSV.foreach("#{Rails.root}/db/seed_csvs/summaryData.csv", headers:true, skip_blanks:true, skip_lines:Regexp.new('!')) do |row|
   EmissionsReductionSummary.create(
-    benchmark_year: row['timeFilt'],
+    benchmark_year: row['time'],
     benchmark_type: row['ComparisonType'],
     scenario_id: row["scenarioID"],
     total_Mt: row["CO2eq_reduction_Mt"],
