@@ -105,11 +105,11 @@ end
 scenario_colour_ids_cycle = Colour.for_palette('scenario').pluck(:id).cycle
 
 puts "Seeding scenarios..."
-CSV.foreach("#{Rails.root}/db/seed_csvs/scenarios.csv", headers:true) do |row|
+CSV.foreach("#{Rails.root}/db/seed_csvs/scenarioLookup.csv", headers:true, skip_blanks:true) do |row|
   Scenario.create(
-    id: row['id'],
-    name: row['name'],
-    description: row['description'],
+    id: row['scenarioID'],
+    name: row['scenarioNames'],
+    bau: row['isBAU'],
     colour_id: scenario_colour_ids_cycle.next
   )
 end
