@@ -26,4 +26,13 @@ module EmissionsHelper
     @all_sectors_but_transportation ||= @sectors.reject{|s| s.name == 'Transportation'}
   end
 
+  def bau
+    @bau ||= @scenarios.find &:bau
+  end
+
+  def c
+    @config ||= Configuration.new
+  end
+
+
 end

@@ -9,15 +9,15 @@
       <div class="radio sandals">
         <label>
           <input type="radio" name="benchmark-toggle" value="BaseYr" checked>
-          Over 2015 (Baseline Year)
+          Over <%= c.baseline_year %> (Baseline Year)
         </label>
       </div>
       <div class="radio">
         <label>
           <input type="radio" name="benchmark-toggle" value="BAU">
           Over
-          <i class='colour-swatch scenario' style='background-color: #1f77b4'></i>
-          Business As Usual (2050)
+          <i class='colour-swatch scenario' style='background-color: <%= bau.colour.hex %>'></i>
+          <%= bau.name %> (<%= c.projection_range.last %>)
         </label>
       </div>
     </div>
