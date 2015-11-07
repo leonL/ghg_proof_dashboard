@@ -1,10 +1,10 @@
 <tr>
-  <td>
+  <td class='text-left'>
     <i class='scenario colour-swatch' style='background-color: <%= row.scenario.colour.hex %>'></i>
     <%= row.scenario.name %>
   </td>
-  <td><%= row.total_Mt %></td>
-  <td><%= row.per_capita_t %></td>
-  <td><%= row.percent %></td>
-  <td><%= row.percent_per_capita %></td>
+  <td><%= row.total_Mt.round(2) %></td>
+  <td><%= row.per_capita_t.round(2) %></td>
+  <td><%= row.percent.round(2) %></td>
+  <td><%= row.percent_per_capita.round(2) %></td>
 </tr>
