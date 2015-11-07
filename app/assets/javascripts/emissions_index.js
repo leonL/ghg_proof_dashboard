@@ -10,12 +10,21 @@ function togglePanes($context) {
 }
 
 function toggleMapForms($context) {
-  var $toggles = $context.find('.form-toggle');
+  var
+  $currentSettings = $context.find('.form-toggle'),
+  $cancelButtons = $context.find('button.cancel');
 
-  $toggles.on('click', function() {
+  $currentSettings.on('click', function() {
     var $form = $(this).siblings('form');
-    $form.slideToggle();
+    $form.slideToggle('slow');
   });
+
+  $cancelButtons.on('click', function() {
+    var $form = $(this).parents('form');
+    $form.slideToggle('fast');
+  });
+
+  $('[data-toggle="tooltip"]').tooltip();
 }
 
 function toggleReductionsTables($context) {
