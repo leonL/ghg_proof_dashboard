@@ -1,11 +1,11 @@
 <ul class="list-inline current-settings form-toggle" data-toggle="tooltip" data-placement="top" title="Click to Change Values">
-  <li>
+  <li id='scenario'>
     <label>Scenario</label>
     <i class='scenario colour-swatch' style='background-color: #aec7e8'></i> Turtle
   </li>
-  <li><label>Year</label> 2011</li>
-  <li><label>Sectors</label> All</li>
-  <li><label>Fuel Types</label> All</li>
+  <li id='year'><label>Year</label> 2011</li>
+  <li id='sectors'><label>Sectors</label> All</li>
+  <li id='fuel-types'><label>Fuel Types</label> All</li>
 </ul>
 <%= form_for :choropleth_params, url: choropleth_data_emissions_path,
         remote: true, method: 'get', data: {type: :json} do |f| %>

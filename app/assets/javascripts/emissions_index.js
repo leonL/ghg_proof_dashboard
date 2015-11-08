@@ -41,14 +41,15 @@ function toggleReductionsTables($context) {
   });
 }
 
-function twinChoropleths($context, totalAt90thPercentile) {
+function twinChoropleths($context, totalAt90thPercentile, scenarios) {
   var
   $map1 = $context.find('.choropleth-map#cm1'),
   $map2 = $context.find('.choropleth-map#cm2'),
   $forms = $context.find('form'),
   $legendWrapper = $context.find('.col-xs-2'),
   maps = [initiateMap($map1), initiateMap($map2)],
-  colourRamp = colorbrewer.Reds[9];
+  colourRamp = colorbrewer.Reds[9],
+  allScenarios = scenarios;
 
   var
   emissionTotalUpperBound = function() {
@@ -80,6 +81,7 @@ function twinChoropleths($context, totalAt90thPercentile) {
   $('<div class="units"><label>kilotonnes</label></div>').appendTo($legend);
 
   function initForms() {
+
     $forms.each(function(i) {
       var
       map = maps[i],
@@ -89,16 +91,51 @@ function twinChoropleths($context, totalAt90thPercentile) {
 
       $form.on('ajax:success', function(e, data, status, xhr) {
         var geoJSONLayer = L.geoJson(data.features, {style: style});
+
         if (visibleLayer) {
           map.removeLayer(visibleLayer);
         }
         map.addLayer(geoJSONLayer);
+
+        updateCurrentSettingsEl($(this));
         $(this).slideToggle();
         visibleLayer = geoJSONLayer;
       });
 
       // $getDataButton.click();
     });
+  }
+
+  function updateCurrentSettingsEl($form) {
+    function setLabelText($el, text) {
+      $el.contents().last()[0].textContent = (' ' + text);
+    }
+
+    function optionsTextToCommaString($opts) {
+      var text = _.map($opts, function(el) { return el.textContent; });
+      return text.join(', ');
+    }
+
+    var
+    $currentSettings = $form.siblings('.current-settings'),
+    $currentScenario = $currentSettings.find('li#scenario'),
+    $currentYear = $currentSettings.find('li#year'),
+    $currentSectors = $currentSettings.find('li#sectors'),
+    $currentFuelTypes = $currentSettings.find('li#fuel-types'),
+
+    selectedScenarioId = $form.find('select#choropleth_params_scenario_id option:selected').val(),
+    selectedScenario = _.find(allScenarios, function(s) { return s.id == selectedScenarioId; }),
+    selectedYear = $form.find('#choropleth_params_year option:selected').val(),
+    selectedSectors = optionsTextToCommaString($form.find('#choropleth_params_sector_ids option:selected')),
+    selectedFuelTypes = optionsTextToCommaString($form.find('#choropleth_params_fuel_type_ids option:selected'));
+
+    setLabelText($currentScenario, selectedScenario.name);
+    $currentScenario.find('i').css('background-color', selectedScenario.colour.hex);
+    setLabelText($currentYear, selectedYear);
+    setLabelText($currentSectors, selectedSectors);
+    setLabelText($currentFuelTypes, selectedFuelTypes);
+
+    return null;
   }
 
   function yearInputRange(yearExtent) {
