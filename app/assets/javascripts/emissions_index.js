@@ -86,7 +86,6 @@ function twinChoropleths($context, totalAt90thPercentile, scenarios) {
       var
       map = maps[i],
       $form = $(this),
-      $getDataButton = $form.find('button.submit'),
       visibleLayer = null;
 
       $form.on('ajax:success', function(e, data, status, xhr) {
@@ -98,12 +97,12 @@ function twinChoropleths($context, totalAt90thPercentile, scenarios) {
         map.addLayer(geoJSONLayer);
 
         updateCurrentSettingsEl($(this));
-        $(this).slideToggle();
+        $(this).hide();
         visibleLayer = geoJSONLayer;
       });
-
-      // $getDataButton.click();
     });
+
+    return $forms;
   }
 
   function updateCurrentSettingsEl($form) {
@@ -128,6 +127,8 @@ function twinChoropleths($context, totalAt90thPercentile, scenarios) {
     selectedYear = $form.find('#choropleth_params_year option:selected').val(),
     selectedSectors = optionsTextToCommaString($form.find('#choropleth_params_sector_ids option:selected')),
     selectedFuelTypes = optionsTextToCommaString($form.find('#choropleth_params_fuel_type_ids option:selected'));
+
+    $currentSettings.show();
 
     setLabelText($currentScenario, selectedScenario.name);
     $currentScenario.find('i').css('background-color', selectedScenario.colour.hex);
