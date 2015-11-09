@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root 'emissions/charts#total'
+  root 'emissions#index'
 
   resources :emissions do
     collection do
