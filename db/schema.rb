@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151106162700) do
+ActiveRecord::Schema.define(version: 20151111184825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,14 +32,41 @@ ActiveRecord::Schema.define(version: 20151106162700) do
     t.string "palette"
   end
 
-  create_table "emissions_reduction_summaries", force: :cascade do |t|
-    t.integer "benchmark_year"
+  create_table "emissions_summaries", force: :cascade do |t|
     t.string  "benchmark_type"
     t.integer "scenario_id"
-    t.decimal "total_Mt"
-    t.decimal "percent"
-    t.decimal "per_capita_t"
-    t.decimal "percent_per_capita"
+    t.integer "benchmark_year"
+    t.decimal "total_change_Mt"
+    t.decimal "per_capita_change_t"
+    t.decimal "percent_change"
+    t.decimal "percent_per_capita_change"
+  end
+
+  create_table "energy_by_end_use_totals", force: :cascade do |t|
+    t.integer "scenario_id"
+    t.integer "year"
+    t.decimal "total"
+    t.integer "end_use_id"
+    t.integer "fuel_type_id"
+  end
+
+  create_table "energy_summaries", force: :cascade do |t|
+    t.string  "benchmark_type"
+    t.integer "scenario_id"
+    t.integer "benchmark_year"
+    t.decimal "total_use_change_PJ"
+    t.decimal "per_capita_use_change_GJ"
+    t.decimal "percent_use_change"
+    t.decimal "percent_use_per_capita_change"
+  end
+
+  create_table "energy_totals", force: :cascade do |t|
+    t.integer "scenario_id"
+    t.integer "zone_id"
+    t.integer "year"
+    t.decimal "total"
+    t.integer "sector_id"
+    t.integer "fuel_type_id"
   end
 
   create_table "fuel_types", force: :cascade do |t|

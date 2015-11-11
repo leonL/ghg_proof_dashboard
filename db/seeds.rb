@@ -1,97 +1,4 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-
-def copy_emissions_csv(scenario_id)
-  # Setup raw connection
-  conn = ActiveRecord::Base.connection
-  rc = conn.raw_connection
-  rc.exec("COPY ghg_emissions(zone_id,sector_id,fuel_type_id,scope,scenario_id,year,total_emissions) FROM STDIN WITH CSV header")
-
-  file = File.open("#{Rails.root}/db/seed_csvs/mock_ghg_emissions_sc#{scenario_id}.csv", 'r')
-  while !file.eof?
-    # Add row to copy data
-    rc.put_copy_data(file.readline)
-  end
-  # We are done adding copy data
-  rc.put_copy_end
-
-  # Display any error messages
-  errors = rc.get_result.error_message
-  puts "Errors: #{errors}" unless errors.blank?
-end
-
-def seed_from_shapefile(shp_file_path, &block)
-  puts "Seeding shapefile at #{shp_file_path}"
-  RGeo::Shapefile::Reader.open(shp_file_path) do |file|
-    puts "Shape file contains #{file.num_records} records."
-    file.each do |record|
-      block.call record
-    end
-  end
-end
-
-def plotly_chart_names
-  {
-    scenario_specific: ['emissions_by_sector', 'emissions_by_fuel_type'],
-    scenario_independent: ['emissions_total']
-  }
-end
-
-def colour_palettes
-  {
-    scenario: [
-      '#1f77b4',
-      '#aec7e8',
-      '#ff7f0e',
-      '#ffbb78',
-      '#2ca02c',
-      '#98df8a',
-      '#d62728',
-      '#ff9896',
-      '#9467bd',
-      '#c5b0d5',
-      '#8c564b',
-      '#c49c94',
-      '#e377c2',
-      '#f7b6d2',
-      '#7f7f7f',
-      '#c7c7c7',
-      '#bcbd22',
-      '#dbdb8d',
-      '#17becf',
-      '#9edae5'
-    ],
-    fuel_type: [
-      '#1f77b4',
-      '#ff7f0e',
-      '#2ca02c',
-      '#d62728',
-      '#9467bd',
-      '#8c564b',
-      '#e377c2',
-      '#7f7f7f',
-      '#bcbd22',
-      '#17becf'
-    ],
-    sector: [
-      '#8c564b',
-      '#e377c2',
-      '#7f7f7f',
-      '#bcbd22',
-      '#17becf',
-      '#1f77b4',
-      '#ff7f0e',
-      '#2ca02c',
-      '#d62728',
-      '#9467bd'
-    ]
-  }
-end
+require "#{Rails.root}/db/seed_lib.rb"
 
 # seed all colours
 puts "Seeding colours"
@@ -105,7 +12,7 @@ end
 scenario_colour_ids_cycle = Colour.for_palette('scenario').pluck(:id).cycle
 
 puts "Seeding scenarios..."
-CSV.foreach("#{Rails.root}/db/seed_csvs/scenarioLookup.csv", headers:true, skip_blanks:true) do |row|
+CSV.foreach("#{Rails.root}/db/data/scenario.csv", headers:true) do |row|
   Scenario.create(
     id: row['scenarioID'],
     name: row['scenarioNames'],
@@ -118,7 +25,7 @@ end
 fuel_type_colour_ids_cycle = Colour.for_palette('fuel_type').pluck(:id).cycle
 
 puts "Seeding fuel types..."
-CSV.foreach("#{Rails.root}/db/seed_csvs/fuel_types.csv", headers:true) do |row|
+CSV.foreach("#{Rails.root}/db/data/fuel_type.csv", headers:true) do |row|
   FuelType.create(
     id: row['id'],
     name: row['name'],
@@ -130,7 +37,7 @@ end
 sector_colour_ids_cycle = Colour.for_palette('sector').pluck(:id).cycle
 
 puts "Seeding sectors..."
-CSV.foreach("#{Rails.root}/db/seed_csvs/sectors.csv", headers:true) do |row|
+CSV.foreach("#{Rails.root}/db/data/sector.csv", headers:true) do |row|
   Sector.create(
     id: row['id'],
     name: row['name'],
@@ -138,16 +45,56 @@ CSV.foreach("#{Rails.root}/db/seed_csvs/sectors.csv", headers:true) do |row|
   )
 end
 
-puts "Seeding reductions summaries..."
-CSV.foreach("#{Rails.root}/db/seed_csvs/summaryData.csv", headers:true, skip_blanks:true, skip_lines:Regexp.new('!')) do |row|
-  EmissionsReductionSummary.create(
-    benchmark_year: row['time'],
+scenario_ids = Scenario.pluck :id
+
+scenario_ids.each do |scenario_id|
+
+  # import ghg_emissions csvs
+  puts "Seeding ghg_emissions for scenario #{scenario_id}..."
+  import_large_csv(
+    "#{Rails.root}/db/data/Emissions/emissionsDetailed_#{scenario_id}.csv",
+    'ghg_emissions(scenario_id, zone_id, scope, year, total_emissions, sector_id, fuel_type_id)'
+  )
+
+  # import ghg_emissions csvs
+  puts "Seeding energy totals for scenario #{scenario_id}..."
+  import_large_csv(
+    "#{Rails.root}/db/data/Energy/energyDetailed_#{scenario_id}.csv",
+    'energy_totals(scenario_id, zone_id, year, total, sector_id, fuel_type_id)'
+  )
+
+  # import ghg_emissions csvs
+  puts "Seeding energy by end use totals for scenario #{scenario_id}..."
+  import_large_csv(
+    "#{Rails.root}/db/data/Energy/energyByEndUse_#{scenario_id}.csv",
+    'energy_by_end_use_totals(scenario_id, year, total, end_use_id, fuel_type_id)'
+  )
+
+end
+
+puts "Seeding emissions summaries..."
+CSV.foreach("#{Rails.root}/db/data/Emissions/summaryData.csv", headers:true) do |row|
+  EmissionsSummary.create(
     benchmark_type: row['ComparisonType'],
     scenario_id: row["scenarioID"],
-    total_Mt: row["CO2eq_reduction_Mt"],
-    percent: row["%_CO2eq_reduction"],
-    per_capita_t: row["per_capita_reduction_tonnePerPerson"],
-    percent_per_capita: row["%_per_capita_reduction"]
+    benchmark_year: row['time'],
+    total_change_Mt: row["CO2eq_change_Mt"],
+    per_capita_change_t: row["per_capita_change_tonnePerPerson"],
+    percent_change: row["X._CO2eq_change"],
+    percent_per_capita_change: row["X._per_capita_change"]
+  )
+end
+
+puts "Seeding energy summaries..."
+CSV.foreach("#{Rails.root}/db/data/Energy/summaryData.csv", headers:true) do |row|
+  EnergySummary.create(
+    benchmark_type: row['ComparisonType'],
+    scenario_id: row["scenarioID"],
+    benchmark_year: row['time'],
+    total_use_change_PJ: row["EnergyUse_change_PJ"],
+    per_capita_use_change_GJ: row["per_capita_change_GJPerPerson"],
+    percent_use_change: row["X._EnergyUse_change"],
+    percent_use_per_capita_change: row["X._per_capita_change"]
   )
 end
 
@@ -158,12 +105,6 @@ seed_from_shapefile("#{Rails.root}/db/shpfiles/census_tracts/toronto_ct.shp") do
     area: record.attributes['AREA'],
     geom: record.geometry.as_text
   )
-end
-
-# import ghg_emissions csvs
-(1..3).each do |n|
-  puts "Seeding ghg_emissions for scenario #{n}..."
-  copy_emissions_csv(n)
 end
 
 # Create Plotly Charts

@@ -7,7 +7,7 @@ class EmissionsController < ApplicationController
     @scenarios = Scenario.includes(:colour)
     @fuel_types = FuelType.all
     @sectors = Sector.all
-    @reduction_summaries = EmissionsReductionSummary.includes(:scenario)
+    @reduction_summaries = EmissionsSummary.includes(:scenario)
     render
   end
 
