@@ -1,6 +1,7 @@
 class EnergyController < ApplicationController
 
   def index
+    @total_chart = PlotlyChart.named('energy_totals').first
     render
   end
 

@@ -1,6 +1,7 @@
 <div class='row chart-widget summary'>
   <div class="col-xs-6 total-emissions">
     <h5 class='text-center'>Projected Yearly Energy Use</h5>
+    <%= render partial: 'shared/plotly_chart_embed', locals: { o: @total_chart } %>
   </div>
   <div class="col-xs-6 summary-statistics">
     <h5>Projected Changes</h5>
