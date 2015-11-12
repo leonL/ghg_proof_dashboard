@@ -1,6 +1,7 @@
 class CensusTract < ActiveRecord::Base
 
   has_many :ghg_emissions, primary_key: :zone_id, foreign_key: :zone_id, inverse_of: :census_tract
+  has_many :energy_totals, primary_key: :zone_id, foreign_key: :zone_id, inverse_of: :census_tract
 
   def self.with_emissions_totals_where_year_scenario(year, scenario_id, other_where_eq_in={})
     # build GhgEmission join clause that will be joined

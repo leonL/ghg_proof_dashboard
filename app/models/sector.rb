@@ -1,6 +1,7 @@
 class Sector < ActiveRecord::Base
 
   has_many :ghg_emissions
+  has_many :energy_totals
   belongs_to :colour
 
   def self.find_by_name(name)
