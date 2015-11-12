@@ -1,0 +1,9 @@
+"key","name","id"
+"Space_Heating","Space Heating",1
+"Space_Cooling","Space Cooling",2
+"Water_Heating","Water Heating",3
+"Lighting","Lighting",4
+"Major_Appliances","Major Appliances",5
+"Plug_Load","Plug Load",6
+"Industrial_Manufacturing","Industrial Manufacturing",7
+"Transportation","Transportation",8

@@ -1,0 +1,6 @@
+"ComparisonType","scenarioID","time","EnergyUse_change_PJ","per_capita_change_GJPerPerson","X._EnergyUse_change","X._per_capita_change"
+"BaseYr",6,2050,999.4836,11.0642,41.05619,6.075174
+"BaseYr",12,2050,760.9979,-2.352562,31.25981,-1.291754
+"BaseYr",35,2050,734.551,-3.840426,30.17344,-2.108716
+"BAU",12,2050,-238.4857,-13.41676,-6.945015,-6.945007
+"BAU",35,2050,-264.9326,-14.90462,-7.715181,-7.71518
