@@ -12,6 +12,10 @@ module ApplicationHelper
     @fuel_types ||= FuelType.all
   end
 
+  def end_uses
+    @end_uses ||= EndUse.all
+  end
+
   def sectors
     @sectors ||= Sector.all
   end

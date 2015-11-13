@@ -34,6 +34,9 @@
       <label class="btn btn-primary">
         <input type="radio" name="toggle-factor" id="by-fuel-type" autocomplete="off"> Fuel Type
       </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="toggle-factor" id="by-end-use" autocomplete="off"> End Use
+      </label>
     </div>
   </nav>
   <div class="pane active" id='by-sector'>
@@ -46,6 +49,12 @@
     <%= render partial: 'shared/area_chart', collection: @by_fuel_type_charts %>
     <div class='legend'>
       <%= render partial: 'shared/factor_label', collection: fuel_types %>
+    </div>
+  </div>
+  <div class="pane" id='by-end-use'>
+    <%= render partial: 'shared/area_chart', collection: @by_end_use_charts %>
+    <div class='legend'>
+      <%= render partial: 'shared/factor_label', collection: end_uses %>
     </div>
   </div>
 </div>

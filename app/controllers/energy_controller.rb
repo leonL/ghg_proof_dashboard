@@ -4,6 +4,7 @@ class EnergyController < ApplicationController
     @total_chart = PlotlyChart.named('energy_totals').first
     @by_sector_charts = PlotlyChart.named('energy_by_sector')
     @by_fuel_type_charts = PlotlyChart.named('energy_by_fuel_type')
+    @by_end_use_charts = PlotlyChart.named('energy_by_end_use')
     @energy_summaries = EnergySummary.includes(:scenario)
     render
   end

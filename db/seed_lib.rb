@@ -29,7 +29,7 @@ end
 
 def plotly_chart_names
   {
-    scenario_specific: ['emissions_by_sector', 'emissions_by_fuel_type', 'energy_by_sector', 'energy_by_fuel_type'],
+    scenario_specific: ['emissions_by_sector', 'emissions_by_fuel_type', 'energy_by_sector', 'energy_by_fuel_type', 'energy_by_end_use'],
     scenario_independent: ['emissions_total', 'energy_totals']
   }
 end
@@ -83,11 +83,11 @@ def colour_palettes
       '#9467bd'
     ],
     end_use: [
-      '#9edae5',
+      '#2ca02c',
       '#17becf',
       '#dbdb8d',
       '#bcbd22',
-      '#c7c7c7',
+      '#d62728',
       '#7f7f7f',
       '#f7b6d2',
       '#e377c2',
