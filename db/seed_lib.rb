@@ -81,6 +81,18 @@ def colour_palettes
       '#2ca02c',
       '#d62728',
       '#9467bd'
+    ],
+    end_use: [
+      '#9edae5',
+      '#17becf',
+      '#dbdb8d',
+      '#bcbd22',
+      '#c7c7c7',
+      '#7f7f7f',
+      '#f7b6d2',
+      '#e377c2',
+      '#c49c94',
+      '#8c564b'
     ]
   }
 end

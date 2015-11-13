@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151111184825) do
+ActiveRecord::Schema.define(version: 20151113155637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,11 @@ ActiveRecord::Schema.define(version: 20151111184825) do
     t.decimal "per_capita_change_t"
     t.decimal "percent_change"
     t.decimal "percent_per_capita_change"
+  end
+
+  create_table "end_uses", force: :cascade do |t|
+    t.string  "name"
+    t.integer "colour_id"
   end
 
   create_table "energy_by_end_use_totals", force: :cascade do |t|

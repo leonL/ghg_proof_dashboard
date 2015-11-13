@@ -45,6 +45,18 @@ CSV.foreach("#{Rails.root}/db/data/sector.csv", headers:true) do |row|
   )
 end
 
+# seed all end uses
+end_use_colour_ids_cycle = Colour.for_palette('end_use').pluck(:id).cycle
+
+puts "Seeding end uses..."
+CSV.foreach("#{Rails.root}/db/data/end_use.csv", headers:true) do |row|
+  EndUse.create(
+    id: row['id'],
+    name: row['name'],
+    colour_id: end_use_colour_ids_cycle.next
+  )
+end
+
 scenario_ids = Scenario.pluck :id
 
 scenario_ids.each do |scenario_id|
