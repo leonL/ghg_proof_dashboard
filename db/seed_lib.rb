@@ -89,7 +89,7 @@ def colour_palettes
       '#bcbd22',
       '#d62728',
       '#7f7f7f',
-      '#f7b6d2',
+      '#1f77b4',
       '#e377c2',
       '#c49c94',
       '#8c564b'
