@@ -37,15 +37,15 @@
     </div>
   </nav>
   <div class="pane active" id='by-sector'>
-    <%= render partial: 'area_chart', collection: @by_sector_charts %>
+    <%= render partial: 'shared/area_chart', collection: @by_sector_charts %>
     <div class='legend'>
-      <%= render partial: 'factor_label', collection: sectors %>
+      <%= render partial: 'shared/factor_label', collection: sectors %>
     </div>
   </div>
   <div class="pane" id='by-fuel-type'>
-    <%= render partial: 'area_chart', collection: @by_fuel_type_charts %>
+    <%= render partial: 'shared/area_chart', collection: @by_fuel_type_charts %>
     <div class='legend'>
-      <%= render partial: 'factor_label', collection: fuel_types %>
+      <%= render partial: 'shared/factor_label', collection: fuel_types %>
     </div>
   </div>
 </div>

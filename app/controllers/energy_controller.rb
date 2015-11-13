@@ -2,6 +2,8 @@ class EnergyController < ApplicationController
 
   def index
     @total_chart = PlotlyChart.named('energy_totals').first
+    @by_sector_charts = PlotlyChart.named('energy_by_sector')
+    @by_fuel_type_charts = PlotlyChart.named('energy_by_fuel_type')
     @energy_summaries = EnergySummary.includes(:scenario)
     render
   end

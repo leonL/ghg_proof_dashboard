@@ -24,9 +24,35 @@
     <%= render partial: 'projected_changes_table', collection: energy_changes_grouped_by_benchmark_type.to_a %>
   </div>
 </div>
+<div class='row chart-widget by-factor-area-charts'>
+  <nav class="navbar navbar-default subnav">
+    <h4 class="navbar-text">Energy Use by</h4>
+    <div class="btn-group toggle" data-toggle="buttons">
+      <label class="btn btn-primary active">
+        <input type="radio" name="toggle-factor" id="by-sector" autocomplete="off" checked> Sector
+      </label>
+      <label class="btn btn-primary">
+        <input type="radio" name="toggle-factor" id="by-fuel-type" autocomplete="off"> Fuel Type
+      </label>
+    </div>
+  </nav>
+  <div class="pane active" id='by-sector'>
+    <%= render partial: 'shared/area_chart', collection: @by_sector_charts %>
+    <div class='legend'>
+      <%= render partial: 'shared/factor_label', collection: sectors %>
+    </div>
+  </div>
+  <div class="pane" id='by-fuel-type'>
+    <%= render partial: 'shared/area_chart', collection: @by_fuel_type_charts %>
+    <div class='legend'>
+      <%= render partial: 'shared/factor_label', collection: fuel_types %>
+    </div>
+  </div>
+</div>
 
 <script type="text/javascript">
   $(function() {
     toggleReductionsTables($('.projected-changes'));
+    togglePanes($('.by-factor-area-charts'));
   });
 </script>
