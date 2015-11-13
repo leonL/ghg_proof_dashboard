@@ -54,11 +54,11 @@
     <h4 class="navbar-text">Emissions by Zone</h4>
   </nav>
   <div class='col-xs-5'>
-    <%= render partial: 'choropleth_controls' %>
+    <%= render partial: 'shared/choropleth_controls', locals: { path: choropleth_data_emissions_path } %>
     <div id='cm1' class='choropleth-map'></div>
   </div>
   <div class='col-xs-5'>
-    <%= render partial: 'choropleth_controls' %>
+    <%= render partial: 'shared/choropleth_controls', locals: { path: choropleth_data_emissions_path } %>
     <div id='cm2' class='choropleth-map'></div>
   </div>
   <div class='col-xs-2'>
@@ -72,7 +72,12 @@
 
     var
     $mapsContext = $('.chart-widget.maps'),
-    map = twinChoropleths($mapsContext, <%= all_zone_totals_90th_percentile %>, <%= raw(scenarios.to_json(include: :colour)) %>);
+    map = twinChoropleths(
+            $mapsContext,
+            <%= all_zone_totals_90th_percentile %>,
+            <%= raw(scenarios.to_json(include: :colour)) %>,
+            'kilotonnes'
+          );
 
     toggleMapForms($('.maps'));
     $forms = map.initForms();

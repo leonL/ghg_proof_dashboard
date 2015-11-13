@@ -58,10 +58,45 @@
     </div>
   </div>
 </div>
+<div class='row chart-widget maps'>
+  <nav class="navbar navbar-default subnav">
+    <h4 class="navbar-text">Energy by Zone</h4>
+  </nav>
+  <div class='col-xs-5'>
+    <%= render partial: 'shared/choropleth_controls', locals: { path: choropleth_data_energy_index_path } %>
+    <div id='cm1' class='choropleth-map'></div>
+  </div>
+  <div class='col-xs-5'>
+    <%= render partial: 'shared/choropleth_controls', locals: { path: choropleth_data_energy_index_path } %>
+    <div id='cm2' class='choropleth-map'></div>
+  </div>
+  <div class='col-xs-2'>
+  </div>
+</div>
 
 <script type="text/javascript">
   $(function() {
     toggleReductionsTables($('.projected-changes'));
     togglePanes($('.by-factor-area-charts'));
+
+    var
+    $mapsContext = $('.chart-widget.maps'),
+    map = twinChoropleths(
+            $mapsContext,
+            <%= all_zone_totals_90th_percentile %>,
+            <%= raw(scenarios.to_json(include: :colour)) %>,
+            'terajoules'
+          );
+
+    toggleMapForms($('.maps'));
+    $forms = map.initForms();
+
+    _.each($forms, function(form, i) {
+      var $form = $(form);
+      if (i === 1) {
+        $form.find('#choropleth_params_year').val(<%= c.projection_range.last %>);
+      }
+      $form.submit();
+    });
   });
 </script>

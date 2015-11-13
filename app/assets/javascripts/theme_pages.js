@@ -41,7 +41,7 @@ function toggleReductionsTables($context) {
   });
 }
 
-function twinChoropleths($context, totalAt90thPercentile, scenarios) {
+function twinChoropleths($context, totalAt90thPercentile, scenarios, unitOfMeasure) {
   var
   $map1 = $context.find('.choropleth-map#cm1'),
   $map2 = $context.find('.choropleth-map#cm2'),
@@ -52,18 +52,18 @@ function twinChoropleths($context, totalAt90thPercentile, scenarios) {
   allScenarios = scenarios;
 
   var
-  emissionTotalUpperBound = function() {
+  totalUpperBound = function() {
     var
     upperBound = Math.round(totalAt90thPercentile * 1000); // megatonnes to kilotonnes
     return(upperBound - (upperBound % colourRamp.length)); // make totals evenly divisible by # of colour ramp steps
   }(),
-  colorScale = d3.scale.quantize().domain([0, emissionTotalUpperBound]).range(colourRamp);
+  colorScale = d3.scale.quantize().domain([0, totalUpperBound]).range(colourRamp);
 
   legend = function(map) {
     var
     div = L.DomUtil.create('div', 'gradient legend'),
-    stepSize = emissionTotalUpperBound / colourRamp.length,
-    grades = _.range(0 , emissionTotalUpperBound, stepSize),
+    stepSize = totalUpperBound / colourRamp.length,
+    grades = _.range(0 , totalUpperBound, stepSize),
     labels = [];
 
     // loop through our density intervals and generate a label with a colored square for each interval
@@ -78,7 +78,7 @@ function twinChoropleths($context, totalAt90thPercentile, scenarios) {
 
   var $legend = $(legend());
   $legend.appendTo($legendWrapper);
-  $('<div class="units"><label>kilotonnes</label></div>').appendTo($legend);
+  $('<div class="units"><label>' + unitOfMeasure + '</label></div>').appendTo($legend);
 
   function initForms() {
 

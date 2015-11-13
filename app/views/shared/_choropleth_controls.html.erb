@@ -7,7 +7,7 @@
   <li id='sectors'><label>Sectors</label> null</li>
   <li id='fuel-types'><label>Fuel Types</label> null</li>
 </ul>
-<%= form_for :choropleth_params, url: choropleth_data_emissions_path,
+<%= form_for :choropleth_params, url: path,
         remote: true, method: 'get', data: {type: :json} do |f| %>
 
   <div class="form-group">
