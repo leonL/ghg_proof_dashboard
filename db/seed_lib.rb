@@ -29,7 +29,7 @@ end
 
 def plotly_chart_names
   {
-    scenario_specific: ['emissions_by_sector', 'emissions_by_fuel_type'],
+    scenario_specific: ['emissions_by_sector', 'emissions_by_fuel_type', 'energy_by_sector', 'energy_by_fuel_type'],
     scenario_independent: ['emissions_total', 'energy_totals']
   }
 end
