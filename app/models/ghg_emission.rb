@@ -33,10 +33,6 @@ class GhgEmission < ActiveRecord::Base
     query
   end
 
-  def self.year_range
-    [minimum(:year), maximum(:year)]
-  end
-
 private
 
   def self.t
