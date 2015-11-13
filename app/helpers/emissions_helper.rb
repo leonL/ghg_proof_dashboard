@@ -1,7 +1,7 @@
 module EmissionsHelper
 
-  def reductions_grouped_by_benchmark_type
-    @reductions_grouped ||= @reduction_summaries.group_by(&:benchmark_type)
+  def emissions_changes_grouped_by_benchmark_type
+    @emissions_changes_grouped ||= @emissions_summaries.group_by(&:benchmark_type)
   end
 
   def all_zone_totals_90th_percentile
@@ -25,14 +25,4 @@ module EmissionsHelper
   def all_sectors_but_transportation
     @all_sectors_but_transportation ||= @sectors.reject{|s| s.name == 'Transportation'}
   end
-
-  def bau
-    @bau ||= @scenarios.find &:bau
-  end
-
-  def c
-    @config ||= Configuration.new
-  end
-
-
 end

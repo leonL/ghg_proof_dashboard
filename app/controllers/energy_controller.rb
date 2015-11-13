@@ -2,6 +2,7 @@ class EnergyController < ApplicationController
 
   def index
     @total_chart = PlotlyChart.named('energy_totals').first
+    @energy_summaries = EnergySummary.includes(:scenario)
     render
   end
 

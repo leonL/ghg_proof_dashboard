@@ -1,11 +1,11 @@
 <div class='row chart-widget summary'>
-  <div class="col-xs-6 total-emissions">
+  <div class="col-xs-6 projected-totals">
     <h5 class='text-center'>Projected Yearly Emissions</h5>
     <%= render partial: 'shared/plotly_chart_embed', locals: { o: @total_chart } %>
   </div>
-  <div class="col-xs-6 summary-statistics">
+  <div class="col-xs-6 projected-changes">
     <h5>Projected Changes</h5>
-    <div class='reductions-benchmarks'>
+    <div class='benchmark-toggles'>
       <div class="radio sandals">
         <label>
           <input type="radio" name="benchmark-toggle" value="BaseYr" checked>
@@ -21,7 +21,7 @@
         </label>
       </div>
     </div>
-    <%= render partial: 'reductions_table', collection: reductions_grouped_by_benchmark_type.to_a %>
+    <%= render partial: 'projected_changes_table', collection: emissions_changes_grouped_by_benchmark_type.to_a %>
   </div>
 </div>
 <div class='row chart-widget by-factor-area-charts'>
@@ -39,13 +39,13 @@
   <div class="pane active" id='by-sector'>
     <%= render partial: 'area_chart', collection: @by_sector_charts %>
     <div class='legend'>
-      <%= render partial: 'factor_label', collection: @sectors %>
+      <%= render partial: 'factor_label', collection: sectors %>
     </div>
   </div>
   <div class="pane" id='by-fuel-type'>
     <%= render partial: 'area_chart', collection: @by_fuel_type_charts %>
     <div class='legend'>
-      <%= render partial: 'factor_label', collection: @fuel_types %>
+      <%= render partial: 'factor_label', collection: fuel_types %>
     </div>
   </div>
 </div>
@@ -72,7 +72,7 @@
 
     var
     $mapsContext = $('.chart-widget.maps'),
-    map = twinChoropleths($mapsContext, <%= all_zone_totals_90th_percentile %>, <%= raw(@scenarios.to_json(include: :colour)) %>);
+    map = twinChoropleths($mapsContext, <%= all_zone_totals_90th_percentile %>, <%= raw(scenarios.to_json(include: :colour)) %>);
 
     toggleMapForms($('.maps'));
     $forms = map.initForms();

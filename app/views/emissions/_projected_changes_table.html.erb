@@ -1,4 +1,4 @@
-<div class='table-wrapper <%= reductions_table.first %>'>
+<div class='table-wrapper <%= projected_changes_table.first %>'>
   <table class="table table-hover emissions-reductions">
     <thead>
       <td>Scenario</td>
@@ -7,6 +7,6 @@
       <td>% CO2eq</td>
       <td>% p. Capita</td>
     </thead>
-    <%= render partial: 'row', collection: reductions_table.last %>
+    <%= render partial: 'row', collection: projected_changes_table.last %>
   </table>
 </div>

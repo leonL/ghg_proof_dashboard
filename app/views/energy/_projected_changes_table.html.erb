@@ -1,0 +1,12 @@
+<div class='table-wrapper <%= projected_changes_table.first %>'>
+  <table class="table table-hover emissions-reductions">
+    <thead>
+      <td>Scenario</td>
+      <td>Total Use (PJ)</td>
+      <td>Total Use p. Capita (GJ)</td>
+      <td>% Use</td>
+      <td>% Use p. Capita</td>
+    </thead>
+    <%= render partial: 'row', collection: projected_changes_table.last %>
+  </table>
+</div>

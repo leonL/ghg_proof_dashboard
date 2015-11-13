@@ -1,9 +1,32 @@
 <div class='row chart-widget summary'>
-  <div class="col-xs-6 total-emissions">
+  <div class="col-xs-6 projected-totals">
     <h5 class='text-center'>Projected Yearly Energy Use</h5>
     <%= render partial: 'shared/plotly_chart_embed', locals: { o: @total_chart } %>
   </div>
-  <div class="col-xs-6 summary-statistics">
+  <div class="col-xs-6 projected-changes">
     <h5>Projected Changes</h5>
+    <div class='benchmark-toggles'>
+      <div class="radio sandals">
+        <label>
+          <input type="radio" name="benchmark-toggle" value="BaseYr" checked>
+          Over <%= c.baseline_year %> (Baseline Year)
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="benchmark-toggle" value="BAU">
+          Over
+          <i class='colour-swatch scenario' style='background-color: <%= bau.colour.hex %>'></i>
+          <%= bau.name %> (<%= c.projection_range.last %>)
+        </label>
+      </div>
+    </div>
+    <%= render partial: 'projected_changes_table', collection: energy_changes_grouped_by_benchmark_type.to_a %>
   </div>
 </div>
+
+<script type="text/javascript">
+  $(function() {
+    toggleReductionsTables($('.projected-changes'));
+  });
+</script>

@@ -1,0 +1,10 @@
+<tr>
+  <td class='text-left'>
+    <i class='scenario colour-swatch' style='background-color: <%= row.scenario.colour.hex %>'></i>
+    <%= row.scenario.name %>
+  </td>
+  <td><%= row.total_use_change_PJ.round(2) %></td>
+  <td><%= row.per_capita_use_change_GJ.round(2) %></td>
+  <td><%= row.percent_use_change.round(2) %></td>
+  <td><%= row.percent_use_per_capita_change.round(2) %></td>
+</tr>

@@ -29,7 +29,7 @@ function toggleMapForms($context) {
 
 function toggleReductionsTables($context) {
   var
-  $toggle = $context.find('.reductions-benchmarks'),
+  $toggle = $context.find('.benchmark-toggles'),
   $tables = $context.find('.table-wrapper'),
   $checkedRadio = $toggle.find(':checked');
 
