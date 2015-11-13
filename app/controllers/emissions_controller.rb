@@ -21,6 +21,10 @@ class EmissionsController < ApplicationController
     end
   end
 
+  def theme_title
+    'Greenhouse Gas Emissions'
+  end
+
 private
 
   def choropleth_query_where_clause

@@ -22,6 +22,10 @@ class EnergyController < ApplicationController
     end
   end
 
+  def theme_title
+    'Energy'
+  end
+
 private
 
   def choropleth_query_where_clause
