@@ -4,7 +4,7 @@
     <%= render partial: 'shared/plotly_chart_embed', locals: { o: @total_chart } %>
   </div>
   <div class="col-xs-6 projected-changes">
-    <h5>Projected Changes</h5>
+    <h5>Projected Changes as of <%= c.years_range.max %></h5>
     <div class='benchmark-toggles'>
       <div class="radio sandals">
         <label>
@@ -17,7 +17,7 @@
           <input type="radio" name="benchmark-toggle" value="BAU">
           Over
           <i class='colour-swatch scenario' style='background-color: <%= bau.colour.hex %>'></i>
-          <%= bau.name %> (<%= c.projection_range.last %>)
+          <%= bau.name %> (<%= c.years_range.max %>)
         </label>
       </div>
     </div>
@@ -85,7 +85,7 @@
     _.each($forms, function(form, i) {
       var $form = $(form);
       if (i === 1) {
-        $form.find('#choropleth_params_year').val(<%= c.projection_range.last %>);
+        $form.find('#choropleth_params_year').val(<%= c.years_range.max %>);
       }
       $form.submit();
     });

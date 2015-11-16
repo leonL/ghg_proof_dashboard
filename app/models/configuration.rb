@@ -4,8 +4,8 @@ class Configuration
     2011
   end
 
-  def projection_range
-    [2011, 2050]
+  def years_range
+    2011..2050
   end
 
 end
