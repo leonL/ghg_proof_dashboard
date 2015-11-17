@@ -1,26 +1,15 @@
 function createSankeyPlot() {
 
-  // Mock data layout for 'Sector to GHG Emissions' sankey
-  var sectorToEmissionsData = {
-    "nodes": [
-      {"name": "Residential"},
-      {"name": "Commercial"},
-      {"name": "Industry"},
-      {"name": "Transportation"},
-      {"name": "GHG Emissions"}
-    ],
-    // sourceVal indicates petajoules of energy
-    // targetVal indicates megatonnes of CO2e
-    "links": [
-      {"source": 0, "target": 4, "sourceVal": 472, "targetVal": 11},
-      {"source": 1, "target": 4, "sourceVal": 928, "targetVal": 29},
-      {"source": 2, "target": 4, "sourceVal": 1486, "targetVal": 27},
-      {"source": 3, "target": 4, "sourceVal": 546, "targetVal": 18}
-    ]
-  };
   // Mock data layout for 'Sector to Useful/Waste Energy' sankey
   var data = {
     "nodes": [
+      {"name": "Natural Gas"},
+      {"name": "Oil"},
+      {"name": "Coal"},
+      {"name": "Water"},
+      {"name": "Solar"},
+      {"name": "Wind"},
+      {"name": "Other"},
       {"name": "Residential"},
       {"name": "Commercial"},
       {"name": "Industry"},
@@ -30,14 +19,34 @@ function createSankeyPlot() {
     ],
     // value indicates petajoules of energy
     "links": [
-      {"source": 0, "target": 4, "value": 400},
-      {"source": 0, "target": 5, "value": 72},
-      {"source": 1, "target": 4, "value": 900},
-      {"source": 1, "target": 5, "value": 28},
-      {"source": 2, "target": 4, "value": 1400},
-      {"source": 2, "target": 5, "value": 86},
-      {"source": 3, "target": 4, "value": 500},
-      {"source": 3, "target": 5, "value": 46}
+      {"source": 1, "target": 7, "value": 300},
+      {"source": 3, "target": 7, "value": 100},
+      {"source": 4, "target": 7, "value": 42},
+      {"source": 6, "target": 7, "value": 30},
+      {"source": 1, "target": 8, "value": 250},
+      {"source": 2, "target": 8, "value": 100},
+      {"source": 3, "target": 8, "value": 50},
+      {"source": 4, "target": 8, "value": 400},
+      {"source": 5, "target": 8, "value": 100},
+      {"source": 6, "target": 8, "value": 128},
+      {"source": 1, "target": 9, "value": 600},
+      {"source": 2, "target": 9, "value": 200},
+      {"source": 3, "target": 9, "value": 50},
+      {"source": 5, "target": 9, "value": 350},
+      {"source": 6, "target": 9, "value": 286},
+      {"source": 1, "target": 10, "value": 200},
+      {"source": 2, "target": 10, "value": 275},
+      {"source": 3, "target": 10, "value": 225},
+      {"source": 5, "target": 10, "value": 46},
+      //
+      {"source": 7, "target": 11, "value": 400},
+      {"source": 7, "target": 12, "value": 72},
+      {"source": 8, "target": 11, "value": 900},
+      {"source": 8, "target": 12, "value": 28},
+      {"source": 9, "target": 11, "value": 1400},
+      {"source": 9, "target": 12, "value": 86},
+      {"source": 10, "target": 11, "value": 500},
+      {"source": 10, "target": 12, "value": 46}
     ]
   };
 
