@@ -33,6 +33,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'classy_enum', '~> 4.0.0'
 
 gem 'd3-rails', '~> 3.5.6'
+gem 'd3js-plugins-rails'
 
 gem 'plotly'
 gem 'leaflet-rails'

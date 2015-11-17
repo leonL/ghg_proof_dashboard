@@ -15,6 +15,7 @@
 //= require jquery-ui/slider
 //= require underscore
 //= require d3
+//= require d3/plugins/sankey/sankey
 //= require turbolinks
 //= require bootstrap-sprockets
 //= require leaflet
