@@ -1,4 +1,5 @@
 class EnergyController < ApplicationController
+  helper_method :all_zone_totals_90th_percentile
 
   def index
     @total_chart = PlotlyChart.named('energy_totals').first
@@ -28,6 +29,12 @@ class EnergyController < ApplicationController
 
   def theme_title
     'Energy'
+  end
+
+  def all_zone_totals_90th_percentile
+    records = EnergyTotal.descending_yearly_totals_by_zone_scenario_year
+    decile_n = records.count / 10
+    records[-decile_n].total.to_f
   end
 
 private

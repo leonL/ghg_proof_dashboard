@@ -4,12 +4,6 @@ module EmissionsHelper
     @emissions_changes_grouped ||= @emissions_summaries.group_by(&:benchmark_type)
   end
 
-  def all_zone_totals_90th_percentile
-    records = GhgEmission.descending_yearly_totals_by_zone_scenario_year
-    decile_n = records.count / 10
-    records[-decile_n].total.to_f
-  end
-
   def select_options_for_factor(factor, all_option=true)
     scenario_names_and_ids = factor.map do |scenario|
       [scenario.name, scenario.id]
