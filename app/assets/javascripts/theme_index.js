@@ -54,8 +54,9 @@ function twinChoropleths($context, totalAt90thPercentile, scenarios, unitOfMeasu
   var
   totalUpperBound = function() {
     var
-    upperBound = Math.round(totalAt90thPercentile * 1000); // megatonnes to kilotonnes
-    return(upperBound - (upperBound % colourRamp.length)); // make totals evenly divisible by # of colour ramp steps
+    upperBound = Math.round(totalAt90thPercentile * 1000),
+    nBuckets = colourRamp.length;
+    return Util.floorTens(upperBound / nBuckets) * nBuckets;
   }(),
   colorScale = d3.scale.quantize().domain([0, totalUpperBound]).range(colourRamp);
 
