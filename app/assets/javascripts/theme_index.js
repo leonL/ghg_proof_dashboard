@@ -41,13 +41,13 @@ function toggleReductionsTables($context) {
   });
 }
 
-function twinChoropleths($context, totalAt90thPercentile, scenarios, unitOfMeasure) {
+function twinChoropleths($context, totalAt90thPercentile, scenarios, unitOfMeasure, mapDefaults) {
   var
   $map1 = $context.find('.choropleth-map#cm1'),
   $map2 = $context.find('.choropleth-map#cm2'),
   $forms = $context.find('form'),
   $legendWrapper = $context.find('.col-xs-2'),
-  maps = [initiateMap($map1), initiateMap($map2)],
+  maps = [initiateMap($map1, mapDefaults), initiateMap($map2, mapDefaults)],
   colourRamp = colorbrewer.Reds[9],
   allScenarios = scenarios;
 
@@ -175,8 +175,8 @@ function twinChoropleths($context, totalAt90thPercentile, scenarios, unitOfMeasu
       };
   }
 
-  function initiateMap($el) {
-    var map = L.map($el.get(0)).setView([43.706226, -79.343184], 10);
+  function initiateMap($el, mapDefaults) {
+    var map = L.map($el.get(0)).setView(mapDefaults.centroidCoordinates, mapDefaults.zoomLevel);
     L.tileLayer('https://api.mapbox.com/v4/mapbox.streets/{z}/{x}/{y}.png?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
       maxZoom: 18,
