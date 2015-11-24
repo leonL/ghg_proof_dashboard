@@ -11,11 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151113155637) do
+ActiveRecord::Schema.define(version: 20151124033947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "postgis"
+
+  create_table "age_groups", force: :cascade do |t|
+    t.string  "name"
+    t.integer "colour_id"
+  end
 
   create_table "census_tracts", force: :cascade do |t|
     t.integer  "zone_id"
@@ -67,6 +72,14 @@ ActiveRecord::Schema.define(version: 20151113155637) do
 
   create_table "energy_totals", force: :cascade do |t|
     t.integer "scenario_id"
+    t.integer "year"
+    t.decimal "total"
+    t.integer "sector_id"
+    t.integer "fuel_type_id"
+  end
+
+  create_table "energy_use_totals_by_zone_sector_fuel", force: :cascade do |t|
+    t.integer "scenario_id"
     t.integer "zone_id"
     t.integer "year"
     t.decimal "total"
@@ -97,6 +110,20 @@ ActiveRecord::Schema.define(version: 20151113155637) do
     t.string  "chart_type"
     t.string  "chart_name"
     t.integer "scenario_id"
+  end
+
+  create_table "population_totals_by_age_group", force: :cascade do |t|
+    t.integer "population_context_id"
+    t.integer "year"
+    t.decimal "total"
+    t.integer "age_group_id"
+  end
+
+  create_table "population_totals_by_zone", force: :cascade do |t|
+    t.integer "population_context_id"
+    t.integer "zone_id"
+    t.integer "year"
+    t.decimal "total"
   end
 
   create_table "scenarios", force: :cascade do |t|

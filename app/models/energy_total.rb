@@ -3,18 +3,12 @@ class EnergyTotal < ActiveRecord::Base
   belongs_to :scenario
   belongs_to :fuel_type
   belongs_to :sector
-  belongs_to :zone, class_name: 'CensusTract', foreign_key: :zone_id, inverse_of: :energy_totals
 
     def self.yearly_totals_by_factors(factors=[], where_vals={})
       query = yearly_totals_by_factors_query(factors, where_vals)
       records = find_by_sql(query)
       preloader.preload(records, factors)
       records
-    end
-
-    def self.descending_yearly_totals_by_zone_scenario_year
-      query = yearly_totals_by_factors_query([:zone, :scenario], {}, true)
-      find_by_sql(query)
     end
 
     def self.yearly_totals_by_factors_query(factors=[], where_vals={}, order_by_total=false)
