@@ -5,5 +5,6 @@
 "Water","Water",4
 "Solar","Solar",5
 "Wind","Wind",6
-"Imported_Electricity","Imported Electricity",7
-"Other","Other",8
+"Electricity","Electricity",7
+"Imported_Electricity","Imported Electricity",8
+"Other","Other",9
