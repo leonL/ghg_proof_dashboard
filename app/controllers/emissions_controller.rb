@@ -1,5 +1,5 @@
 class EmissionsController < ApplicationController
-  helper_method :all_zone_totals_90th_percentile
+  helper_method :all_zone_totals_90th_percentile, :fuel_types_for_choropleth
 
   def index
     @total_chart = PlotlyChart.named('emissions_total').first
@@ -30,6 +30,10 @@ class EmissionsController < ApplicationController
     records = GhgEmission.descending_yearly_totals_by_zone_scenario_year
     decile_n = records.count / 10
     records[-decile_n].total.to_f
+  end
+
+  def fuel_types_for_choropleth
+    @fuel_types_for_choropleth ||= FuelType.all
   end
 
 private

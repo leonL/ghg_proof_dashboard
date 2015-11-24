@@ -1,5 +1,5 @@
 class EnergyController < ApplicationController
-  helper_method :all_zone_totals_90th_percentile
+  helper_method :all_zone_totals_90th_percentile, :fuel_types_for_choropleth
 
   def index
     @total_chart = PlotlyChart.named('energy_totals').first
@@ -32,9 +32,13 @@ class EnergyController < ApplicationController
   end
 
   def all_zone_totals_90th_percentile
-    records = EnergyTotal.descending_yearly_totals_by_zone_scenario_year
+    records = EnergyUseTotalByZoneSectorFuel.descending_yearly_totals_by_zone_scenario_year
     decile_n = records.count / 10
     records[-decile_n].total.to_f
+  end
+
+  def fuel_types_for_choropleth
+    @fuel_types_for_choropleth ||= FuelType.all.reject{|ft| ["Solar", "Water", "Wind"].include? ft.name}
   end
 
 private
