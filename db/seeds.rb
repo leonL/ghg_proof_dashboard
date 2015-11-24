@@ -76,13 +76,6 @@ import_large_csv(
   'population_totals_by_age_group(population_context_id, year, total, age_group_id)'
 )
 
-# import population by zone
-puts "Seeding population_totals_by_zone..."
-import_large_csv(
-  "#{Rails.root}/db/data/Demographics/populationByZone.csv",
-  'population_totals_by_zone(population_context_id, zone_id, year, total)'
-)
-
 scenario_ids = Scenario.pluck :id
 
 scenario_ids.each do |scenario_id|

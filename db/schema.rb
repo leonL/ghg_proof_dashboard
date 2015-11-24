@@ -119,13 +119,6 @@ ActiveRecord::Schema.define(version: 20151124033947) do
     t.integer "age_group_id"
   end
 
-  create_table "population_totals_by_zone", force: :cascade do |t|
-    t.integer "population_context_id"
-    t.integer "zone_id"
-    t.integer "year"
-    t.decimal "total"
-  end
-
   create_table "scenarios", force: :cascade do |t|
     t.string  "name"
     t.text    "description"
