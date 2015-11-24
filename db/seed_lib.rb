@@ -93,6 +93,13 @@ def colour_palettes
       '#e377c2',
       '#c49c94',
       '#8c564b'
+    ],
+    age_group: [
+      '#8c564b',
+      '#c49c94',
+      '#e377c2',
+      '#1f77b4',
+      '#7f7f7f'
     ]
   }
 end
