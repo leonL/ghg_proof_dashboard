@@ -20,6 +20,10 @@ module ApplicationHelper
     @sectors ||= Sector.all
   end
 
+  def age_groups
+    @age_groups ||= AgeGroup.all
+  end
+
   def c
     @config ||= Configuration.new
   end
