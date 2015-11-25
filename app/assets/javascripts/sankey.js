@@ -1,6 +1,6 @@
 function createSankeyPlot() {
 
-  // Mock data layout for 'Sector to Useful/Waste Energy' sankey
+  // Mock data layout for 'Fuel Type to Sector to Useful/Waste Energy' sankey
   var data = {
     "nodes": [
       {"name": "Natural Gas"},
@@ -10,6 +10,7 @@ function createSankeyPlot() {
       {"name": "Solar"},
       {"name": "Wind"},
       {"name": "Other"},
+      {"name": "Electricity"},
       {"name": "Residential"},
       {"name": "Commercial"},
       {"name": "Industry"},
@@ -19,43 +20,55 @@ function createSankeyPlot() {
     ],
     // value indicates petajoules of energy
     "links": [
-      {"source": 1, "target": 7, "value": 300},
+      {"source": 0, "target": 7, "value": 300},
+      {"source": 7, "target": 8, "value": 300},
+      {"source": 0, "target": 7, "value": 100},
+      {"source": 7, "target": 9, "value": 100},
+      {"source": 0, "target": 10, "value": 42},
+      {"source": 0, "target": 11, "value": 30},
+      {"source": 1, "target": 8, "value": 300},
       {"source": 3, "target": 7, "value": 100},
-      {"source": 4, "target": 7, "value": 42},
-      {"source": 6, "target": 7, "value": 30},
-      {"source": 1, "target": 8, "value": 250},
-      {"source": 2, "target": 8, "value": 100},
-      {"source": 3, "target": 8, "value": 50},
-      {"source": 4, "target": 8, "value": 400},
-      {"source": 5, "target": 8, "value": 100},
-      {"source": 6, "target": 8, "value": 128},
-      {"source": 1, "target": 9, "value": 600},
-      {"source": 2, "target": 9, "value": 200},
+      {"source": 7, "target": 8, "value": 100},
+      {"source": 4, "target": 8, "value": 42},
+      {"source": 6, "target": 8, "value": 30},
+      {"source": 1, "target": 9, "value": 250},
+      {"source": 2, "target": 7, "value": 100},
+      {"source": 7, "target": 9, "value": 100},
       {"source": 3, "target": 9, "value": 50},
-      {"source": 5, "target": 9, "value": 350},
-      {"source": 6, "target": 9, "value": 286},
-      {"source": 1, "target": 10, "value": 200},
-      {"source": 2, "target": 10, "value": 275},
-      {"source": 3, "target": 10, "value": 225},
-      {"source": 5, "target": 10, "value": 46},
-      //
-      {"source": 7, "target": 11, "value": 400},
-      {"source": 7, "target": 12, "value": 72},
-      {"source": 8, "target": 11, "value": 900},
-      {"source": 8, "target": 12, "value": 28},
-      {"source": 9, "target": 11, "value": 1400},
-      {"source": 9, "target": 12, "value": 86},
-      {"source": 10, "target": 11, "value": 500},
-      {"source": 10, "target": 12, "value": 46}
+      {"source": 4, "target": 9, "value": 400},
+      {"source": 5, "target": 9, "value": 100},
+      {"source": 6, "target": 9, "value": 128},
+      {"source": 1, "target": 10, "value": 600},
+      {"source": 2, "target": 7, "value": 200},
+      {"source": 7, "target": 10, "value": 200},
+      {"source": 3, "target": 10, "value": 50},
+      {"source": 5, "target": 10, "value": 350},
+      {"source": 6, "target": 10, "value": 286},
+      {"source": 1, "target": 11, "value": 200},
+      {"source": 2, "target": 11, "value": 275},
+      {"source": 3, "target": 7, "value": 225},
+      {"source": 7, "target": 11, "value": 225},
+      {"source": 5, "target": 11, "value": 46},
+      {"source": 8, "target": 12, "value": 400},
+      {"source": 8, "target": 13, "value": 72},
+      {"source": 9, "target": 12, "value": 900},
+      {"source": 9, "target": 13, "value": 28},
+      {"source": 10, "target": 12, "value": 1400},
+      {"source": 10, "target": 13, "value": 86},
+      {"source": 11, "target": 12, "value": 500},
+      {"source": 11, "target": 13, "value": 46}
     ]
   };
 
   var intensityRamp = d3.scale.linear().domain([0,d3.max(data.links, function(d) {return d.value})]).range(["black", "red"])
 
+  var width = 900,
+      height = 500;
+
   var sankey = d3.sankey()
     .nodeWidth(20)
     .nodePadding(50)
-    .size([900, 500]);
+    .size([width, height]);
 
   var path = sankey.link();
 
@@ -64,11 +77,22 @@ function createSankeyPlot() {
       .links(data.links)
       .layout(200);
 
+  function dragmove(d) {
+    d3.select(this).attr("transform",
+        "translate(" + (
+             d.x = Math.max(0, Math.min(width - d.dx, d3.event.x))
+          ) + "," + (
+                   d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))
+            ) + ")");
+    sankey.relayout();
+    link.attr("d", path);
+  }
+
   expData = data;
 
   d3.select("svg").append("g").attr("transform", "translate(20,20)").attr("id", "sankeyG");
 
-  d3.select("#sankeyG").selectAll(".link")
+  var link = d3.select("#sankeyG").selectAll(".link")
       .data(data.links)
     .enter().append("path")
       .attr("class", "link")
@@ -91,11 +115,18 @@ function createSankeyPlot() {
       .attr("height", function(d) {  return d.dy; })
       .attr("width", 20)
       .style("fill", "pink")
-      .style("stroke", "gray")
+      .style("stroke", "gray");
 
   d3.selectAll(".node").append("text")
       .attr("x", 0)
       .attr("y", function(d) { return d.dy / 2; })
       .attr("text-anchor", "left")
       .text(function(d) { return d.name; });
+
+  d3.selectAll('.node')
+    .call(d3.behavior.drag()
+    .origin(function(d) { return d; })
+    .on("dragstart", function() {
+      this.parentNode.appendChild(this); })
+    .on("drag", dragmove));
 }
