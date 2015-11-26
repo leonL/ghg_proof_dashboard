@@ -52,7 +52,7 @@ class PlotlyChartBuilder < ClassyEnum::Base
   end
 
   def organization_name
-    'Municipality X'
+    c.municipality_name
   end
 
 # Utility methods
@@ -66,6 +66,15 @@ class PlotlyChartBuilder < ClassyEnum::Base
   end
 
   delegate :scenario_id, :scenario, to: :owner
+
+  def c
+    @c ||= Configuration.new
+  end
+
+  def ceil_for_place(n, p = 1)
+    multiplier = 10.0**p
+    (n / multiplier).ceil * multiplier
+  end
 end
 
 Dir[File.join(Rails.root, 'app', 'enums', 'plotly_chart_builder', '*.rb')].each{ |file| require_dependency file }

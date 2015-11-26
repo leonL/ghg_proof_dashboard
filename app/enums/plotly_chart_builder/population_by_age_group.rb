@@ -31,7 +31,7 @@ class PlotlyChartBuilder::PopulationByAgeGroup < PlotlyChartBuilder
   end
 
   def all_years
-    @all_years = totals_grouped_by_year.keys.sort
+    @all_years ||= totals_grouped_by_year.keys.sort
   end
 
   def y_vals_grouped_by_factor_id_sequenced
