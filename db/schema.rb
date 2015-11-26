@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151124033947) do
+ActiveRecord::Schema.define(version: 20151126211051) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,12 @@ ActiveRecord::Schema.define(version: 20151124033947) do
     t.decimal  "total_emissions"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "household_totals", force: :cascade do |t|
+    t.integer "population_context_id"
+    t.integer "year"
+    t.integer "total"
   end
 
   create_table "plotly_charts", force: :cascade do |t|
