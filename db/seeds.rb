@@ -69,6 +69,15 @@ CSV.foreach("#{Rails.root}/db/data/age_group.csv", headers:true) do |row|
   )
 end
 
+puts "Seeding household totals..."
+CSV.foreach("#{Rails.root}/db/data/Demographics/householdsTotal.csv", headers:true) do |row|
+  HouseholdTotal.create(
+    population_context_id: row['population_context_id'],
+    year: row['year'],
+    total: row['total']
+  )
+end
+
 # import population by age
 puts "Seeding population_totals_by_age_group..."
 import_large_csv(
