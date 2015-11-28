@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   end
 
   resources :urban_form
+  resources :transportation
   resources :marginal_abatement
   resources :demographics
 
