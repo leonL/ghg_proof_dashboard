@@ -14,9 +14,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :demographics
-
+  resources :urban_form
   resources :marginal_abatement
+  resources :demographics
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
