@@ -1,4 +1,6 @@
-function createSankeyPlot() {
+function createSankeyPlot($context) {
+
+  var $form = $context.find('form');
 
   // Mock data layout for 'Fuel Type to Sector to Useful/Waste Energy' sankey
   var data = {
@@ -73,9 +75,9 @@ function createSankeyPlot() {
   var path = sankey.link();
 
   sankey
-      .nodes(data.nodes)
-      .links(data.links)
-      .layout(200);
+    .nodes(data.nodes)
+    .links(data.links)
+    .layout(200);
 
   function dragmove(d) {
     d3.select(this).attr("transform",
@@ -129,4 +131,8 @@ function createSankeyPlot() {
     .on("dragstart", function() {
       this.parentNode.appendChild(this); })
     .on("drag", dragmove));
+
+  $form.on('ajax:success', function(e, data, status, xhr) {
+    return null;
+  });
 }
