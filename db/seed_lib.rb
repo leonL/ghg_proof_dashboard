@@ -100,6 +100,10 @@ def colour_palettes
       '#e377c2',
       '#1f77b4',
       '#7f7f7f'
+    ],
+    energy_utilization: [
+      '#1f77b4',
+      '#7f7f7f'
     ]
   }
 end

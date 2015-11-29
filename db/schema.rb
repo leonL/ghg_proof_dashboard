@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151126211051) do
+ActiveRecord::Schema.define(version: 20151129022741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(version: 20151126211051) do
     t.integer "fuel_type_id"
   end
 
+  create_table "energy_flow_totals", force: :cascade do |t|
+    t.integer "scenario_id"
+    t.integer "source_id"
+    t.string  "source_type"
+    t.integer "target_id"
+    t.string  "target_type"
+    t.integer "year"
+    t.decimal "total"
+  end
+
   create_table "energy_summaries", force: :cascade do |t|
     t.string  "benchmark_type"
     t.integer "scenario_id"
@@ -85,6 +95,11 @@ ActiveRecord::Schema.define(version: 20151126211051) do
     t.decimal "total"
     t.integer "sector_id"
     t.integer "fuel_type_id"
+  end
+
+  create_table "energy_utilizations", force: :cascade do |t|
+    t.string  "name"
+    t.integer "colour_id"
   end
 
   create_table "fuel_types", force: :cascade do |t|

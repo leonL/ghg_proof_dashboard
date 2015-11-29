@@ -60,12 +60,24 @@ end
 # seed all age groups
 age_group_colour_ids_cycle = Colour.for_palette('age_group').pluck(:id).cycle
 
-puts "Seeding end uses..."
+puts "Seeding age groups..."
 CSV.foreach("#{Rails.root}/db/data/age_group.csv", headers:true) do |row|
   AgeGroup.create(
     id: row['id'],
     name: row['name'],
     colour_id: age_group_colour_ids_cycle.next
+  )
+end
+
+# seed all age groups
+energy_utilization_colour_ids_cycle = Colour.for_palette('energy_utilization').pluck(:id).cycle
+
+puts "Seeding energy utilizations..."
+CSV.foreach("#{Rails.root}/db/data/utilization.csv", headers:true) do |row|
+  EnergyUtilization.create(
+    id: row['id'],
+    name: row['name'],
+    colour_id: energy_utilization_colour_ids_cycle.next
   )
 end
 
@@ -85,6 +97,13 @@ import_large_csv(
   'population_totals_by_age_group(population_context_id, year, total, age_group_id)'
 )
 
+# import population by age
+puts "Seeding energy flow data..."
+import_large_csv(
+  "#{Rails.root}/db/data/Energy/energySankey.csv",
+  'energy_flow_totals(scenario_id, source_type, target_type, year, total, source_id, target_id)'
+)
+
 scenario_ids = Scenario.pluck :id
 
 scenario_ids.each do |scenario_id|
@@ -96,19 +115,19 @@ scenario_ids.each do |scenario_id|
     'ghg_emissions(scenario_id, zone_id, scope, year, total_emissions, sector_id, fuel_type_id)'
   )
 
-  # import ghg_emissions csvs
-  puts "Seeding energy totals for scenario #{scenario_id}..."
-  import_large_csv(
-    "#{Rails.root}/db/data/Energy/energyDetailed_#{scenario_id}.csv",
-    'energy_totals(scenario_id, year, total, sector_id, fuel_type_id)'
-  )
+  # # import ghg_emissions csvs
+  # puts "Seeding energy totals for scenario #{scenario_id}..."
+  # import_large_csv(
+  #   "#{Rails.root}/db/data/Energy/energyDetailed_#{scenario_id}.csv",
+  #   'energy_totals(scenario_id, year, total, sector_id, fuel_type_id)'
+  # )
 
-  # import ghg_emissions csvs
-  puts "Seeding energy by end use totals for scenario #{scenario_id}..."
-  import_large_csv(
-    "#{Rails.root}/db/data/Energy/energyByEndUse_#{scenario_id}.csv",
-    'energy_by_end_use_totals(scenario_id, year, total, end_use_id, fuel_type_id)'
-  )  # import ghg_emissions csvs
+  # # import ghg_emissions csvs
+  # puts "Seeding energy by end use totals for scenario #{scenario_id}..."
+  # import_large_csv(
+  #   "#{Rails.root}/db/data/Energy/energyByEndUse_#{scenario_id}.csv",
+  #   'energy_by_end_use_totals(scenario_id, year, total, end_use_id, fuel_type_id)'
+  # )  # import ghg_emissions csvs
 
   puts "Seeding energy for map totals for scenario #{scenario_id}..."
   import_large_csv(
@@ -145,7 +164,7 @@ CSV.foreach("#{Rails.root}/db/data/Energy/summaryData.csv", headers:true) do |ro
 end
 
 # seed census tract geometries
-seed_from_shapefile("#{Rails.root}/db/shpfiles/census_tracts/toronto_ct.shp") do |record|
+seed_from_shapefile("#{Rails.root}/db/shpfiles/moncton_TZ.shp") do |record|
   CensusTract.create(
     zone_id: record.attributes['ZONEID'],
     area: record.attributes['AREA'],
