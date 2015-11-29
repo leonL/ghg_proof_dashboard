@@ -122,7 +122,7 @@ ActiveRecord::Schema.define(version: 20151129022741) do
   create_table "household_totals", force: :cascade do |t|
     t.integer "population_context_id"
     t.integer "year"
-    t.integer "total"
+    t.decimal "total"
   end
 
   create_table "plotly_charts", force: :cascade do |t|

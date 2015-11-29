@@ -3,7 +3,7 @@ class CreateHouseholdTotals < ActiveRecord::Migration
     create_table :household_totals do |t|
       t.integer :population_context_id
       t.integer :year
-      t.integer :total
+      t.decimal :total
     end
   end
 end
