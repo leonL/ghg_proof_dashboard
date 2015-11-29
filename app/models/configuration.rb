@@ -9,15 +9,15 @@ class Configuration
   end
 
   def municipality_name
-    'Demo'
+    'Moncton'
   end
 
   def municipality_centroid_coordinates
-    [43.706226, -79.343184]
+    [46.11, -64.778231]
   end
 
   def default_choropleth_zoom_level
-    10
+    11
   end
 
 end
