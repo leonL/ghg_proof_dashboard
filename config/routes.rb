@@ -10,7 +10,12 @@ Rails.application.routes.draw do
   resources :energy do
     collection do
       get 'choropleth_data'
-      get 'sankey'
+    end
+  end
+
+  resources :energy_flows do
+    collection do
+      get 'sankey_data'
     end
   end
 

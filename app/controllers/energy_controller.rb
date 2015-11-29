@@ -23,10 +23,6 @@ class EnergyController < ApplicationController
     end
   end
 
-  def sankey
-    render
-  end
-
   def theme_title
     'Energy'
   end
