@@ -1,13 +1,13 @@
 <div class='row chart-widget summary'>
-  <div class="col-xs-6">
-    <h5 class='text-center'>Assumed Yearly Total Households</h5>
-    <%= render partial: 'shared/plotly_chart_embed', locals: { o: @total_households } %>
-  </div>
   <div class="col-xs-6 projected-totals-by-age by-factor-area-charts">
     <h5 class='text-center'>Assumed Yearly Population by Age Group</h5>
     <%= render partial: 'shared/plotly_chart_embed', locals: { o: @totals_by_age_group_chart } %>
     <div class='legend'>
       <%= render partial: 'shared/factor_label', collection: age_groups %>
     </div>
+  </div>
+  <div class="col-xs-6">
+    <h5 class='text-center'>Assumed Yearly Total Households</h5>
+    <%= render partial: 'shared/plotly_chart_embed', locals: { o: @total_households } %>
   </div>
 </div>
