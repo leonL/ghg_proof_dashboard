@@ -1,0 +1,34 @@
+<div id='viz' class='col-xs-12'>
+  <%= form_for :sankey_params, url: sankey_data_energy_flows_path,
+          remote: true, method: 'get', data: {type: :json} do |f| %>
+
+    <div class="form-group">
+      <%= f.label :scenario_id, 'Scenario:' %>
+      <%= f.select :scenario_id,
+        select_options_for_factor(scenarios, false), {}, {class: 'form-control input-sm'} %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :year, 'Year:' %>
+      <%= f.select :year, select_options_for_year, {}, {class: 'form-control input-sm'} %>
+    </div>
+
+    <%= f.submit 'Load Data', class: "btn btn-primary btn-xs" %>
+  <% end %>
+  <svg></svg>
+</div>
+
+<style>
+  svg {
+    height: 540px;
+    width: 1000px;
+    border: 1px solid gray;
+  }
+
+</style>
+
+<script type="text/javascript">
+  $(function() {
+    createSankeyPlot();
+  });
+</script>
