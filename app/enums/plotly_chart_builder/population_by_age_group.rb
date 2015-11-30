@@ -101,7 +101,7 @@ class PlotlyChartBuilder::PopulationByAgeGroup < PlotlyChartBuilder
         },
         yaxis: {
           ticks: '',
-          dtick: 1000000,
+          dtick: 20000,
           ticklen: 20,
           tickcolor: "rgb(255, 255, 255)",
           showline: true,

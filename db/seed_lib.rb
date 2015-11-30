@@ -38,12 +38,12 @@ def colour_palettes
   {
     scenario: [
       '#1f77b4',
-      '#aec7e8',
+      '#d62728',
       '#ff7f0e',
+      '#aec7e8',
       '#ffbb78',
       '#2ca02c',
       '#98df8a',
-      '#d62728',
       '#ff9896',
       '#9467bd',
       '#c5b0d5',

@@ -95,9 +95,9 @@ class PlotlyChartBuilder::EnergyTotals < PlotlyChartBuilder
             size: 12,
             color: "black"
           },
-          range: [0, ceil_for_place(max_y_value, 2)],
+          range: [0, ceil_for_place(max_y_value, 1)],
           ticks: '',
-          dtick: 500,
+          dtick: 5,
           ticklen: 20,
           tickcolor: "rgb(255, 255, 255)",
           showline: true,

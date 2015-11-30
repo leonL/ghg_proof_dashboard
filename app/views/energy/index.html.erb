@@ -83,7 +83,7 @@
     $mapsContext = $('.chart-widget.maps'),
     map = twinChoropleths(
             $mapsContext,
-            <%= all_zone_totals_90th_percentile %>,
+            180,
             <%= raw(scenarios.to_json(include: :colour)) %>,
             'Terajoules',
             {

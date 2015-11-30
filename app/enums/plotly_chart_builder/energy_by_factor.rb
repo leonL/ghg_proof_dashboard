@@ -113,7 +113,7 @@ class PlotlyChartBuilder::EnergyByFactor < PlotlyChartBuilder
             color: "black"
           },
           ticks: '',
-          dtick: 500,
+          dtick: 5,
           ticklen: 20,
           tickcolor: "rgb(255, 255, 255)",
           showline: true,

@@ -41,7 +41,7 @@ function toggleReductionsTables($context) {
   });
 }
 
-function twinChoropleths($context, totalAt90thPercentile, scenarios, unitOfMeasure, mapDefaults) {
+function twinChoropleths($context, totalUpperBound, scenarios, unitOfMeasure, mapDefaults) {
   var
   $map1 = $context.find('.choropleth-map#cm1'),
   $map2 = $context.find('.choropleth-map#cm2'),
@@ -52,12 +52,12 @@ function twinChoropleths($context, totalAt90thPercentile, scenarios, unitOfMeasu
   allScenarios = scenarios;
 
   var
-  totalUpperBound = function() {
-    var
-    upperBound = Math.round(totalAt90thPercentile * 1000),
-    nBuckets = colourRamp.length;
-    return Util.floorTens(upperBound / nBuckets) * nBuckets;
-  }(),
+  // totalUpperBound = function() {
+  //   var
+  //   upperBound = Math.round(totalAt90thPercentile * 1000000),
+  //   nBuckets = colourRamp.length;
+  //   return Util.floorTens(upperBound / nBuckets) * nBuckets;
+  // }(),
   colorScale = d3.scale.quantize().domain([0, totalUpperBound]).range(colourRamp);
 
   legend = function(map) {

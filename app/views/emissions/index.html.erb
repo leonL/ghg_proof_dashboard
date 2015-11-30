@@ -74,9 +74,9 @@
     $mapsContext = $('.chart-widget.maps'),
     map = twinChoropleths(
             $mapsContext,
-            <%= all_zone_totals_90th_percentile %>,
+            18000,
             <%= raw(scenarios.to_json(include: :colour)) %>,
-            'Kilotonnes',
+            'Tonnes',
             {
               centroidCoordinates: <%= c.municipality_centroid_coordinates %>,
               zoomLevel: <%= c.default_choropleth_zoom_level %>

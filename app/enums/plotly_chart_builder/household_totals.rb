@@ -53,9 +53,9 @@ class PlotlyChartBuilder::HouseholdTotals < PlotlyChartBuilder
           zeroline: false
         },
         yaxis: {
-          range: [0, ceil_for_place(y_values_sequenced.max, 6)],
+          range: [0, ceil_for_place(y_values_sequenced.max, 4)],
           ticks: '',
-          dtick: 1000000,
+          dtick: 10000,
           ticklen: 20,
           tickcolor: "rgb(255, 255, 255)",
           showline: true,

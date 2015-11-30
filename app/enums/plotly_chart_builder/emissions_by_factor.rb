@@ -113,7 +113,7 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
             color: "black"
           },
           ticks: '',
-          dtick: 20,
+          dtick: 1,
           ticklen: 20,
           tickcolor: "rgb(255, 255, 255)",
           showline: true,
