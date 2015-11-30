@@ -8,16 +8,8 @@ module ApplicationHelper
     @bau ||= scenarios.find &:bau
   end
 
-  def fuel_types
-    @fuel_types ||= FuelType.all
-  end
-
   def end_uses
     @end_uses ||= EndUse.all
-  end
-
-  def sectors
-    @sectors ||= Sector.all
   end
 
   def age_groups
@@ -38,9 +30,5 @@ module ApplicationHelper
     end
     scenario_names_and_ids.unshift ['All', 0] if all_option
     options_for_select(scenario_names_and_ids, scenario_names_and_ids.first.last)
-  end
-
-  def all_sectors_but_transportation
-    @all_sectors_but_transportation ||= @sectors.reject{|s| s.name == 'Transportation'}
   end
 end

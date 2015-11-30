@@ -1,5 +1,5 @@
 class EnergyController < ApplicationController
-  helper_method :all_zone_totals_90th_percentile, :fuel_types_for_choropleth
+  helper_method :all_zone_totals_90th_percentile, :sectors, :sectors_for_choropleth, :fuel_types, :fuel_types_for_choropleth
 
   def index
     @total_chart = PlotlyChart.named('energy_totals').first
@@ -33,8 +33,34 @@ class EnergyController < ApplicationController
     records[-decile_n].total.to_f
   end
 
+  def sectors
+    @sectors ||= begin
+      sector_ids = EnergyTotal.pluck(:sector_id).uniq
+      Sector.where(id: sector_ids)
+    end
+  end
+
+  def fuel_types
+    @fuel_types ||= begin
+      fuel_type_ids = EnergyTotal.pluck(:fuel_type_id).uniq
+      FuelType.where(id: fuel_type_ids)
+    end
+  end
+
+  def sectors_for_choropleth
+    @sectors_for_choropleth ||= begin
+      sector_ids = EnergyUseTotalByZoneSectorFuel.pluck(:sector_id).uniq
+      sectors = Sector.where(id: sector_ids)
+      sectors.reject{|s| s.name == 'Transportation'}
+    end
+  end
+
   def fuel_types_for_choropleth
-    @fuel_types_for_choropleth ||= FuelType.all.reject{|ft| ["Solar", "Water", "Wind"].include? ft.name}
+    @fuel_types_for_choropleth ||= begin
+      fuel_type_ids = EnergyUseTotalByZoneSectorFuel.pluck(:fuel_type_id).uniq
+      fuel_types = FuelType.where(id: fuel_type_ids)
+      fuel_types.reject{|ft| ["Solar", "Water", "Wind"].include? ft.name}
+    end
   end
 
 private

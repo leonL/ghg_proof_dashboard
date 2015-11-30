@@ -1,5 +1,5 @@
 class EmissionsController < ApplicationController
-  helper_method :all_zone_totals_90th_percentile, :fuel_types_for_choropleth
+  helper_method :all_zone_totals_90th_percentile, :sectors, :sectors_for_choropleth, :fuel_types, :fuel_types_for_choropleth
 
   def index
     @total_chart = PlotlyChart.named('emissions_total').first
@@ -32,8 +32,26 @@ class EmissionsController < ApplicationController
     records[-decile_n].total.to_f
   end
 
+  def sectors
+    @sectors ||= begin
+      sector_ids = GhgEmission.pluck(:sector_id).uniq
+      Sector.where(id: sector_ids)
+    end
+  end
+
+  def fuel_types
+    @fuel_types ||= begin
+      fuel_type_ids = GhgEmission.pluck(:fuel_type_id).uniq
+      FuelType.where(id: fuel_type_ids)
+    end
+  end
+
+  def sectors_for_choropleth
+    @all_sectors_but_transportation ||= sectors.reject{|s| s.name == 'Transportation'}
+  end
+
   def fuel_types_for_choropleth
-    @fuel_types_for_choropleth ||= FuelType.all
+    fuel_types
   end
 
 private

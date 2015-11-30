@@ -24,7 +24,7 @@
   <div class="form-group">
     <%= f.label :sector_ids, 'Sectors:' %>
     <%= f.select :sector_ids,
-          select_options_for_factor(all_sectors_but_transportation, 0), {},
+          select_options_for_factor(sectors_for_choropleth, 0), {},
           {class: 'form-control input-sm', multiple: true} %>
   </div>
 
