@@ -13,7 +13,7 @@ class PlotlyChartBuilder::HouseholdTotals < PlotlyChartBuilder
     {
       x: all_years_sequenced,
       y: y_values_sequenced,
-      text: y_values_sequenced.map{|total| number_with_precision(total, precision: 0, delimiter: ',')},
+      text: y_values_sequenced.map{|total| number_with_precision(total, precision: 2, delimiter: ',')},
       hoverinfo: 'x+text'
     }
   end
@@ -53,9 +53,9 @@ class PlotlyChartBuilder::HouseholdTotals < PlotlyChartBuilder
           zeroline: false
         },
         yaxis: {
-          range: [0, ceil_for_place(y_values_sequenced.max, 4)],
+          range: [0, ceil_for_place(y_values_sequenced.max, 6)],
           ticks: '',
-          dtick: 500000,
+          dtick: 1000000,
           ticklen: 20,
           tickcolor: "rgb(255, 255, 255)",
           showline: true,
