@@ -3,7 +3,7 @@ class EnergyFlowTotalSerializer
   def self.for_sankey(scenario_id, year)
     records = EnergyFlowTotal.where(scenario_id: scenario_id, year: year)
     preloader.preload(records, [:source, :target])
-    all_dimension_names = records.map{|r| r.target.name }.uniq |
+    all_dimension_names = records.map{|r| r.source.name }.uniq |
                           records.map{|r| r.target.name }.uniq
 
     data = {}
