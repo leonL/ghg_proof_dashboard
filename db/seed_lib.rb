@@ -30,7 +30,7 @@ end
 def plotly_chart_names
   {
     scenario_specific: ['emissions_by_sector', 'emissions_by_fuel_type', 'energy_by_sector', 'energy_by_fuel_type', 'energy_by_end_use'],
-    scenario_independent: ['emissions_total', 'energy_totals', 'household_totals']
+    scenario_independent: ['emissions_total', 'energy_totals', 'household_totals', 'population_by_age_group']
   }
 end
 
