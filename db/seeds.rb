@@ -115,19 +115,19 @@ scenario_ids.each do |scenario_id|
     'ghg_emissions(scenario_id, zone_id, scope, year, total_emissions, sector_id, fuel_type_id)'
   )
 
-  # # import ghg_emissions csvs
-  # puts "Seeding energy totals for scenario #{scenario_id}..."
-  # import_large_csv(
-  #   "#{Rails.root}/db/data/Energy/energyDetailed_#{scenario_id}.csv",
-  #   'energy_totals(scenario_id, year, total, sector_id, fuel_type_id)'
-  # )
+  # import ghg_emissions csvs
+  puts "Seeding energy totals for scenario #{scenario_id}..."
+  import_large_csv(
+    "#{Rails.root}/db/data/Energy/energyDetailed_#{scenario_id}.csv",
+    'energy_totals(scenario_id, year, total, sector_id, fuel_type_id)'
+  )
 
-  # # import ghg_emissions csvs
-  # puts "Seeding energy by end use totals for scenario #{scenario_id}..."
-  # import_large_csv(
-  #   "#{Rails.root}/db/data/Energy/energyByEndUse_#{scenario_id}.csv",
-  #   'energy_by_end_use_totals(scenario_id, year, total, end_use_id, fuel_type_id)'
-  # )  # import ghg_emissions csvs
+  # import ghg_emissions csvs
+  puts "Seeding energy by end use totals for scenario #{scenario_id}..."
+  import_large_csv(
+    "#{Rails.root}/db/data/Energy/energyByEndUse_#{scenario_id}.csv",
+    'energy_by_end_use_totals(scenario_id, year, total, end_use_id, fuel_type_id)'
+  )  # import ghg_emissions csvs
 
   puts "Seeding energy for map totals for scenario #{scenario_id}..."
   import_large_csv(
