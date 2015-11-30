@@ -18,10 +18,12 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
   def args
     plot_coordinates = []
     all_factor_records.each do |factor|
+      formatted_y_vals = y_vals_grouped_by_factor_id_sequenced[:formatted_values][factor.id]
+      next if formatted_y_vals.uniq.count == 1 && formatted_y_vals.uniq.first == 0
       plot_coordinates << {
         x: all_years,
         y: y_vals_grouped_by_factor_id_sequenced[:cumulative_values][factor.id],
-        text: y_vals_grouped_by_factor_id_sequenced[:formatted_values][factor.id],
+        text: formatted_y_vals,
         mode: 'lines',
         type: 'scatter',
         fill: 'tonexty',
