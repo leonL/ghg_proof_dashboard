@@ -1,0 +1,18 @@
+<%= form_for :sankey_params, url: sankey_data_energy_flows_path,
+        remote: true, method: 'get', data: {type: :json},
+        html: { class: 'energy-flow sankey form-inline' } do |f| %>
+
+  <div class="form-group">
+    <%= f.label :scenario_id, 'Scenario:' %>
+    <i class='scenario colour-swatch' style='background-color: <%= scenarios.first.colour.hex %>'></i>
+    <%= f.select :scenario_id,
+      select_options_for_factor(scenarios, false), {}, {class: 'form-control input-sm'} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :year, 'Year:' %>
+    <%= f.select :year, select_options_for_year, {}, {class: 'form-control input-sm'} %>
+  </div>
+
+  <%= f.submit 'Load Data', class: "btn btn-primary btn-xs" %>
+<% end %>

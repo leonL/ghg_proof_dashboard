@@ -1,14 +1,16 @@
 function createSankeyPlot($context) {
 
-  var $form = $context.find('form');
+  var
+  $form = $context.find('form'),
+  $svg = $context.find('svg');
 
   $form.on('ajax:success', function(e, data, status, xhr) {
 
-    $('svg').empty();
+    $svg.empty();
 
     var intensityRamp = d3.scale.linear().domain([0,d3.max(data.links, function(d) {return d.value})]).range(["black", "red"])
 
-    var width = 950,
+    var width = 450,
         height = 300;
 
     var sankey = d3.sankey()
@@ -36,9 +38,11 @@ function createSankeyPlot($context) {
 
     expData = data;
 
-    d3.select("svg").append("g").attr("transform", "translate(20,20)").attr("id", "sankeyG");
+    var d3Svg = d3.select($svg.get(0));
 
-    var link = d3.select("#sankeyG").selectAll(".link")
+    d3Svg.append("g").attr("transform", "translate(20,20)").attr("id", "sankeyG");
+
+    var link = d3Svg.select("#sankeyG").selectAll(".link")
         .data(data.links)
         .enter().append("path")
         .attr("class", "link")
@@ -51,19 +55,19 @@ function createSankeyPlot($context) {
         .on("mouseover", function() {d3.select(this).style("stroke-opacity", .5)})
         .on("mouseout", function() {d3.selectAll("path.link").style("stroke-opacity", .2)})
 
-    d3.select("#sankeyG").selectAll(".node")
+    d3Svg.select("#sankeyG").selectAll(".node")
         .data(data.nodes)
         .enter().append("g")
         .attr("class", "node")
         .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 
-    d3.selectAll(".node").append("rect")
+    d3Svg.selectAll(".node").append("rect")
         .attr("height", function(d) {  return d.dy; })
         .attr("width", 20)
         .style("fill", function(d) { return(d.colour); })
         .style("stroke", "rgb(15, 58, 88)");
 
-    d3.selectAll(".node").append("text")
+    d3Svg.selectAll(".node").append("text")
         .attr("x", function(d) {
           return(d.x < (width / 2) ? 25: -8 );
         })
@@ -74,7 +78,7 @@ function createSankeyPlot($context) {
         .attr('font-size', '12px')
         .text(function(d) { return d.name; });
 
-    d3.selectAll('.node')
+    d3Svg.selectAll('.node')
       .call(d3.behavior.drag()
       .origin(function(d) { return d; })
       .on("dragstart", function() {
