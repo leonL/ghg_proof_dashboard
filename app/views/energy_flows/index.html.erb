@@ -15,10 +15,18 @@
   $(function() {
     var
     $sankeyContext1 = $('div.sankey.1'),
-    $sankeyContext2 = $('div.sankey.2');
+    $sankeyContext2 = $('div.sankey.2'),
+    $form1 = $sankeyContext1.find('form'),
+    $form2 = $sankeyContext2.find('form'),
+    last_scenario_id = $form2.find('select#sankey_params_scenario_id option').last().val();
+
     createSankeyPlot($sankeyContext1);
     createSankeyPlot($sankeyContext2);
-    $sankeyContext1.find('form').submit();
-    $sankeyContext2.find('form').submit();
+
+    $form1.submit();
+    $form2.find('select#sankey_params_year').val('2050');
+    $form2.find('select#sankey_params_scenario_id').val(last_scenario_id);
+    $form2.submit();
+
   });
 </script>
