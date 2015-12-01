@@ -54,8 +54,11 @@ function createSankeyPlot($context) {
         .style("fill", "none")
         .style("stroke", '#000')
         .sort(function(a, b) { return b.dy - a.dy; })
-        .on("mouseover", function() {d3.select(this).style("stroke-opacity", .5)})
-        .on("mouseout", function() {d3.selectAll("path.link").style("stroke-opacity", .2)})
+        .on("mouseover", function() {d3.select(this).style("stroke-opacity", 0.5);})
+        .on("mouseout", function() {d3.selectAll("path.link").style("stroke-opacity", 0.2);});
+
+    link.append("svg:title")
+      .text(function(d) { return(d.value + " PJ"); });
 
     d3Svg.select("#sankeyG").selectAll(".node")
         .data(data.nodes)
