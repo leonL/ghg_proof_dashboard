@@ -51,6 +51,26 @@ function twinChoropleths($context, totalUpperBound, scenarios, unitOfMeasure, ma
   colourRamp = colorbrewer.Reds[9],
   allScenarios = scenarios;
 
+  _.each(maps, function(map, i, maps) {
+    var
+    other_map_index = (i === 0 ? 1 : 0),
+    other_map = maps[other_map_index];
+
+    map.on('zoomend', function(e) {
+      other_map.panTo(
+        this.getCenter(),
+        {animate: false}
+      );
+      other_map.setZoom(this.getZoom());
+    });
+    map.on('dragend', function(e) {
+      other_map.panTo(
+        this.getCenter(),
+        {animate: true, duration: 1}
+      );
+    });
+  });
+
   var
   // totalUpperBound = function() {
   //   var
