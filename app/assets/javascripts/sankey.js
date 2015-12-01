@@ -86,5 +86,9 @@ function createSankeyPlot($context) {
       .on("dragstart", function() {
         this.parentNode.appendChild(this); })
       .on("drag", dragmove));
-    });
+  });
+
+  $form.find('select').on('change', function() {
+    $form.submit();
+  });
 }
