@@ -6,6 +6,8 @@ function createSankeyPlot($context) {
 
   $form.on('ajax:success', function(e, data, status, xhr) {
 
+    $(this).find('.colour-swatch').css('background-color', data.scenario.colour);
+
     $svg.empty();
 
     var intensityRamp = d3.scale.linear().domain([0,d3.max(data.links, function(d) {return d.value})]).range(["black", "red"])

@@ -4,7 +4,7 @@
 
   <div class="form-group">
     <%= f.label :scenario_id, 'Scenario:' %>
-    <i class='scenario colour-swatch' style='background-color: <%= scenarios.first.colour.hex %>'></i>
+    <i class='scenario colour-swatch'></i>
     <%= f.select :scenario_id,
       select_options_for_factor(scenarios, false), {}, {class: 'form-control input-sm'} %>
   </div>

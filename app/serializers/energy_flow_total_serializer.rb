@@ -1,8 +1,10 @@
 class EnergyFlowTotalSerializer
 
   def self.for_sankey(scenario_id, year)
+    scenario = Scenario.includes(:colour).find(scenario_id)
     records = EnergyFlowTotal.where(scenario_id: scenario_id, year: year)
     preloader.preload(records, [{source: [:colour]}, {target: [:colour]}])
+
     all_dimensions = records.map{|r| [r.source.name, r.source.colour.hex] } |
                     records.map{|r| [r.target.name, r.target.colour.hex] }
     all_unqiue_dimensions = all_dimensions.uniq &:first
@@ -22,6 +24,11 @@ class EnergyFlowTotalSerializer
         value: record.total.to_f.round(2)
       }
     end
+    data[:scenario] = {
+      id: scenario_id,
+      name: scenario.name,
+      colour: scenario.colour.hex
+    }
     data.to_json
   end
 
