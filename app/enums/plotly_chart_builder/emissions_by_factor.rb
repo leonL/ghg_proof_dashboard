@@ -108,14 +108,15 @@ class PlotlyChartBuilder::EmissionsByFactor < PlotlyChartBuilder
           zeroline: false
         },
         yaxis: {
-          title: 'Mt',
+          title: 'kt',
           titlefont: {
             family: "Arial, sans-serif",
             size: 12,
             color: "black"
           },
+          range: [0, 1600],
           ticks: '',
-          dtick: 1,
+          dtick: 400,
           ticklen: 20,
           tickcolor: "rgb(255, 255, 255)",
           showline: true,

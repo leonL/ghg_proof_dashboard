@@ -89,15 +89,15 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
           zeroline: false
         },
         yaxis: {
-          title: 'Mt',
+          title: 'kt',
           titlefont: {
             family: "Arial, sans-serif",
             size: 12,
             color: "black"
           },
-          range: [0, max_y_value.to_f.ceil],
+          range: [0, ceil_for_place(pc.chart_name.max_y_value.to_f, 2)],
           ticks: '',
-          dtick: 1,
+          dtick: 400,
           ticklen: 20,
           tickcolor: "rgb(255, 255, 255)",
           showline: true,

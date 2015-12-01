@@ -3,7 +3,7 @@
     <i class='scenario colour-swatch' style='background-color: <%= row.scenario.colour.hex %>'></i>
     <%= row.scenario.name %>
   </td>
-  <td><%= row.total_change_Mt.round(2) %></td>
+  <td><%= (row.total_change_Mt * 1000).round(2) %></td>
   <td><%= row.per_capita_change_t.round(2) %></td>
   <td><%= row.percent_change.round(2) %></td>
   <td><%= row.percent_per_capita_change.round(2) %></td>

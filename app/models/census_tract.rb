@@ -14,7 +14,7 @@ class CensusTract < ActiveRecord::Base
                   not_eq(sector_id_for('Transportation'))
                 ).as('ghg_totals')
 
-    query = t.project(Arel.star, "(ghg_totals.total * 1000000) AS total_t").
+    query = t.project(Arel.star, "(ghg_totals.total * 1000) AS total_t").
               join(joinClause).
               on(t[:zone_id].eq(joinClause[:zone_id]))
 

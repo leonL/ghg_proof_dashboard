@@ -23,7 +23,7 @@ class GhgEmission < ActiveRecord::Base
 
     order_cols = order_by_total ? 'total' : factor_cols
 
-    query = t.project(factor_cols, t[:total_emissions].sum.as('total')).
+    query = t.project(factor_cols, "SUM(total_emissions) * 1000 AS total").
       group(factor_cols).
       order(order_cols)
 
