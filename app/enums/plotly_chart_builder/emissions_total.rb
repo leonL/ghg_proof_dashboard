@@ -95,7 +95,7 @@ class PlotlyChartBuilder::EmissionsTotal < PlotlyChartBuilder
             size: 12,
             color: "black"
           },
-          range: [0, ceil_for_place(pc.chart_name.max_y_value.to_f, 2)],
+          range: [0, ceil_for_place(max_y_value.to_f, 2)],
           ticks: '',
           dtick: 400,
           ticklen: 20,
