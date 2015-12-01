@@ -13,7 +13,7 @@ function createSankeyPlot($context) {
     var intensityRamp = d3.scale.linear().domain([0,d3.max(data.links, function(d) {return d.value})]).range(["black", "red"])
 
     var width = 950,
-        height = 300;
+        height = 400;
 
     var sankey = d3.sankey()
       .nodeWidth(20)

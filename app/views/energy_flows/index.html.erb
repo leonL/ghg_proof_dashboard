@@ -1,21 +1,21 @@
-<div class='row energy-flow sankey 1'>
-  <div id='viz' class='col-xs-12'>
+<div class='row energy-flow'>
+  <div id='one' class='col-xs-12 sankey'>
     <%= render partial: 'form' %>
-    <svg id='a'></svg>
+    <svg></svg>
   </div>
 </div>
-<div class='row energy-flow sankey 2'>
-  <div id='viz' class='col-xs-12'>
+<div class='row energy-flow'>
+  <div id='two' class='col-xs-12 sankey'>
     <%= render partial: 'form' %>
-    <svg id='b'></svg>
+    <svg></svg>
   </div>
 </div>
 
 <script type="text/javascript">
   $(function() {
     var
-    $sankeyContext1 = $('div.sankey.1'),
-    $sankeyContext2 = $('div.sankey.2'),
+    $sankeyContext1 = $('div.sankey#one'),
+    $sankeyContext2 = $('div.sankey#two'),
     $form1 = $sankeyContext1.find('form'),
     $form2 = $sankeyContext2.find('form'),
     last_scenario_id = $form2.find('select#sankey_params_scenario_id option').last().val();

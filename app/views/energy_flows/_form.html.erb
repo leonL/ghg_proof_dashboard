@@ -2,17 +2,15 @@
         remote: true, method: 'get', data: {type: :json},
         html: { class: 'energy-flow sankey form-inline' } do |f| %>
 
-  <div class="form-group">
+  <div class="form-group scenario_id">
     <%= f.label :scenario_id, 'Scenario:' %>
     <i class='scenario colour-swatch'></i>
     <%= f.select :scenario_id,
       select_options_for_factor(scenarios, false), {}, {class: 'form-control input-sm'} %>
   </div>
 
-  <div class="form-group">
+  <div class="form-group year">
     <%= f.label :year, 'Year:' %>
     <%= f.select :year, select_options_for_year, {}, {class: 'form-control input-sm'} %>
   </div>
-
-  <%= f.submit 'Load Data', class: "btn btn-primary btn-xs" %>
 <% end %>
