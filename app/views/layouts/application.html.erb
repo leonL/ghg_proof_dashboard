@@ -26,11 +26,11 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></a>
             <ul class="dropdown-menu">
               <li class="title">Projections</li>
+              <li><%= link_to 'Emissions', emissions_path %></li>
+              <li><%= link_to 'Energy', energy_index_path %></li>
+              <li><%= link_to 'Energy Flow', energy_flows_path %></li>
               <li><%= link_to 'Urban Form', urban_form_index_path %></li>
               <li><%= link_to 'Transportation', transportation_index_path %></li>
-              <li><%= link_to 'Energy', energy_index_path %></li>
-              <li><%= link_to 'Emissions', emissions_path %></li>
-              <li><%= link_to 'Energy Flow Sankey', energy_flows_path %></li>
               <li><%= link_to 'Marginal Abatement', marginal_abatement_index_path %></li>
               <li role="separator" class="divider"></li>
               <li class='title'>Assumptions</li>
