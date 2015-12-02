@@ -1,11 +1,7 @@
 module ApplicationHelper
 
   def scenarios
-    @scenarios ||= Scenario.includes(:colour)
-  end
-
-  def bau
-    @bau ||= scenarios.find &:bau
+    @scenarios ||= Scenario.all
   end
 
   def end_uses

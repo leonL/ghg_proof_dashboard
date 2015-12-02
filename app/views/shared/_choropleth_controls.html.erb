@@ -13,7 +13,7 @@
   <div class="form-group">
     <%= f.label :scenario_id, 'Scenario:' %>
     <%= f.select :scenario_id,
-      select_options_for_factor(scenarios, false), {}, {class: 'form-control input-sm'} %>
+      select_options_for_factor(@p.all_scenarios, false), {}, {class: 'form-control input-sm'} %>
   </div>
 
   <div class="form-group">
@@ -24,14 +24,14 @@
   <div class="form-group">
     <%= f.label :sector_ids, 'Sectors:' %>
     <%= f.select :sector_ids,
-          select_options_for_factor(sectors_for_choropleth, 0), {},
+          select_options_for_factor(@p.sectors_for_choropleth, 0), {},
           {class: 'form-control input-sm', multiple: true} %>
   </div>
 
   <div class="form-group">
     <%= f.label :fuel_type_ids, 'Fuel Types:' %>
     <%= f.select :fuel_type_ids,
-          select_options_for_factor(fuel_types_for_choropleth, 0), {},
+          select_options_for_factor(@p.fuel_types_for_choropleth, 0), {},
           {class: 'form-control input-sm', multiple: true} %>
   </div>
 

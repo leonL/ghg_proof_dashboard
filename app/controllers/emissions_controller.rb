@@ -1,11 +1,8 @@
 class EmissionsController < ApplicationController
-  helper_method :all_zone_totals_90th_percentile, :sectors, :sectors_for_choropleth, :fuel_types, :fuel_types_for_choropleth
+  helper_method :theme_title
 
   def index
-    @total_chart = PlotlyChart.named('emissions_total').first
-    @by_sector_charts = PlotlyChart.named('emissions_by_sector')
-    @by_fuel_type_charts = PlotlyChart.named('emissions_by_fuel_type')
-    @emissions_summaries = EmissionsSummary.includes(:scenario)
+    @p = ThemePresenter::EmissionsPresenter.new
     render
   end
 
@@ -24,34 +21,6 @@ class EmissionsController < ApplicationController
 
   def theme_title
     'Greenhouse Gas Emissions'
-  end
-
-  def all_zone_totals_90th_percentile
-    records = GhgEmission.descending_yearly_totals_by_zone_scenario_year
-    decile_n = records.count / 10
-    records[-decile_n].total.to_f
-  end
-
-  def sectors
-    @sectors ||= begin
-      sector_ids = GhgEmission.pluck(:sector_id).uniq
-      Sector.where(id: sector_ids)
-    end
-  end
-
-  def fuel_types
-    @fuel_types ||= begin
-      fuel_type_ids = GhgEmission.pluck(:fuel_type_id).uniq
-      FuelType.where(id: fuel_type_ids)
-    end
-  end
-
-  def sectors_for_choropleth
-    @all_sectors_but_transportation ||= sectors.reject{|s| s.name == 'Transportation'}
-  end
-
-  def fuel_types_for_choropleth
-    fuel_types
   end
 
 private

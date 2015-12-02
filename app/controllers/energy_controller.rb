@@ -1,12 +1,8 @@
 class EnergyController < ApplicationController
-  helper_method :all_zone_totals_90th_percentile, :sectors, :sectors_for_choropleth, :fuel_types, :fuel_types_for_choropleth
+  helper_method :theme_title
 
   def index
-    @total_chart = PlotlyChart.named('energy_totals').first
-    @by_sector_charts = PlotlyChart.named('energy_by_sector')
-    @by_fuel_type_charts = PlotlyChart.named('energy_by_fuel_type')
-    @by_end_use_charts = PlotlyChart.named('energy_by_end_use')
-    @energy_summaries = EnergySummary.includes(:scenario)
+    @p = ThemePresenter::EnergyPresenter.new
     render
   end
 
@@ -25,42 +21,6 @@ class EnergyController < ApplicationController
 
   def theme_title
     'Energy'
-  end
-
-  def all_zone_totals_90th_percentile
-    records = EnergyUseTotalByZoneSectorFuel.descending_yearly_totals_by_zone_scenario_year
-    decile_n = records.count / 10
-    records[-decile_n].total.to_f
-  end
-
-  def sectors
-    @sectors ||= begin
-      sector_ids = EnergyTotal.pluck(:sector_id).uniq
-      Sector.where(id: sector_ids)
-    end
-  end
-
-  def fuel_types
-    @fuel_types ||= begin
-      fuel_type_ids = EnergyTotal.pluck(:fuel_type_id).uniq
-      FuelType.where(id: fuel_type_ids)
-    end
-  end
-
-  def sectors_for_choropleth
-    @sectors_for_choropleth ||= begin
-      sector_ids = EnergyUseTotalByZoneSectorFuel.pluck(:sector_id).uniq
-      sectors = Sector.where(id: sector_ids)
-      sectors.reject{|s| s.name == 'Transportation'}
-    end
-  end
-
-  def fuel_types_for_choropleth
-    @fuel_types_for_choropleth ||= begin
-      fuel_type_ids = EnergyUseTotalByZoneSectorFuel.pluck(:fuel_type_id).uniq
-      fuel_types = FuelType.where(id: fuel_type_ids)
-      fuel_types.reject{|ft| ["Solar", "Water", "Wind"].include? ft.name}
-    end
   end
 
 private

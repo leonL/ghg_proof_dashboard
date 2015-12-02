@@ -16,7 +16,7 @@ module GhgProofDashboard
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Central Time (US & Canada)'
 
-    ['enums', 'serializers'].each do |subfolder|
+    ['enums', 'serializers', 'presenters'].each do |subfolder|
       config.autoload_paths << Rails.root.join(subfolder)
     end
 

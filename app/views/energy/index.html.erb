@@ -1,7 +1,7 @@
 <div class='row chart-widget summary'>
   <div class="col-xs-6 projected-totals">
     <h5 class='text-center'>Projected Yearly Energy Use</h5>
-    <%= render partial: 'shared/plotly_chart_embed', locals: { o: @total_chart } %>
+    <%= render partial: 'shared/plotly_chart_embed', locals: { o: @p.energy_totals.first } %>
   </div>
   <div class="col-xs-6 projected-changes">
     <h5>Projected Changes as of <%= c.years_range.max %></h5>
@@ -16,12 +16,12 @@
         <label>
           <input type="radio" name="benchmark-toggle" value="BAU">
           Over
-          <i class='colour-swatch scenario' style='background-color: <%= bau.colour.hex %>'></i>
-          <%= bau.name %> (<%= c.years_range.max %>)
+          <i class='colour-swatch scenario' style='background-color: <%= @p.find_colour_by_id(@p.bau.colour_id).hex %>'></i>
+          <%= @p.bau.name %> (<%= c.years_range.max %>)
         </label>
       </div>
     </div>
-    <%= render partial: 'projected_changes_table', collection: energy_changes_grouped_by_benchmark_type.to_a %>
+    <%= render partial: 'projected_changes_table', collection: @p.summary %>
   </div>
 </div>
 <div class='row chart-widget by-factor-area-charts'>
@@ -40,19 +40,19 @@
     </div>
   </nav>
   <div class="pane active" id='by-sector'>
-    <%= render partial: 'shared/area_chart', collection: @by_sector_charts %>
+    <%= render partial: 'shared/area_chart', collection: @p.energy_by_sector %>
     <div class='legend'>
-      <%= render partial: 'shared/factor_label', collection: sectors %>
+      <%= render partial: 'shared/factor_label', collection: @p.sectors %>
     </div>
   </div>
   <div class="pane" id='by-fuel-type'>
-    <%= render partial: 'shared/area_chart', collection: @by_fuel_type_charts %>
+    <%= render partial: 'shared/area_chart', collection: @p.energy_by_fuel_type %>
     <div class='legend'>
-      <%= render partial: 'shared/factor_label', collection: fuel_types %>
+      <%= render partial: 'shared/factor_label', collection: @p.fuel_types %>
     </div>
   </div>
   <div class="pane" id='by-end-use'>
-    <%= render partial: 'shared/area_chart', collection: @by_end_use_charts %>
+    <%= render partial: 'shared/area_chart', collection: @p.energy_by_end_use %>
     <div class='legend'>
       <%= render partial: 'shared/factor_label', collection: end_uses %>
     </div>
@@ -84,7 +84,7 @@
     map = twinChoropleths(
             $mapsContext,
             180,
-            <%= raw(scenarios.to_json(include: :colour)) %>,
+            <%= raw(@p.all_scenarios_with_colour_json) %>,
             'Terajoules',
             {
               centroidCoordinates: <%= c.municipality_centroid_coordinates %>,
