@@ -1,7 +1,12 @@
+<%
+  scenario = @p.find_scenario_by({id: area_chart.scenario_id})
+  colour = @p.find_colour_by_id(scenario.colour_id)
+%>
 <div class="col-xs-4">
   <h5 class='text-center'>
-    <i class='colour-swatch scenario' style='background-color: <%= area_chart.scenario.colour_hex_code %>'></i>
-    <%= area_chart.scenario_name %>
+    <i class='colour-swatch scenario'
+        style='background-color: <%= colour.hex %>'></i>
+    <%= scenario.name %>
   </h5>
   <%= render partial: 'shared/plotly_chart_embed', locals: { o: area_chart } %>
 </div>

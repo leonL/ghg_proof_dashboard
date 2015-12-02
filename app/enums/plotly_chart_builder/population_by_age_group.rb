@@ -21,7 +21,7 @@ class PlotlyChartBuilder::PopulationByAgeGroup < PlotlyChartBuilder
         fill: 'tonexty',
         name: factor.name,
         hoverinfo: 'x+text',
-        fillcolor: factor.area_chart_fill_colour_hex,
+        fillcolor: factor.colour.lighter_hex,
         line: {
           color: factor.colour.hex
         }

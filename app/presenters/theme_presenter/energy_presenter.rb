@@ -21,21 +21,18 @@ class ThemePresenter::EnergyPresenter < ThemePresenter
 
   def sectors
     @sectors ||= begin
-      puts unique_dimension_ids[:sector_ids]
       Sector.where(id: unique_dimension_ids[:sector_ids])
     end
   end
 
   def fuel_types
     @fuel_types ||= begin
-      puts unique_dimension_ids[:fuel_type_ids]
       FuelType.where(id: unique_dimension_ids[:fuel_type_ids])
     end
   end
 
   def sectors_for_choropleth
     @sectors_for_choropleth ||= begin
-      puts unique_dimension_ids_for_choropleth[:sector_ids]
       sectors = Sector.where(id: unique_dimension_ids_for_choropleth[:sector_ids])
       sectors.reject{|s| s.name == 'Transportation'}
     end
@@ -43,7 +40,6 @@ class ThemePresenter::EnergyPresenter < ThemePresenter
 
   def fuel_types_for_choropleth
     @fuel_types_for_choropleth ||= begin
-      puts unique_dimension_ids_for_choropleth[:fuel_type_ids]
       fuel_types = FuelType.where(id: unique_dimension_ids_for_choropleth[:fuel_type_ids])
       fuel_types.reject{|ft| ["Solar", "Water", "Wind"].include? ft.name}
     end

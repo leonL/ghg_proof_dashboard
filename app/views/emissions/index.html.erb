@@ -76,7 +76,7 @@
     map = twinChoropleths(
             $mapsContext,
             18000,
-            <%= raw(@p.all_scenarios.to_json(include: :colour)) %>,
+            <%= raw(@p.all_scenarios_with_colour_json) %>,
             'Tonnes',
             {
               centroidCoordinates: <%= c.municipality_centroid_coordinates %>,

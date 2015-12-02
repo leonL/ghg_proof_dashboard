@@ -1,7 +1,11 @@
+<%
+  scenario = @p.find_scenario_by(id: row.scenario_id)
+  colour = @p.find_colour_by_id(scenario.colour_id)
+%>
 <tr>
   <td class='text-left'>
-    <i class='scenario colour-swatch' style='background-color: <%= row.scenario.colour.hex %>'></i>
-    <%= @p.find_scenario_by(id: row.scenario_id).name %>
+    <i class='scenario colour-swatch' style='background-color: <%= colour.hex %>'></i>
+    <%= scenario.name %>
   </td>
   <td><%= (row.total_change_Mt * 1000).round(2) %></td>
   <td><%= row.per_capita_change_t.round(2) %></td>
