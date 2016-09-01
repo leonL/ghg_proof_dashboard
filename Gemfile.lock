@@ -30,6 +30,9 @@ GEM
       activemodel (= 4.2.4)
       activesupport (= 4.2.4)
       arel (~> 6.0)
+    activerecord-postgis-adapter (3.0.0)
+      activerecord (~> 4.2)
+      rgeo-activerecord (~> 4.0)
     activesupport (4.2.4)
       i18n (~> 0.7)
       json (~> 1.7, >= 1.7.7)
@@ -57,6 +60,8 @@ GEM
       railties (>= 3.1)
     d3js-plugins-rails (0.0.15)
       railties (>= 3.0, < 5.0)
+    dbf (2.0.10)
+      fastercsv (~> 1.5)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -68,6 +73,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
+    fastercsv (1.5.5)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
@@ -137,6 +143,15 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     rdoc (4.2.0)
+    rgeo (0.4.0)
+    rgeo-activerecord (4.0.0)
+      activerecord (~> 4.2)
+      rgeo (~> 0.3)
+    rgeo-geojson (0.3.1)
+      rgeo (~> 0.3)
+    rgeo-shapefile (0.2.3)
+      dbf (>= 1.7.0)
+      rgeo (>= 0.3.3)
     rspec-core (3.3.2)
       rspec-support (~> 3.3.0)
     rspec-expectations (3.3.1)
@@ -193,7 +208,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activerecord
+  activerecord-postgis-adapter
   bootstrap-sass (~> 3.2.0)
   byebug
   classy_enum (~> 4.0.0)
@@ -211,6 +226,8 @@ DEPENDENCIES
   pry-remote
   rails (= 4.2.4)
   rails_12factor
+  rgeo-geojson
+  rgeo-shapefile
   rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
